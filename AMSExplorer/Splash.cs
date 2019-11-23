@@ -1,5 +1,5 @@
 ﻿//----------------------------------------------------------------------------------------------
-//    Copyright 2016 Microsoft Corporation
+//    Copyright 2019 Microsoft Corporation
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
 //    you may not use this file except in compliance with the License.
@@ -16,27 +16,22 @@
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Threading;
 
 namespace AMSExplorer
 {
-    partial class Splash : Form
+    internal partial class Splash : Form
     {
-       
+
         public Splash(string account)
         {
             InitializeComponent();
             labelConnecting.Text = string.Format(labelConnecting.Text, account);
-           
+
         }
 
-       
+
 
         #region Assembly Attribute Accessors
 
@@ -48,7 +43,7 @@ namespace AMSExplorer
                 if (attributes.Length > 0)
                 {
                     AssemblyTitleAttribute titleAttribute = (AssemblyTitleAttribute)attributes[0];
-                    if (titleAttribute.Title != "")
+                    if (titleAttribute.Title != string.Empty)
                     {
                         return titleAttribute.Title;
                     }
@@ -57,13 +52,7 @@ namespace AMSExplorer
             }
         }
 
-        public string AssemblyVersion
-        {
-            get
-            {
-                return Assembly.GetExecutingAssembly().GetName().Version.ToString();
-            }
-        }
+        public string AssemblyVersion => Assembly.GetExecutingAssembly().GetName().Version.ToString();
 
         public string AssemblyDescription
         {
@@ -72,7 +61,7 @@ namespace AMSExplorer
                 object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyDescriptionAttribute), false);
                 if (attributes.Length == 0)
                 {
-                    return "";
+                    return string.Empty;
                 }
                 return ((AssemblyDescriptionAttribute)attributes[0]).Description;
             }
@@ -85,7 +74,7 @@ namespace AMSExplorer
                 object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyProductAttribute), false);
                 if (attributes.Length == 0)
                 {
-                    return "";
+                    return string.Empty;
                 }
                 return ((AssemblyProductAttribute)attributes[0]).Product;
             }
@@ -98,7 +87,7 @@ namespace AMSExplorer
                 object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyCopyrightAttribute), false);
                 if (attributes.Length == 0)
                 {
-                    return "";
+                    return string.Empty;
                 }
                 return ((AssemblyCopyrightAttribute)attributes[0]).Copyright;
             }
@@ -111,7 +100,7 @@ namespace AMSExplorer
                 object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyCompanyAttribute), false);
                 if (attributes.Length == 0)
                 {
-                    return "";
+                    return string.Empty;
                 }
                 return ((AssemblyCompanyAttribute)attributes[0]).Company;
             }
@@ -120,15 +109,21 @@ namespace AMSExplorer
 
         private void Splash_Load(object sender, EventArgs e)
         {
+            DpiUtils.InitPerMonitorDpi(this);
         }
 
         private void Splash_Paint(object sender, PaintEventArgs e)
         {
             System.Drawing.Pen myPen = new System.Drawing.Pen(System.Drawing.Color.DarkGray, 1);
             System.Drawing.Graphics formGraphics;
-            formGraphics = this.CreateGraphics();
-            formGraphics.DrawRectangle(myPen, 0, 0, this.Width-1 , this.Height-1 );
+            formGraphics = CreateGraphics();
+            formGraphics.DrawRectangle(myPen, 0, 0, Width - 1, Height - 1);
         }
-             
+
+        private void Splash_DpiChanged(object sender, DpiChangedEventArgs e)
+        {
+            // for controls which are not using the default font
+            DpiUtils.UpdatedSizeFontAfterDPIChange(new List<Control> { labelTitle, labelConnecting }, e, this);
+        }
     }
 }

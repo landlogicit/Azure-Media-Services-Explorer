@@ -1,5 +1,5 @@
 ﻿//----------------------------------------------------------------------------------------------
-//    Copyright 2016 Microsoft Corporation
+//    Copyright 2019 Microsoft Corporation
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
 //    you may not use this file except in compliance with the License.
@@ -16,46 +16,28 @@
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Diagnostics;
-using Microsoft.WindowsAzure.MediaServices.Client;
-using System.Xml;
-using System.Xml.Linq;
-using System.IO;
 using Newtonsoft.Json.Linq;
+using Microsoft.Azure.Management.Media.Models;
+using Microsoft.Azure.Management.Media;
+using System.Threading.Tasks;
 
 namespace AMSExplorer
 {
     public partial class Subclipping : Form
     {
-        CloudMediaContext _context;
-        private List<IAsset> _selectedAssets;
+        AMSClientV3 _amsClientV3;
+        private List<Asset> _selectedAssets;
         private ManifestTimingData _parentassetmanifestdata;
-        private ulong? _timescale = TimeSpan.TicksPerSecond;
-        ILocator _tempLocator = null; // for preview
+        private long? _timescale = TimeSpan.TicksPerSecond;
         Mainform _mainform;
         bool backupCheckboxTrim = false; // used when user select reencode to save the status of trim checkbox
         private string _buttonOk;
         private string _labelAccurate;
         private string _labeloutoutputasset;
-
-        public JobOptionsVar JobOptions
-        {
-            get
-            {
-                return buttonJobOptions.GetSettings();
-            }
-            set
-            {
-                buttonJobOptions.SetSettings(value);
-            }
-        }
+        private StreamingLocator _tempStreamingLocator = null;
 
         public string EncodingJobName
         {
@@ -81,12 +63,11 @@ namespace AMSExplorer
             }
         }
 
-        public Subclipping(CloudMediaContext context, List<IAsset> assetlist, Mainform mainform)
+        public Subclipping(AMSClientV3 context, List<Asset> assetlist, Mainform mainform)
         {
             InitializeComponent();
-            buttonJobOptions.Initialize(context);
             this.Icon = Bitmaps.Azure_Explorer_ico;
-            _context = context;
+            _amsClientV3 = context;
             _parentassetmanifestdata = new ManifestTimingData();
             _selectedAssets = assetlist;
             _mainform = mainform;
@@ -95,13 +76,26 @@ namespace AMSExplorer
             buttonShowEDL.EDLChanged += ButtonShowEDL_EDLChanged;
             buttonShowEDL.Offset = new TimeSpan(0);
 
+            // temp locator creation
+            if (_selectedAssets.Count == 1 && MessageBox.Show("A temporary clear locator of 1 hour is going to be created to access content timing information. It will be deleted when you close the subclipping window.", "Locator creation", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) == DialogResult.OK)
+            {
+                try
+                {
+                    _tempStreamingLocator = Task.Run(() => AssetInfo.CreateTemporaryOnDemandLocatorAsync(_selectedAssets.First(), _amsClientV3)).GetAwaiter().GetResult();
+                }
+                catch
+                {
+
+                }
+            }
+
             if (_selectedAssets.Count == 1 && _selectedAssets.FirstOrDefault() != null)  // one asset only
             {
                 var myAsset = assetlist.FirstOrDefault();
                 textBoxAssetName.Text = myAsset.Name;
 
                 // let's try to read asset timing
-                _parentassetmanifestdata = AssetInfo.GetManifestTimingData(myAsset);
+                _parentassetmanifestdata = Task.Run(() => AssetInfo.GetManifestTimingDataAsync(myAsset, _amsClientV3, _tempStreamingLocator?.Name)).GetAwaiter().GetResult();
 
                 labelDiscountinuity.Visible = _parentassetmanifestdata.DiscontinuityDetected;
 
@@ -150,32 +144,31 @@ namespace AMSExplorer
 
         private void ButtonShowEDL_EDLChanged(object sender, EventArgs e)
         {
-            UpdateXMLData();
+            UpdateJSONInfo();
         }
 
         private void Subclipping_Load(object sender, EventArgs e)
         {
+            DpiUtils.InitPerMonitorDpi(this);
+
+            // to scale the bitmap in the buttons
+            HighDpiHelper.AdjustControlImagesDpiScale(panel1);
+
             _buttonOk = buttonOk.Text;
             _labelAccurate = labelAccurate.Text;
             _labeloutoutputasset = labeloutputasset.Text;
             moreinfoprofilelink.Links.Add(new LinkLabel.Link(0, moreinfoprofilelink.Text.Length, Constants.LinkMoreInfoSubClipAMSE));
             CheckIfErrorTimeControls();
             DisplayAccuracy();
+            GenerateUniqueNamesForJobAndOutput();
         }
 
-
-        private SubClipTrimmingDataXMLSerialized GetSubClipTrimmingDataXMLSerialized()
+        private void GenerateUniqueNamesForJobAndOutput()
         {
-            var trimmingdata = new SubClipTrimmingDataXMLSerialized();
-            if (checkBoxTrimming.Checked)
-            {
-                trimmingdata.StartTime = AssetInfo.GetXMLSerializedTimeSpan(timeControlStart.TimeStampWithOffset);
-                trimmingdata.EndTime = AssetInfo.GetXMLSerializedTimeSpan(timeControlEnd.TimeStampWithOffset);
-                trimmingdata.Duration = AssetInfo.GetXMLSerializedTimeSpan(timeControlEnd.TimeStampWithOffset - timeControlStart.TimeStampWithOffset);
-            }
-            return trimmingdata;
+            string uniqueness = Guid.NewGuid().ToString("N");
+            EncodingJobName = "subclipping-job-" + uniqueness;
+            EncodingOutputAssetName = "subclipped-" + uniqueness;
         }
-
 
         private SubClipTrimmingDataTimeSpan GetSubClipTrimmingDataTimeSpan()
         {
@@ -190,137 +183,17 @@ namespace AMSExplorer
             return trimmingdata;
         }
 
-        public SubClipConfiguration GetSubclippingConfiguration()
-        {
-            var config = GetSubclippingInternalConfiguration();
-            if (!radioButtonClipWithReencode.Checked && !string.IsNullOrEmpty(textBoxConfiguration.Text))
-            {
-                config.Configuration = textBoxConfiguration.Text;
-            }
-            return config;
-        }
-
-
         private SubClipConfiguration GetSubclippingInternalConfiguration()
         {
-            if (radioButtonArchiveAllBitrate.Checked || radioButtonArchiveTopBitrate.Checked) // Archive, no reencoding
+            if (radioButtonArchiveTopBitrate.Checked) // Archive, no reencoding
             {
-                /*
-                SAMPLE JSON
-
-                                {
-                  "Version": 1.0,
-                  "Sources": [
-                    {
-                      "StartTime": "20.13:05:33.0520000",
-                      "Duration": "00:00:44.7100000",
-                      "Streams": [
-                        {
-                          "Type": "AudioStream",
-                          "Value": "TopBitrate"
-                        },
-                        {
-                          "Type": "VideoStream",
-                          "Value": "TopBitrate"
-                        }
-                      ]
-                    }
-                  ],
-                  "Outputs": [
-                    {
-                      "FileName": "ArchiveTopBitrate_{Basename}.mp4",
-                      "Format": {
-                        "Type": "MP4Format"
-                      }
-                    }
-                  ],
-                  "Codecs": [
-                    {
-                      "Type": "CopyVideo"
-                    },
-                    {
-                      "Type": "CopyAudio"
-                    }
-                  ]
-                }
-
-                */
-
-
-                var obj = new JObject() as dynamic;
-                obj.Version = 1.0;
-
-                // Sources
-                obj.Sources = new JArray() as dynamic;
-
-                string filter = radioButtonArchiveAllBitrate.Checked ? "*" : "TopBitrate";
-                string mode = radioButtonArchiveAllBitrate.Checked ? "ArchiveAllBitrates" : "ArchiveTopBitrate";
-
-                dynamic stream_a = new JObject();
-                stream_a.Type = "AudioStream";
-                stream_a.Value = filter;
-                dynamic stream_v = new JObject();
-                stream_v.Type = "VideoStream";
-                stream_v.Value = filter;
-
-                if (checkBoxTrimming.Checked && checkBoxUseEDL.Checked) // EDL
-                {
-                    foreach (var entry in buttonShowEDL.GetEDLEntries())
-                    {
-                        dynamic sourceEntry = new JObject() as dynamic;
-                        sourceEntry.StartTime = entry.Start + buttonShowEDL.Offset;
-                        sourceEntry.Duration = entry.Duration;
-                        sourceEntry.Streams = new JArray() as dynamic;
-
-                        sourceEntry.Streams.Add(stream_a);
-                        sourceEntry.Streams.Add(stream_v);
-
-                        obj.Sources.Add(sourceEntry);
-                    }
-                }
-                else // No EDL
-                {
-                    dynamic sourceEntry = new JObject() as dynamic;
-
-                    if (checkBoxTrimming.Checked) // with trimming
-                    {
-                        sourceEntry.StartTime = timeControlStart.TimeStampWithOffset;
-                        sourceEntry.Duration = timeControlEnd.TimeStampWithOffset - timeControlStart.TimeStampWithOffset;
-                    }
-                    sourceEntry.Streams = new JArray() as dynamic;
-
-                    sourceEntry.Streams.Add(stream_a);
-                    sourceEntry.Streams.Add(stream_v);
-
-                    obj.Sources.Add(sourceEntry);
-                }
-
-
-                obj.Outputs = new JArray() as dynamic;
-                dynamic output = new JObject();
-                output.FileName = mode + "_{Basename}.mp4";
-
-                dynamic formatentry = new JObject();
-                formatentry.Type = "MP4Format";
-
-                output.Format = formatentry;
-
-                obj.Outputs.Add(output);
-
-                obj.Codecs = new JArray();
-                dynamic streamcopy = new JObject();
-                streamcopy.Type = "CopyVideo";
-                obj.Codecs.Add(streamcopy);
-                streamcopy = new JObject();
-                streamcopy.Type = "CopyAudio";
-                obj.Codecs.Add(streamcopy);
-
                 return new SubClipConfiguration()
                 {
-                    Configuration = obj.ToString(),
                     Reencode = false,
                     Trimming = false,
-                    CreateAssetFilter = false
+                    CreateAssetFilter = false,
+                    StartTime = timeControlStart.TimeStampWithOffset,
+                    EndTime = timeControlEnd.TimeStampWithOffset
                 };
 
             }
@@ -330,31 +203,16 @@ namespace AMSExplorer
                 {
                     Reencode = true,
                     Trimming = false,
-                    CreateAssetFilter = false
+                    CreateAssetFilter = false,
                 };
 
                 if (checkBoxTrimming.Checked)
                 {
                     config.Trimming = true;
                     var list = new List<ExplorerEDLEntryInOut>();
-
-                    if (checkBoxUseEDL.Checked) // EDL
-                    {
-                        var offset = timeControlStart.GetOffSetAsTimeSpan();
-                        foreach (var entry in buttonShowEDL.GetEDLEntries())
-                        {
-                            list.Add(new ExplorerEDLEntryInOut() { Start = entry.Start, End = entry.End, Offset = offset });
-                        }
-                        config.OffsetForReencode = offset;
-                    }
-                    else  // No EDL
-                    {
-                        var subdata = GetSubClipTrimmingDataTimeSpan();
-                        list.Add(new ExplorerEDLEntryInOut() { Start = subdata.StartTime - subdata.Offset, End = subdata.EndTime - subdata.Offset, Offset = subdata.Offset });
-                        config.OffsetForReencode = subdata.Offset;
-                    }
-                    config.InOutForReencode = list;
-
+                    var subdata = GetSubClipTrimmingDataTimeSpan();
+                    config.StartTime = timeControlStart.TimeStampWithOffset;
+                    config.EndTime = timeControlEnd.TimeStampWithOffset;
                 }
                 return config;
             }
@@ -371,8 +229,8 @@ namespace AMSExplorer
                 {
                     var subdata = GetSubClipTrimmingDataTimeSpan();
                     config.Trimming = true;
-                    config.StartTimeForAssetFilter = subdata.StartTime;
-                    config.EndTimeForAssetFilter = subdata.EndTime;
+                    config.StartTime = subdata.StartTime;
+                    config.EndTime = subdata.EndTime;
                 }
                 return config;
             }
@@ -412,8 +270,8 @@ namespace AMSExplorer
         private void timeControlEnd_ValueChanged(object sender, EventArgs e)
         {
             CheckIfErrorTimeControls();
-            ResetConfigXML();
             UpdateDurationText();
+            UpdateJSONInfo();
         }
 
 
@@ -425,8 +283,8 @@ namespace AMSExplorer
         private void timeControlStart_ValueChanged(object sender, EventArgs e)
         {
             CheckIfErrorTimeControls();
-            ResetConfigXML();
             UpdateDurationText();
+            UpdateJSONInfo();
         }
 
         private void UpdateDurationText()
@@ -434,7 +292,7 @@ namespace AMSExplorer
             textBoxDurationTime.Text = (timeControlEnd.TimeStampWithOffset - timeControlStart.TimeStampWithOffset).ToString();
         }
 
-        private void checkBoxTrimming_CheckedChanged(object sender, EventArgs e)
+        private async void checkBoxTrimming_CheckedChanged(object sender, EventArgs e)
         {
             if (!radioButtonClipWithReencode.Checked && !radioButtonAssetFilter.Checked)
             {
@@ -449,67 +307,87 @@ namespace AMSExplorer
              checkBoxTrimming.Checked;
 
             CheckIfErrorTimeControls();
-            ResetConfigXML();
-            PlaybackAsset();
+            await PlaybackAssetAsync();
         }
 
-        private void UpdateXMLData()
+        private void UpdateJSONInfo()
         {
-            textBoxConfiguration.Text = GetSubclippingInternalConfiguration().Configuration;
+            var obj = new JObject() as dynamic;
+            obj.Subclips = new JArray() as dynamic;
+
+            if (checkBoxTrimming.Checked && checkBoxUseEDL.Checked) // EDL
+            {
+                foreach (var entry in buttonShowEDL.GetEDLEntries())
+                {
+                    dynamic sourceEntry = new JObject() as dynamic;
+                    sourceEntry.StartTime = entry.Start + buttonShowEDL.Offset;
+                    sourceEntry.Duration = entry.Duration;
+                    sourceEntry.EndTime = entry.Start + entry.Duration;
+                    obj.Subclips.Add(sourceEntry);
+                }
+            }
+            else // No EDL
+            {
+                dynamic sourceEntry = new JObject() as dynamic;
+
+                if (checkBoxTrimming.Checked) // with trimming
+                {
+                    sourceEntry.StartTime = timeControlStart.TimeStampWithOffset;
+                    sourceEntry.EndTime = timeControlEnd.TimeStampWithOffset;
+                    sourceEntry.Duration = timeControlEnd.TimeStampWithOffset - timeControlStart.TimeStampWithOffset;
+                }
+                obj.Subclips.Add(sourceEntry);
+            }
+
+            textBoxConfiguration.Text = obj.ToString();
         }
 
         private void tabPageXML_Enter(object sender, EventArgs e)
         {
-            UpdateXMLData();
+            UpdateJSONInfo();
         }
 
         private void radioButtonClipWithReencode_CheckedChanged(object sender, EventArgs e)
         {
             RadioButton senderr = sender as RadioButton;
 
-            if ((radioButtonClipWithReencode.Checked && senderr.Name == radioButtonClipWithReencode.Name)  // reencoding
-                ||
-                (radioButtonAssetFilter.Checked && senderr.Name == radioButtonAssetFilter.Name)) // asset filtering
+            if (radioButtonAssetFilter.Checked && senderr.Name == radioButtonAssetFilter.Name) // asset filtering
             {
                 checkBoxTrimming.Checked = true;
                 checkBoxTrimming.Enabled = false;
-                textBoxConfiguration.Enabled = panelJob.Visible = false;
-                UpdateButtonOk();
-                ResetConfigXML();
-                DisplayAccuracy();
-                labelNoJSONBecauseReencoding.Visible = true;
-                label3.Visible = textBoxConfiguration.Visible = false;
-
+                panelJob.Visible = false;
+            }
+            else if (radioButtonClipWithReencode.Checked && senderr.Name == radioButtonClipWithReencode.Name)  // reencoding
+            {
+                checkBoxTrimming.Checked = true;
+                checkBoxTrimming.Enabled = false;
+                panelJob.Visible = true;
+                /*
                 if (senderr.Name == radioButtonClipWithReencode.Name) //reencoding
                 {
-                    labelNoJSONBecauseReencoding.Text = @"No JSON shown yet in this scenario. Click ""Subclip..."" to submit a task, and then a dialog will pop up allowing you to modify the encode settings.";
-                    panelEDL.Visible = true;
+                    panelEDL.Visible = false; // true;  // no EDL for now in AMS v3
                 }
                 else
                 {
-                    labelNoJSONBecauseReencoding.Text = @"No JSON shown in this scenario. Click ""Create filter..."" to create an asset filter, and then a dialog will pop up to create the filter with the specified start and times.";
                     panelEDL.Visible = false;
                 }
+                */
             }
-            else if ((radioButtonArchiveAllBitrate.Checked && senderr.Name == radioButtonArchiveAllBitrate.Name) // archive all bitrate
-                ||
-                (radioButtonArchiveTopBitrate.Checked && senderr.Name == radioButtonArchiveTopBitrate.Name))  // archive top bitrate
+            else if (radioButtonArchiveTopBitrate.Checked && senderr.Name == radioButtonArchiveTopBitrate.Name) // archive top bitrate
             {
                 checkBoxTrimming.Checked = backupCheckboxTrim;
                 checkBoxTrimming.Enabled = true;
-                textBoxConfiguration.Enabled = panelJob.Visible = true;
-                UpdateButtonOk();
-                ResetConfigXML();
-                DisplayAccuracy();
-                labelNoJSONBecauseReencoding.Visible = false;
-                label3.Visible = textBoxConfiguration.Visible = true;
-                panelEDL.Visible = true;
+                panelJob.Visible = true;
+                // panelEDL.Visible = true;
             }
+            UpdateButtonOk();
+            DisplayAccuracy();
+
         }
 
         private void UpdateButtonOk()
         {
-            if (radioButtonArchiveAllBitrate.Checked || radioButtonArchiveTopBitrate.Checked)
+            if (radioButtonArchiveTopBitrate.Checked)
             {
                 buttonOk.Text = _buttonOk;
             }
@@ -535,24 +413,15 @@ namespace AMSExplorer
             {
                 labeloutputasset.Text = _labeloutoutputasset;
             }
-
         }
 
-
-        private void ResetConfigXML()
+        private async void Subclipping_FormClosed(object sender, FormClosedEventArgs e)
         {
-            textBoxConfiguration.Text = string.Empty;
-        }
-
-
-
-        private void Subclipping_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            if (_tempLocator != null)
+            if (_tempStreamingLocator != null)
             {
                 try
                 {
-                    _tempLocator.Delete();
+                    await _amsClientV3.AMSclient.StreamingLocators.DeleteAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, _tempStreamingLocator.Name);
                 }
                 catch
                 {
@@ -570,57 +439,55 @@ namespace AMSExplorer
 
         }
 
-        private void checkBoxPreviewStream_CheckedChanged_1(object sender, EventArgs e)
+        private async void checkBoxPreviewStream_CheckedChanged_1(object sender, EventArgs e)
         {
-            PlaybackAsset();
+            await PlaybackAssetAsync();
         }
 
-        private void PlaybackAsset()
+        private async Task PlaybackAssetAsync()
         {
-            if (checkBoxPreviewStream.Checked && checkBoxTrimming.Checked)
+            if (checkBoxPreviewStream.Checked && checkBoxTrimming.Checked && _tempStreamingLocator != null)
             {
-                IAsset myAsset = _selectedAssets.FirstOrDefault();
+                Asset myAsset = _selectedAssets.FirstOrDefault();
 
-                Uri myuri = AssetInfo.GetValidOnDemandURI(myAsset);
+                Uri myuri = await AssetInfo.GetValidOnDemandURIAsync(myAsset, _amsClientV3, _tempStreamingLocator.Name);
 
-                if (myuri == null)
-                {
-                    try
-                    {
-                        _tempLocator = null;
-                        _tempLocator = AssetInfo.CreatedTemporaryOnDemandLocator(myAsset);
-                        myuri = AssetInfo.GetValidOnDemandURI(myAsset);
-                    }
-                    catch
-                    {
-
-                    }
-                }
                 if (myuri != null)
                 {
-                    string myurl = AssetInfo.DoPlayBackWithStreamingEndpoint(typeplayer: PlayerType.AzureMediaPlayerFrame, Urlstr: myuri.ToString(), DoNotRewriteURL: true, context: _context, formatamp: AzureMediaPlayerFormats.Auto, technology: AzureMediaPlayerTechnologies.Auto, launchbrowser: false, UISelectSEFiltersAndProtocols: false, mainForm: _mainform);
+                    string myurl = await AssetInfo.DoPlayBackWithStreamingEndpointAsync(typeplayer: PlayerType.AzureMediaPlayerFrame, path: AssetInfo.RW(myuri, https: true).ToString(), DoNotRewriteURL: true, client: _amsClientV3, formatamp: AzureMediaPlayerFormats.Auto, technology: AzureMediaPlayerTechnologies.Auto, launchbrowser: false, UISelectSEFiltersAndProtocols: false, mainForm: _mainform);
                     webBrowserPreview.Url = new Uri(myurl);
+                }
+                else
+                {
+                    webBrowserPreview.Url = null;
                 }
             }
             else
             {
                 webBrowserPreview.Url = null;
             }
-
         }
 
 
-        private void buttonOk_Click(object sender, EventArgs e)
+        private async void buttonOk_Click(object sender, EventArgs e)
         {
-            DoSubClip();
+            await DoSubClipAsync();
         }
 
-        private void DoSubClip()
+        private async Task DoSubClipAsync()
         {
-            var subclipConfig = this.GetSubclippingConfiguration();
+            var subclipConfig = this.GetSubclippingInternalConfiguration();
 
             if (subclipConfig.Reencode) // reencode the clip
             {
+                ProcessFromTransform form = new ProcessFromTransform(_amsClientV3, _mainform, _selectedAssets, null, subclipConfig.StartTime, subclipConfig.EndTime, true);
+
+                if (form.ShowDialog() == DialogResult.OK)
+                {
+                    await _mainform.CreateAndSubmitJobsAsync(new List<Transform>() { form.SelectedTransform }, _selectedAssets, form.StartClipTime, form.EndClipTime);
+                }
+
+                /*
                 var processor = Mainform.GetLatestMediaProcessorByName(Constants.AzureMediaEncoderStandard);
                 EncodingMES form2 = new EncodingMES(_context, new List<IAsset>(), processor.Version, _mainform, subclipConfig, disableOverlay: true)
                 {
@@ -652,18 +519,22 @@ namespace AMSExplorer
                        form2.JobOptions.TasksOptionsSetting,
                        form2.JobOptions.StorageSelected);
                 }
+                */
             }
             else if (subclipConfig.CreateAssetFilter) // create a asset filter
             {
-                IAsset selasset = _selectedAssets.FirstOrDefault();
-                DynManifestFilter formAF = new DynManifestFilter(_context, null, selasset, subclipConfig);
+                Asset selasset = _selectedAssets.FirstOrDefault();
+                DynManifestFilter formAF = new DynManifestFilter(_amsClientV3, null, selasset, subclipConfig);
                 if (formAF.ShowDialog() == DialogResult.OK)
                 {
                     FilterCreationInfo filterinfo = null;
                     try
                     {
                         filterinfo = formAF.GetFilterInfo;
-                        selasset.AssetFilters.Create(filterinfo.Name, filterinfo.Presentationtimerange, filterinfo.Trackconditions);
+                        AssetFilter assetFilter = new AssetFilter() { PresentationTimeRange = filterinfo.Presentationtimerange };
+
+                        await _amsClientV3.AMSclient.AssetFilters.CreateOrUpdateAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, selasset.Name, filterinfo.Name, assetFilter);
+
                         _mainform.TextBoxLogWriteLine("Asset filter '{0}' created.", filterinfo.Name);
                     }
                     catch (Exception ex)
@@ -672,30 +543,35 @@ namespace AMSExplorer
                         _mainform.TextBoxLogWriteLine(ex);
                     }
 
-                    _mainform.DoRefreshGridFiltersV(false);
+                    await _mainform.DoRefreshGridFiltersVAsync(false);
                 }
 
             }
             else // no reencode or asset filter but stream copy
             {
-                string taskname = "Subclipping (archive extraction) of " + Constants.NameconvInputasset;
-                IMediaProcessor Proc = Mainform.GetLatestMediaProcessorByName(Constants.AzureMediaEncoderStandard);
+                ClipTime startTime = null;
+                ClipTime endTime = null;
 
-                _mainform.LaunchJobs_OneJobPerInputAsset_OneTaskPerfConfig(
-                    Proc,
-                    _selectedAssets,
-                    this.EncodingJobName,
-                    this.JobOptions.Priority,
-                    taskname,
-                    this.EncodingOutputAssetName,
-                    new List<string>() { subclipConfig.Configuration },
-                    this.JobOptions.OutputAssetsCreationOptions,
-                    this.JobOptions.OutputAssetsFormatOption,
-                    this.JobOptions.TasksOptionsSetting,
-                    this.JobOptions.StorageSelected);
+                if (checkBoxTrimming.Checked)
+                {
+                    startTime = new AbsoluteClipTime()
+                    {
+                        Time = subclipConfig.StartTime
+                    };
+
+                    endTime = new AbsoluteClipTime()
+                    {
+                        Time = subclipConfig.EndTime
+                    };
+                }
+
+                var transform = await _mainform.CreateAndGetCopyCodecTransformIfNeededAsync();
+                await _mainform.CreateAndSubmitJobsAsync(new List<Transform>() { transform }, _selectedAssets, startTime, endTime, EncodingJobName, EncodingOutputAssetName);
 
                 MessageBox.Show("Subclipping job(s) submitted", "Sublipping", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
+
+            GenerateUniqueNamesForJobAndOutput();
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -706,13 +582,34 @@ namespace AMSExplorer
                 End = timeControlEnd.TimeStampWithoutOffset,
                 Offset = timeControlStart.GetOffSetAsTimeSpan()
             });
-            //ResetConfigXML();
         }
 
         private void checkBoxUseEDL_CheckedChanged(object sender, EventArgs e)
         {
             buttonShowEDL.Enabled = buttonAddEDLEntry.Enabled = checkBoxUseEDL.Checked;
-            ResetConfigXML();
         }
+
+        private void Subclipping_DpiChanged(object sender, DpiChangedEventArgs e)
+        {
+            // for controls which are not using the default font
+            DpiUtils.UpdatedSizeFontAfterDPIChange(new List<Control> { labelGen, timeControlStart, timeControlEnd, textBoxConfiguration }, e, this);
+
+            // to scale the bitmap in the buttons
+            HighDpiHelper.AdjustControlImagesAfterDpiChange(panel1, e);
+        }
+
+        private void Subclipping_Shown(object sender, EventArgs e)
+        {
+
+        }
+    }
+
+
+    public class SubClipTrimmingDataTimeSpan
+    {
+        public TimeSpan StartTime { get; set; }
+        public TimeSpan EndTime { get; set; }
+        public TimeSpan Duration { get; set; }
+        public TimeSpan Offset { get; set; }
     }
 }

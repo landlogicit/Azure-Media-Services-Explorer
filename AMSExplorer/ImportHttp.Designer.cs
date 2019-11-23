@@ -35,10 +35,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.textBoxURL = new System.Windows.Forms.TextBox();
             this.labelExamples = new System.Windows.Forms.Label();
-            this.textBoxAssetName = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.textBoxAssetFileName = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
             this.labelURLFileNameWarning = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label33 = new System.Windows.Forms.Label();
@@ -47,6 +43,7 @@
             this.labelTitle = new System.Windows.Forms.Label();
             this.labelSASListExample = new System.Windows.Forms.Label();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.buttonAdvancedOptions = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
@@ -83,27 +80,6 @@
             this.labelExamples.ForeColor = System.Drawing.SystemColors.WindowFrame;
             this.labelExamples.Name = "labelExamples";
             // 
-            // textBoxAssetName
-            // 
-            resources.ApplyResources(this.textBoxAssetName, "textBoxAssetName");
-            this.textBoxAssetName.Name = "textBoxAssetName";
-            // 
-            // label3
-            // 
-            resources.ApplyResources(this.label3, "label3");
-            this.label3.Name = "label3";
-            // 
-            // textBoxAssetFileName
-            // 
-            resources.ApplyResources(this.textBoxAssetFileName, "textBoxAssetFileName");
-            this.textBoxAssetFileName.Name = "textBoxAssetFileName";
-            this.textBoxAssetFileName.TextChanged += new System.EventHandler(this.textBoxAssetFileName_TextChanged);
-            // 
-            // label4
-            // 
-            resources.ApplyResources(this.label4, "label4");
-            this.label4.Name = "label4";
-            // 
             // labelURLFileNameWarning
             // 
             resources.ApplyResources(this.labelURLFileNameWarning, "labelURLFileNameWarning");
@@ -113,12 +89,9 @@
             // groupBox1
             // 
             resources.ApplyResources(this.groupBox1, "groupBox1");
+            this.groupBox1.Controls.Add(this.buttonAdvancedOptions);
             this.groupBox1.Controls.Add(this.label33);
             this.groupBox1.Controls.Add(this.comboBoxStorage);
-            this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Controls.Add(this.textBoxAssetName);
-            this.groupBox1.Controls.Add(this.textBoxAssetFileName);
-            this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.TabStop = false;
             // 
@@ -136,10 +109,10 @@
             // 
             // panel1
             // 
-            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
             this.panel1.Controls.Add(this.buttonCancel);
             this.panel1.Controls.Add(this.buttonImport);
+            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Name = "panel1";
             // 
             // labelTitle
@@ -158,11 +131,18 @@
             // 
             this.errorProvider1.ContainerControl = this;
             // 
+            // buttonAdvancedOptions
+            // 
+            resources.ApplyResources(this.buttonAdvancedOptions, "buttonAdvancedOptions");
+            this.buttonAdvancedOptions.Name = "buttonAdvancedOptions";
+            this.buttonAdvancedOptions.UseVisualStyleBackColor = true;
+            this.buttonAdvancedOptions.Click += new System.EventHandler(this.ButtonAdvancedOptions_Click);
+            // 
             // ImportHttp
             // 
             this.AcceptButton = this.buttonImport;
             resources.ApplyResources(this, "$this");
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
             this.Controls.Add(this.labelSASListExample);
@@ -175,6 +155,7 @@
             this.Controls.Add(this.label1);
             this.Name = "ImportHttp";
             this.Load += new System.EventHandler(this.ImportHttp_Load);
+            this.DpiChanged += new System.Windows.Forms.DpiChangedEventHandler(this.ImportHttp_DpiChanged);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.panel1.ResumeLayout(false);
@@ -191,10 +172,6 @@
         public System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox textBoxURL;
         public System.Windows.Forms.Label labelExamples;
-        private System.Windows.Forms.TextBox textBoxAssetName;
-        public System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox textBoxAssetFileName;
-        public System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label labelURLFileNameWarning;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Panel panel1;
@@ -203,5 +180,6 @@
         private System.Windows.Forms.ErrorProvider errorProvider1;
         private System.Windows.Forms.Label label33;
         private System.Windows.Forms.ComboBox comboBoxStorage;
+        private System.Windows.Forms.Button buttonAdvancedOptions;
     }
 }

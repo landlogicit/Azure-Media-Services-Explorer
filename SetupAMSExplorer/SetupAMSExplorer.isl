@@ -344,21 +344,10 @@
 		<row><td>AMSExplorer.Localized_resources</td><td>{0DCC93E6-67A3-492D-B5A4-F5EA8A7AA748}</td><td>INSTALLDIR</td><td>2</td><td/><td>amsexplorer.localized_resour</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>AMSExplorer.Primary_output</td><td>{A8A30D9B-9784-4332-A6E9-091FBE177DE3}</td><td>INSTALLDIR</td><td>2</td><td/><td>amsexplorer.primary_output</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>ISX_DEFAULTCOMPONENT1</td><td>{AF646F6F-208B-49D0-8051-43F8DB7D2BB4}</td><td>INSTALLDIR</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>Microsoft.Data.Edm.dll</td><td>{061CE4BB-2324-40DF-9656-12D7C76BB6AB}</td><td>INSTALLDIR</td><td>2</td><td/><td>microsoft.data.edm.dll</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>Microsoft.Data.OData.dll</td><td>{0BCC1315-3F7E-426F-81C0-63A86C12586A}</td><td>INSTALLDIR</td><td>2</td><td/><td>microsoft.data.odata.dll</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>Microsoft.Data.Services.Client.dll</td><td>{49369441-F4C2-405F-B232-97BE65A2385C}</td><td>INSTALLDIR</td><td>2</td><td/><td>microsoft.data.services.clie</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>Microsoft.Practices.TransientFaultHandling.Core.dll</td><td>{FFC2E118-872A-402F-B2D2-7C4A578E6BFD}</td><td>INSTALLDIR</td><td>2</td><td/><td>microsoft.practices.transien</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>Microsoft.WindowsAPICodePack.Shell.dll</td><td>{17DD7C1F-332E-4858-B4BF-C45A63FCCE2D}</td><td>INSTALLDIR</td><td>2</td><td/><td>microsoft.windowsapicodepack1</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>Microsoft.WindowsAPICodePack.dll</td><td>{75E2F317-1237-4DD7-9540-C730521CC00D}</td><td>INSTALLDIR</td><td>2</td><td/><td>microsoft.windowsapicodepack</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>Microsoft.WindowsAzure.Configuration.dll</td><td>{7B965600-3449-4105-B187-0750ACF42042}</td><td>INSTALLDIR</td><td>2</td><td/><td>microsoft.windowsazure.confi</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>Microsoft.WindowsAzure.MediaServices.Client.Common.BlobTransfer.d</td><td>{D23AFCA6-2764-4B28-A8C4-2D19A17391A7}</td><td>INSTALLDIR</td><td>2</td><td/><td>microsoft.windowsazure.media</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>Microsoft.WindowsAzure.MediaServices.Client.Common.FileEncryption</td><td>{B2B6F7F1-7291-4A1E-8536-BE390B064357}</td><td>INSTALLDIR</td><td>2</td><td/><td>microsoft.windowsazure.media1</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>Microsoft.WindowsAzure.MediaServices.Client.Extensions.dll</td><td>{AE371922-5F35-4397-A87A-32AAC4339C84}</td><td>INSTALLDIR</td><td>2</td><td/><td>microsoft.windowsazure.media3</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>Microsoft.WindowsAzure.MediaServices.Client.dll</td><td>{AD9DABEB-EAC3-4C5B-8B90-7E252C596798}</td><td>INSTALLDIR</td><td>2</td><td/><td>microsoft.windowsazure.media2</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>Microsoft.WindowsAzure.Storage.dll</td><td>{A29AF771-6E35-4757-A174-E693081ACF3C}</td><td>INSTALLDIR</td><td>2</td><td/><td>microsoft.windowsazure.stora</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>Newtonsoft.Json.dll</td><td>{79D6C8E7-78C4-4FED-9B5F-E2D5ADCCFB2F}</td><td>INSTALLDIR</td><td>2</td><td/><td>newtonsoft.json.dll</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>System.IdentityModel.Tokens.Jwt.dll</td><td>{1A4684DC-F82E-4EA8-B22A-15AFCA2CAC9F}</td><td>INSTALLDIR</td><td>2</td><td/><td>system.identitymodel.tokens.</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>System.Spatial.dll</td><td>{DB74728E-ECA7-4D1A-94DA-9B4FE18FEB16}</td><td>INSTALLDIR</td><td>2</td><td/><td>system.spatial.dll</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>Newtonsoft.Json.dll</td><td>{91284A64-B509-4F13-B7BA-51F28AB2E456}</td><td>INSTALLDIR</td><td>2</td><td/><td>newtonsoft.json.dll</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>System.IO.dll</td><td>{8721207E-F5C3-4A07-B7B5-2B793B73F623}</td><td>INSTALLDIR</td><td>2</td><td/><td>system.io.dll</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>System.Net.Http.dll</td><td>{55DB03DB-547C-4A17-AECB-F86743DA530A}</td><td>INSTALLDIR</td><td>2</td><td/><td>system.net.http.dll</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>System.Runtime.dll</td><td>{7C3D39BA-A0A8-4D23-A134-8C09D19F2935}</td><td>INSTALLDIR</td><td>2</td><td/><td>system.runtime.dll</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 	</table>
 
 	<table name="Condition">
@@ -1072,21 +1061,6 @@
 		<row><td>INSTALLDIR</td><td>AMSExplorer.Localized_resources</td></row>
 		<row><td>INSTALLDIR</td><td>AMSExplorer.Primary_output</td></row>
 		<row><td>INSTALLDIR</td><td>ISX_DEFAULTCOMPONENT1</td></row>
-		<row><td>INSTALLDIR</td><td>Microsoft.Data.Edm.dll</td></row>
-		<row><td>INSTALLDIR</td><td>Microsoft.Data.OData.dll</td></row>
-		<row><td>INSTALLDIR</td><td>Microsoft.Data.Services.Client.dll</td></row>
-		<row><td>INSTALLDIR</td><td>Microsoft.Practices.TransientFaultHandling.Core.dll</td></row>
-		<row><td>INSTALLDIR</td><td>Microsoft.WindowsAPICodePack.Shell.dll</td></row>
-		<row><td>INSTALLDIR</td><td>Microsoft.WindowsAPICodePack.dll</td></row>
-		<row><td>INSTALLDIR</td><td>Microsoft.WindowsAzure.Configuration.dll</td></row>
-		<row><td>INSTALLDIR</td><td>Microsoft.WindowsAzure.MediaServices.Client.Common.BlobTransfer.d</td></row>
-		<row><td>INSTALLDIR</td><td>Microsoft.WindowsAzure.MediaServices.Client.Common.FileEncryption</td></row>
-		<row><td>INSTALLDIR</td><td>Microsoft.WindowsAzure.MediaServices.Client.Extensions.dll</td></row>
-		<row><td>INSTALLDIR</td><td>Microsoft.WindowsAzure.MediaServices.Client.dll</td></row>
-		<row><td>INSTALLDIR</td><td>Microsoft.WindowsAzure.Storage.dll</td></row>
-		<row><td>INSTALLDIR</td><td>Newtonsoft.Json.dll</td></row>
-		<row><td>INSTALLDIR</td><td>System.IdentityModel.Tokens.Jwt.dll</td></row>
-		<row><td>INSTALLDIR</td><td>System.Spatial.dll</td></row>
 	</table>
 
 	<table name="CustomAction">
@@ -1106,6 +1080,7 @@
 		<row><td>ISUnSelfRegisterFiles</td><td>3073</td><td>ISSELFREG.DLL</td><td>ISUnSelfRegisterFiles</td><td/><td/></row>
 		<row><td>LaunchProgramFileFromSetupCompleteSuccess</td><td>1</td><td>NewBinary19</td><td>LaunchProgram</td><td/><td/></row>
 		<row><td>SetARPINSTALLLOCATION</td><td>51</td><td>ARPINSTALLLOCATION</td><td>[INSTALLDIR]</td><td/><td/></row>
+		<row><td>SetARPReadme</td><td>51</td><td>ARPREADME</td><td>https://github.com/Azure/Azure-Media-Services-Explorer/blob/master/README.md</td><td/><td/></row>
 		<row><td>SetAllUsersProfileNT</td><td>51</td><td>ALLUSERSPROFILE</td><td>[%SystemRoot]\Profiles\All Users</td><td/><td/></row>
 		<row><td>ShowMsiLog</td><td>226</td><td>SystemFolder</td><td>[SystemFolder]notepad.exe "[MsiLogFileLocation]"</td><td/><td>Shows Property-driven MSI Log</td></row>
 		<row><td>setAllUsersProfile2K</td><td>51</td><td>ALLUSERSPROFILE</td><td>[%ALLUSERSPROFILE]</td><td/><td/></row>
@@ -1169,6 +1144,7 @@
 		<col def="S255">ISFolderName</col>
 		<row><td>ALLUSERSPROFILE</td><td>TARGETDIR</td><td>.:ALLUSE~1|All Users</td><td/><td>0</td><td/></row>
 		<row><td>AZURE_MEDIA_SERVICES_DEMO_INTERFACE</td><td>MICROSOFT_CORPORATION</td><td>AZUREM~1|Azure Media Services Explorer</td><td/><td>0</td><td/></row>
+		<row><td>AZURE_MEDIA_SERVICES_EXPLORER_FOR_V3</td><td>MICROSOFT_CORPORATION</td><td>AZUREM~1|Azure Media Services Explorer for v3</td><td/><td>0</td><td/></row>
 		<row><td>AdminToolsFolder</td><td>TARGETDIR</td><td>.:Admint~1|AdminTools</td><td/><td>0</td><td/></row>
 		<row><td>AppDataFolder</td><td>TARGETDIR</td><td>.:APPLIC~1|Application Data</td><td/><td>0</td><td/></row>
 		<row><td>CommonAppDataFolder</td><td>TARGETDIR</td><td>.:Common~1|CommonAppData</td><td/><td>0</td><td/></row>
@@ -1179,7 +1155,7 @@
 		<row><td>FavoritesFolder</td><td>TARGETDIR</td><td>.:FAVORI~1|Favorites</td><td/><td>0</td><td/></row>
 		<row><td>FontsFolder</td><td>TARGETDIR</td><td>.:Fonts</td><td/><td>0</td><td/></row>
 		<row><td>GlobalAssemblyCache</td><td>TARGETDIR</td><td>.:Global~1|GlobalAssemblyCache</td><td/><td>0</td><td/></row>
-		<row><td>INSTALLDIR</td><td>AZURE_MEDIA_SERVICES_DEMO_INTERFACE</td><td>.</td><td/><td>0</td><td/></row>
+		<row><td>INSTALLDIR</td><td>AZURE_MEDIA_SERVICES_EXPLORER_FOR_V3</td><td>.</td><td/><td>0</td><td/></row>
 		<row><td>ISCommonFilesFolder</td><td>CommonFilesFolder</td><td>Instal~1|InstallShield</td><td/><td>0</td><td/></row>
 		<row><td>ISMyCompanyDir</td><td>ProgramFilesFolder</td><td>MYCOMP~1|My Company Name</td><td/><td>0</td><td/></row>
 		<row><td>ISMyProductDir</td><td>ISMyCompanyDir</td><td>MYPROD~1|My Product Name</td><td/><td>0</td><td/></row>
@@ -1211,6 +1187,7 @@
 		<row><td>WindowsVolume</td><td>TARGETDIR</td><td>.:WinRoot</td><td/><td>0</td><td/></row>
 		<row><td>azurem_1_azure_media_services_demo_interface</td><td>micros_1_microsoft_corporation</td><td>AZUREM~1|Azure Media Services Demo Interface</td><td/><td>1</td><td/></row>
 		<row><td>azurem_1_azure_media_services_explorer</td><td>micros_1_microsoft_corporation</td><td>AZUREM~1|Azure Media Services Explorer</td><td/><td>1</td><td/></row>
+		<row><td>azurem_1_azure_media_services_explorer_for_v3</td><td>micros_1_microsoft_corporation</td><td>AZUREM~1|Azure Media Services Explorer for v3</td><td/><td>1</td><td/></row>
 		<row><td>kayakd_1_kayakdemointerface</td><td>micros_1_microsoft_corporation</td><td>KAYAKD~1|KayakDemoInterface</td><td/><td>1</td><td/></row>
 		<row><td>micros_1_microsoft_corporation</td><td>ProgramMenuFolder</td><td>MICROS~1|Microsoft Corporation</td><td/><td>1</td><td/></row>
 	</table>
@@ -1908,21 +1885,10 @@
 		<row><td>AlwaysInstall</td><td>AMSExplorer.Localized_resources</td></row>
 		<row><td>AlwaysInstall</td><td>AMSExplorer.Primary_output</td></row>
 		<row><td>AlwaysInstall</td><td>ISX_DEFAULTCOMPONENT1</td></row>
-		<row><td>AlwaysInstall</td><td>Microsoft.Data.Edm.dll</td></row>
-		<row><td>AlwaysInstall</td><td>Microsoft.Data.OData.dll</td></row>
-		<row><td>AlwaysInstall</td><td>Microsoft.Data.Services.Client.dll</td></row>
-		<row><td>AlwaysInstall</td><td>Microsoft.Practices.TransientFaultHandling.Core.dll</td></row>
-		<row><td>AlwaysInstall</td><td>Microsoft.WindowsAPICodePack.Shell.dll</td></row>
-		<row><td>AlwaysInstall</td><td>Microsoft.WindowsAPICodePack.dll</td></row>
-		<row><td>AlwaysInstall</td><td>Microsoft.WindowsAzure.Configuration.dll</td></row>
-		<row><td>AlwaysInstall</td><td>Microsoft.WindowsAzure.MediaServices.Client.Common.BlobTransfer.d</td></row>
-		<row><td>AlwaysInstall</td><td>Microsoft.WindowsAzure.MediaServices.Client.Common.FileEncryption</td></row>
-		<row><td>AlwaysInstall</td><td>Microsoft.WindowsAzure.MediaServices.Client.Extensions.dll</td></row>
-		<row><td>AlwaysInstall</td><td>Microsoft.WindowsAzure.MediaServices.Client.dll</td></row>
-		<row><td>AlwaysInstall</td><td>Microsoft.WindowsAzure.Storage.dll</td></row>
 		<row><td>AlwaysInstall</td><td>Newtonsoft.Json.dll</td></row>
-		<row><td>AlwaysInstall</td><td>System.IdentityModel.Tokens.Jwt.dll</td></row>
-		<row><td>AlwaysInstall</td><td>System.Spatial.dll</td></row>
+		<row><td>AlwaysInstall</td><td>System.IO.dll</td></row>
+		<row><td>AlwaysInstall</td><td>System.Net.Http.dll</td></row>
+		<row><td>AlwaysInstall</td><td>System.Runtime.dll</td></row>
 	</table>
 
 	<table name="File">
@@ -1940,21 +1906,10 @@
 		<row><td>amsexplorer.content_files</td><td>AMSExplorer.Content_Files</td><td>AMSExplorer.Content Files</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;AMSExplorer1&gt;|ContentFiles</td><td>3</td><td/></row>
 		<row><td>amsexplorer.localized_resour</td><td>AMSExplorer.Localized_resources</td><td>AMSExplorer.Localized resources</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;AMSExplorer1&gt;|LocalizedResourceDlls</td><td>3</td><td/></row>
 		<row><td>amsexplorer.primary_output</td><td>AMSExplorer.Primary_output</td><td>AMSExplorer.Primary output</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;AMSExplorer1&gt;|Built</td><td>3</td><td/></row>
-		<row><td>microsoft.data.edm.dll</td><td>Microsoft.Data.Edm.dll</td><td>MICROS~1.DLL|Microsoft.Data.Edm.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ISPROJECTFOLDER&gt;..\AMSExplorer\bin\Release\Microsoft.Data.Edm.dll</td><td>1</td><td/></row>
-		<row><td>microsoft.data.odata.dll</td><td>Microsoft.Data.OData.dll</td><td>MICROS~1.DLL|Microsoft.Data.OData.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ISPROJECTFOLDER&gt;..\AMSExplorer\bin\Release\Microsoft.Data.OData.dll</td><td>1</td><td/></row>
-		<row><td>microsoft.data.services.clie</td><td>Microsoft.Data.Services.Client.dll</td><td>MICROS~1.DLL|Microsoft.Data.Services.Client.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ISPROJECTFOLDER&gt;..\AMSExplorer\bin\Release\Microsoft.Data.Services.Client.dll</td><td>1</td><td/></row>
-		<row><td>microsoft.practices.transien</td><td>Microsoft.Practices.TransientFaultHandling.Core.dll</td><td>MICROS~1.DLL|Microsoft.Practices.TransientFaultHandling.Core.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ISPROJECTFOLDER&gt;..\AMSExplorer\bin\Release\Microsoft.Practices.TransientFaultHandling.Core.dll</td><td>1</td><td/></row>
-		<row><td>microsoft.windowsapicodepack</td><td>Microsoft.WindowsAPICodePack.dll</td><td>MICROS~1.DLL|Microsoft.WindowsAPICodePack.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ISPROJECTFOLDER&gt;..\AMSExplorer\bin\Release\Microsoft.WindowsAPICodePack.dll</td><td>1</td><td/></row>
-		<row><td>microsoft.windowsapicodepack1</td><td>Microsoft.WindowsAPICodePack.Shell.dll</td><td>MICROS~1.DLL|Microsoft.WindowsAPICodePack.Shell.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ISPROJECTFOLDER&gt;..\AMSExplorer\bin\Release\Microsoft.WindowsAPICodePack.Shell.dll</td><td>1</td><td/></row>
-		<row><td>microsoft.windowsazure.confi</td><td>Microsoft.WindowsAzure.Configuration.dll</td><td>MICROS~1.DLL|Microsoft.WindowsAzure.Configuration.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ISPROJECTFOLDER&gt;..\AMSExplorer\bin\Release\Microsoft.WindowsAzure.Configuration.dll</td><td>1</td><td/></row>
-		<row><td>microsoft.windowsazure.media</td><td>Microsoft.WindowsAzure.MediaServices.Client.Common.BlobTransfer.d</td><td>MICROS~1.DLL|Microsoft.WindowsAzure.MediaServices.Client.Common.BlobTransfer.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ISPROJECTFOLDER&gt;..\AMSExplorer\bin\Release\Microsoft.WindowsAzure.MediaServices.Client.Common.BlobTransfer.dll</td><td>1</td><td/></row>
-		<row><td>microsoft.windowsazure.media1</td><td>Microsoft.WindowsAzure.MediaServices.Client.Common.FileEncryption</td><td>MICROS~1.DLL|Microsoft.WindowsAzure.MediaServices.Client.Common.FileEncryption.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ISPROJECTFOLDER&gt;..\AMSExplorer\bin\Release\Microsoft.WindowsAzure.MediaServices.Client.Common.FileEncryption.dll</td><td>1</td><td/></row>
-		<row><td>microsoft.windowsazure.media2</td><td>Microsoft.WindowsAzure.MediaServices.Client.dll</td><td>MICROS~1.DLL|Microsoft.WindowsAzure.MediaServices.Client.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ISPROJECTFOLDER&gt;..\AMSExplorer\bin\Release\Microsoft.WindowsAzure.MediaServices.Client.dll</td><td>1</td><td/></row>
-		<row><td>microsoft.windowsazure.media3</td><td>Microsoft.WindowsAzure.MediaServices.Client.Extensions.dll</td><td>MICROS~1.DLL|Microsoft.WindowsAzure.MediaServices.Client.Extensions.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ISPROJECTFOLDER&gt;..\AMSExplorer\bin\Release\Microsoft.WindowsAzure.MediaServices.Client.Extensions.dll</td><td>1</td><td/></row>
-		<row><td>microsoft.windowsazure.stora</td><td>Microsoft.WindowsAzure.Storage.dll</td><td>MICROS~1.DLL|Microsoft.WindowsAzure.Storage.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ISPROJECTFOLDER&gt;..\AMSExplorer\bin\Release\Microsoft.WindowsAzure.Storage.dll</td><td>1</td><td/></row>
-		<row><td>newtonsoft.json.dll</td><td>Newtonsoft.Json.dll</td><td>NEWTON~1.DLL|Newtonsoft.Json.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ISPROJECTFOLDER&gt;..\AMSExplorer\bin\Release\Newtonsoft.Json.dll</td><td>1</td><td/></row>
-		<row><td>system.identitymodel.tokens.</td><td>System.IdentityModel.Tokens.Jwt.dll</td><td>SYSTEM~1.DLL|System.IdentityModel.Tokens.Jwt.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ISPROJECTFOLDER&gt;..\AMSExplorer\bin\Release\System.IdentityModel.Tokens.Jwt.dll</td><td>1</td><td/></row>
-		<row><td>system.spatial.dll</td><td>System.Spatial.dll</td><td>SYSTEM~1.DLL|System.Spatial.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ISPROJECTFOLDER&gt;..\AMSExplorer\bin\Release\System.Spatial.dll</td><td>1</td><td/></row>
+		<row><td>newtonsoft.json.dll</td><td>Newtonsoft.Json.dll</td><td>NEWTON~1.DLL|Newtonsoft.Json.dll</td><td>0</td><td/><td/><td/><td>1</td><td>C:\Users\xpouyat\Source\Repos\Azure-Media-Services-Explorer\AMSExplorer\bin\Release\Newtonsoft.Json.dll</td><td>1</td><td/></row>
+		<row><td>system.io.dll</td><td>System.IO.dll</td><td>SYSTEM~1.DLL|System.IO.dll</td><td>0</td><td/><td/><td/><td>1</td><td>C:\Users\xpouyat\Source\Repos\Azure-Media-Services-Explorer\AMSExplorer\bin\Release\System.IO.dll</td><td>1</td><td/></row>
+		<row><td>system.net.http.dll</td><td>System.Net.Http.dll</td><td>SYSTEM~1.DLL|System.Net.Http.dll</td><td>0</td><td/><td/><td/><td>1</td><td>C:\Users\xpouyat\Source\Repos\Azure-Media-Services-Explorer\AMSExplorer\bin\Release\System.Net.Http.dll</td><td>1</td><td/></row>
+		<row><td>system.runtime.dll</td><td>System.Runtime.dll</td><td>SYSTEM~1.DLL|System.Runtime.dll</td><td>0</td><td/><td/><td/><td>1</td><td>C:\Users\xpouyat\Source\Repos\Azure-Media-Services-Explorer\AMSExplorer\bin\Release\System.Runtime.dll</td><td>1</td><td/></row>
 	</table>
 
 	<table name="FileSFPCatalog">
@@ -1972,6 +1927,7 @@
 		<col def="S255">Data</col>
 		<row><td>PROJECT_ASSISTANT_DEFAULT_FEATURE</td><td>AlwaysInstall</td></row>
 		<row><td>PROJECT_ASSISTANT_FEATURES</td><td>NonSelectable</td></row>
+		<row><td>_Built1</td><td/></row>
 	</table>
 
 	<table name="ISBillBoard">
@@ -2102,21 +2058,10 @@
 		<row><td>AMSExplorer.Localized_resources</td><td/><td/><td>_7DE772F3_D013_4CB2_A04E_919C4C3C01A4_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>AMSExplorer.Primary_output</td><td/><td/><td>_5E35A225_779A_4C02_B4C1_A1BF4B642E81_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>ISX_DEFAULTCOMPONENT1</td><td/><td/><td>_CEED99D2_1C48_4F57_BEC4_3289CF013B45_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>Microsoft.Data.Edm.dll</td><td/><td/><td>_0106E3F9_DE71_4593_84C7_AE694A9452B2_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>Microsoft.Data.OData.dll</td><td/><td/><td>_8E11E7C5_E93D_48B3_9FEC_748D5CC06AA8_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>Microsoft.Data.Services.Client.dll</td><td/><td/><td>_5019A071_1478_497B_94AD_873D67C5695A_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>Microsoft.Practices.TransientFaultHandling.Core.dll</td><td/><td/><td>_C36D29E0_BA3B_42A7_A26F_9F8EBBB0F9D1_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>Microsoft.WindowsAPICodePack.Shell.dll</td><td/><td/><td>_15478500_5E6C_44F1_B8D1_F9BF88094BC5_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>Microsoft.WindowsAPICodePack.dll</td><td/><td/><td>_58828D9A_3DAC_4D60_B609_B1D989A4310D_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>Microsoft.WindowsAzure.Configuration.dll</td><td/><td/><td>_C558F2DB_450C_4149_9AD0_1294DDF26E2E_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>Microsoft.WindowsAzure.MediaServices.Client.Common.BlobTransfer.d</td><td/><td/><td>_F5470073_A3D8_4165_9CF1_E83FF68AB6F8_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>Microsoft.WindowsAzure.MediaServices.Client.Common.FileEncryption</td><td/><td/><td>_2C0669E2_04D5_4A3A_93CB_4352282D0900_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>Microsoft.WindowsAzure.MediaServices.Client.Extensions.dll</td><td/><td/><td>_FCC02041_4566_4BEF_AB58_527C91A524B5_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>Microsoft.WindowsAzure.MediaServices.Client.dll</td><td/><td/><td>_B51CF298_25ED_453A_95A3_E7089F23ECE6_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>Microsoft.WindowsAzure.Storage.dll</td><td/><td/><td>_9A9176E6_0AFA_4C5B_9047_EFD9EBAE5186_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>Newtonsoft.Json.dll</td><td/><td/><td>_EE741963_9C16_48B7_A84B_3B497332C71E_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>System.IdentityModel.Tokens.Jwt.dll</td><td/><td/><td>_7147A8AD_D5CF_4FF3_927A_D0BAE4781303_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>System.Spatial.dll</td><td/><td/><td>_BB44995C_93B9_4C4D_BB6E_63AA82E0FB4D_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>Newtonsoft.Json.dll</td><td/><td/><td>_BB49E352_45A6_43E5_BCAB_B37981193FFF_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>System.IO.dll</td><td/><td/><td>_0A53F3BF_BC72_4CB9_9CFC_077E4C93458F_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>System.Net.Http.dll</td><td/><td/><td>_C8D0BE8E_8EE7_43BE_9A11_FB6D07DAD52A_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>System.Runtime.dll</td><td/><td/><td>_E0AD9875_286A_4141_942D_6A73D974F347_FILTER</td><td/><td/><td/><td/></row>
 	</table>
 
 	<table name="ISCustomActionReference">
@@ -2699,7 +2644,7 @@
 		<col def="I2">Order</col>
 		<col def="I2">ISSetupLocation</col>
 		<col def="S255">ISReleaseFlags</col>
-		<row><td>_6A900C49_89FA_4DAB_A766_87FCAB21A00F_</td><td>Microsoft .NET Framework 4.6 Web.prq</td><td/><td>1</td><td/></row>
+		<row><td>_240E5589_3101_4B81_BCB7_82C04742B9CF_</td><td>Microsoft .NET Framework 4.7 Web.prq</td><td/><td>1</td><td/></row>
 	</table>
 
 	<table name="ISSetupType">
@@ -2733,13 +2678,53 @@
 		<col def="I2">Encoded</col>
 		<col def="S0">Comment</col>
 		<col def="I4">TimeStamp</col>
-		<row><td>COMPANY_NAME</td><td>1033</td><td>Microsoft Corporation</td><td>0</td><td/><td>-526101295</td></row>
+		<row><td>COMPANY_NAME</td><td>1033</td><td>Microsoft Corporation</td><td>0</td><td/><td>-1272496629</td></row>
 		<row><td>DN_AlwaysInstall</td><td>1033</td><td>Always Install</td><td>0</td><td/><td>-366859085</td></row>
+		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_ACROBAT5FOLDER</td><td>1033</td><td>   Adobe Acrobat 5 needs to be installed for this installation to continue.</td><td>0</td><td/><td>1529218827</td></row>
+		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_ADOBEREADER10FOLDER</td><td>1033</td><td>Adobe Reader 10 needs to be installed for this installation to continue.</td><td>0</td><td/><td>1529218827</td></row>
+		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_ADOBEREADER11FOLDER</td><td>1033</td><td>Adobe Reader 11 needs to be installed for this installation to continue.</td><td>0</td><td/><td>1529218827</td></row>
+		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_ADOBEREADER6FOLDER</td><td>1033</td><td>Adobe Reader 6 needs to be installed for this installation to continue.</td><td>0</td><td/><td>1529218827</td></row>
+		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_ADOBEREADER7FOLDER</td><td>1033</td><td>Adobe Reader 7 needs to be installed for this installation to continue.</td><td>0</td><td/><td>1529218827</td></row>
+		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_ADOBEREADER8FOLDER</td><td>1033</td><td>Adobe Reader 8 needs to be installed for this installation to continue.</td><td>0</td><td/><td>1529218827</td></row>
+		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_ADOBEREADER9FOLDER</td><td>1033</td><td>Adobe Reader 9 needs to be installed for this installation to continue.</td><td>0</td><td/><td>1529218827</td></row>
+		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_ADOBEREADERDCFOLDER</td><td>1033</td><td>Adobe Reader DC needs to be installed for this installation to continue.</td><td>0</td><td/><td>1529218827</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_COLOR</td><td>1033</td><td>The color settings of your system are not adequate for running [ProductName].</td><td>0</td><td/><td>-366859085</td></row>
+		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_DOTNETVERSION10</td><td>1033</td><td>Microsoft .NET Framework 1.0 needs to be installed for this installation to continue.</td><td>0</td><td/><td>1529218827</td></row>
+		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_DOTNETVERSION11</td><td>1033</td><td>Microsoft .NET Framework 1.1 needs to be installed for this installation to continue.</td><td>0</td><td/><td>1529218827</td></row>
+		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_DOTNETVERSION20</td><td>1033</td><td>Microsoft .NET Framework 2.0 needs to be installed for this installation to continue.</td><td>0</td><td/><td>1529218827</td></row>
+		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_DOTNETVERSION20SP1</td><td>1033</td><td>Microsoft .NET Framework 2.0 SP1 or greater needs to be installed for this installation to continue.</td><td>0</td><td/><td>1529218827</td></row>
+		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_DOTNETVERSION30</td><td>1033</td><td>Microsoft .NET Framework 3.0 needs to be installed for this installation to continue.</td><td>0</td><td/><td>1529218827</td></row>
+		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_DOTNETVERSION30SP1</td><td>1033</td><td>Microsoft .NET Framework 3.0 SP1 or greater needs to be installed for this installation to continue.</td><td>0</td><td/><td>1529218827</td></row>
+		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_DOTNETVERSION35</td><td>1033</td><td>Microsoft .NET Framework 3.5 needs to be installed for this installation to continue.</td><td>0</td><td/><td>1529218827</td></row>
+		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_DOTNETVERSION35SP1</td><td>1033</td><td>Microsoft .NET Framework 3.5 SP1 needs to be installed for this installation to continue.</td><td>0</td><td/><td>1529218827</td></row>
+		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_DOTNETVERSION40CLIENT</td><td>1033</td><td>Microsoft .NET Framework 4.0 Client Package or greater needs to be installed for this installation to continue.</td><td>0</td><td/><td>1529218827</td></row>
+		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_DOTNETVERSION40FULL</td><td>1033</td><td>Microsoft .NET Framework 4.0 Full package or greater needs to be installed for this installation to continue.</td><td>0</td><td/><td>1529218827</td></row>
+		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_DOTNETVERSION451FULL</td><td>1033</td><td>Microsoft .NET Framework 4.5.1 Full package or greater needs to be installed for this installation to continue.</td><td>0</td><td/><td>1529218827</td></row>
+		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_DOTNETVERSION452FULL</td><td>1033</td><td>Microsoft .NET Framework 4.5.2 Full package or greater needs to be installed for this installation to continue.</td><td>0</td><td/><td>1529218827</td></row>
+		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_DOTNETVERSION45FULL</td><td>1033</td><td>Microsoft .NET Framework 4.5 Full package or greater needs to be installed for this installation to continue.</td><td>0</td><td/><td>1529218827</td></row>
+		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_DOTNETVERSION461FULL</td><td>1033</td><td>Microsoft .NET Framework 4.6.1 Full package or greater needs to be installed for this installation to continue.</td><td>0</td><td/><td>1529218827</td></row>
+		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_DOTNETVERSION46FULL</td><td>1033</td><td>Microsoft .NET Framework 4.6 Full package or greater needs to be installed for this installation to continue.</td><td>0</td><td/><td>1529218827</td></row>
+		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_IE10FOUND</td><td>1033</td><td>Internet Explorer 10 or greater needs to be installed for this installation to continue.</td><td>0</td><td/><td>1529218827</td></row>
+		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_IE11FOUND</td><td>1033</td><td>Internet Explorer 11 or greater needs to be installed for this installation to continue.</td><td>0</td><td/><td>1529218827</td></row>
+		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_IE5FOUND</td><td>1033</td><td>Internet Explorer 5 or greater needs to be installed for this installation to continue.</td><td>0</td><td/><td>1529218827</td></row>
+		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_IE6FOUND</td><td>1033</td><td>Internet Explorer 6 or greater needs to be installed for this installation to continue.</td><td>0</td><td/><td>1529218827</td></row>
+		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_IE7FOUND</td><td>1033</td><td>Internet Explorer 7 or greater needs to be installed for this installation to continue.</td><td>0</td><td/><td>1529218827</td></row>
+		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_IE8FOUND</td><td>1033</td><td>Internet Explorer 8 or greater needs to be installed for this installation to continue.</td><td>0</td><td/><td>1529218827</td></row>
+		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_IE9FOUND</td><td>1033</td><td>Internet Explorer 9 or greater needs to be installed for this installation to continue.</td><td>0</td><td/><td>1529218827</td></row>
+		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_MDAC27FOUND</td><td>1033</td><td>MDAC 2.7 needs to be installed for this installation to continue.</td><td>0</td><td/><td>1529218827</td></row>
+		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_MDACFOUND</td><td>1033</td><td>MDAC 2.6 SP2 needs to be installed for this installation to continue.</td><td>0</td><td/><td>1529218827</td></row>
+		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_MSOFFICE2003</td><td>1033</td><td>Microsoft Office 2003 or greater needs to be installed for this installation to continue.</td><td>0</td><td/><td>1529218827</td></row>
+		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_MSOFFICE2007</td><td>1033</td><td>Microsoft Office 2007 or greater needs to be installed for this installation to continue.</td><td>0</td><td/><td>1529218827</td></row>
+		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_MSOFFICE2010</td><td>1033</td><td>Microsoft Office 2010 or greater needs to be installed for this installation to continue.</td><td>0</td><td/><td>1529218827</td></row>
+		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_MSOFFICE2013x64</td><td>1033</td><td>Microsoft Office 2013 or greater needs to be installed for this installation to continue.</td><td>0</td><td/><td>1529218827</td></row>
+		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_MSOFFICE2013x86</td><td>1033</td><td>Microsoft Office 2013 or greater needs to be installed for this installation to continue.</td><td>0</td><td/><td>1529218827</td></row>
+		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_MSOFFICE2016</td><td>1033</td><td>Microsoft Office 2016 Click-to-Run or greater needs to be installed for this installation to continue.</td><td>0</td><td/><td>1529218827</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_OS</td><td>1033</td><td>The operating system is not adequate for running [ProductName].</td><td>0</td><td/><td>-366859085</td></row>
+		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_POWERSHELLVERSION</td><td>1033</td><td>Windows PowerShell needs to be installed for this installation to continue.</td><td>0</td><td/><td>1529218827</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_PROCESSOR</td><td>1033</td><td>The processor is not adequate for running [ProductName].</td><td>0</td><td/><td>-366859085</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_RAM</td><td>1033</td><td>The amount of RAM is not adequate for running [ProductName].</td><td>0</td><td/><td>-366859085</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_SCREEN</td><td>1033</td><td>The screen resolution is not adequate for running [ProductName].</td><td>0</td><td/><td>-366859085</td></row>
+		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_SQLEXP2008SP1FOUND</td><td>1033</td><td>SQL Server 2008 Express SP1 needs to be installed for this installation to continue.</td><td>0</td><td/><td>1529218827</td></row>
 		<row><td>IDPROP_SETUPTYPE_COMPACT</td><td>1033</td><td>Compact</td><td>0</td><td/><td>-366859085</td></row>
 		<row><td>IDPROP_SETUPTYPE_COMPACT_DESC</td><td>1033</td><td>Compact Description</td><td>0</td><td/><td>-366859085</td></row>
 		<row><td>IDPROP_SETUPTYPE_COMPLETE</td><td>1033</td><td>Complete</td><td>0</td><td/><td>-366859085</td></row>
@@ -3546,7 +3531,9 @@
 		<row><td>IDS_SETUPEXE_EXPIRE_MSG</td><td>1033</td><td>This setup works until %s. The setup will now exit.</td><td>0</td><td/><td>-366859085</td></row>
 		<row><td>IDS_SETUPEXE_LAUNCH_COND_E</td><td>1033</td><td>This setup was built with an evaluation version of InstallShield and can only be launched from setup.exe.</td><td>0</td><td/><td>-366859085</td></row>
 		<row><td>IDS_SHORTCUT_DISPLAY_NAME1</td><td>1033</td><td>Azure Media Services Demo Interface</td><td>0</td><td/><td>983720875</td></row>
-		<row><td>IDS_SHORTCUT_DISPLAY_NAME10</td><td>1033</td><td>Azure Media Services Explorer</td><td>0</td><td/><td>-744310937</td></row>
+		<row><td>IDS_SHORTCUT_DISPLAY_NAME10</td><td>1033</td><td>AZUREM~1|Azure Media Services Explorer for v3</td><td>0</td><td/><td>2108078419</td></row>
+		<row><td>IDS_SHORTCUT_DISPLAY_NAME11</td><td>1033</td><td>Launch |Built</td><td>0</td><td/><td>2108070707</td></row>
+		<row><td>IDS_SHORTCUT_DISPLAY_NAME12</td><td>1033</td><td>AZUREM~1|Azure Media Services Explorer for v3</td><td>0</td><td/><td>2108052307</td></row>
 		<row><td>IDS_SHORTCUT_DISPLAY_NAME2</td><td>1033</td><td>LAUNCH~1.EXE|Launch KayakDemoInterface.vshost.exe</td><td>0</td><td/><td>-366838349</td></row>
 		<row><td>IDS_SHORTCUT_DISPLAY_NAME3</td><td>1033</td><td>Azure Media Services Demo Interface</td><td>0</td><td/><td>983718384</td></row>
 		<row><td>IDS_SHORTCUT_DISPLAY_NAME4</td><td>1033</td><td>Launch |Built</td><td>0</td><td/><td>983727793</td></row>
@@ -3662,6 +3649,10 @@
 		<row><td>IDS__IsAdminInstallPoint_NetworkLocationFormatted</td><td>1033</td><td>{&amp;MSSansBold8}Network Location</td><td>0</td><td/><td>-366859085</td></row>
 		<row><td>IDS__IsAdminInstallPoint_SpecifyNetworkLocation</td><td>1033</td><td>Specify a network location for the server image of the product.</td><td>0</td><td/><td>-366859085</td></row>
 		<row><td>IDS__IsBrowseButton</td><td>1033</td><td>&amp;Browse...</td><td>0</td><td/><td>-366859085</td></row>
+		<row><td>IDS__IsBrowseCertficateDlg_CertificatePath</td><td>1033</td><td>&amp;SSL Certificate Path:</td><td>0</td><td/><td>1529218827</td></row>
+		<row><td>IDS__IsBrowseCertficateDlg_Description</td><td>1033</td><td>SSL Certificate settings.</td><td>0</td><td/><td>1529218827</td></row>
+		<row><td>IDS__IsBrowseCertficateDlg_Password</td><td>1033</td><td>SSL Certificate &amp;Password:</td><td>0</td><td/><td>1529218827</td></row>
+		<row><td>IDS__IsBrowseCertficateDlg_Title</td><td>1033</td><td>{&amp;MSSansBold8}Configure SSL for IIS.</td><td>0</td><td/><td>1529218827</td></row>
 		<row><td>IDS__IsBrowseFolderDlg_11</td><td>1033</td><td/><td>0</td><td/><td>-366859085</td></row>
 		<row><td>IDS__IsBrowseFolderDlg_4</td><td>1033</td><td/><td>0</td><td/><td>-366859085</td></row>
 		<row><td>IDS__IsBrowseFolderDlg_8</td><td>1033</td><td/><td>0</td><td/><td>-366859085</td></row>
@@ -3843,17 +3834,18 @@
 		<row><td>IDS__TargetReq_DESC_PROCESSOR</td><td>1033</td><td>The processor is not adequate for running [ProductName].</td><td>0</td><td/><td>-366859085</td></row>
 		<row><td>IDS__TargetReq_DESC_RAM</td><td>1033</td><td>The amount of RAM is not adequate for running [ProductName].</td><td>0</td><td/><td>-366859085</td></row>
 		<row><td>IDS__TargetReq_DESC_RESOLUTION</td><td>1033</td><td>The screen resolution is not adequate for running [ProductName].</td><td>0</td><td/><td>-366859085</td></row>
-		<row><td>ID_STRING1</td><td>1033</td><td>http://azure.microsoft.com</td><td>0</td><td/><td>421801067</td></row>
-		<row><td>ID_STRING2</td><td>1033</td><td>Microsoft Corporation</td><td>0</td><td/><td>-526101295</td></row>
+		<row><td>ID_STRING1</td><td>1033</td><td>http://www.MicrosoftCorporation.com</td><td>0</td><td/><td>-1272496629</td></row>
+		<row><td>ID_STRING2</td><td>1033</td><td>Microsoft Corporation</td><td>0</td><td/><td>-1272496629</td></row>
 		<row><td>ID_STRING3</td><td>1033</td><td>http://aka.ms/amse</td><td>0</td><td/><td>-341645173</td></row>
 		<row><td>ID_STRING4</td><td>1033</td><td>Azure Media Services Explorer</td><td>0</td><td/><td>-1549656207</td></row>
+		<row><td>ID_STRING5</td><td>1033</td><td>https://github.com/Azure/Azure-Media-Services-Explorer/issues</td><td>0</td><td/><td>-1272496629</td></row>
 		<row><td>IIDS_UITEXT_FeatureUninstalled</td><td>1033</td><td>This feature will remain uninstalled.</td><td>0</td><td/><td>-366859085</td></row>
 	</table>
 
 	<table name="ISSwidtagProperty">
 		<col key="yes" def="s72">Name</col>
 		<col def="s0">Value</col>
-		<row><td>UniqueId</td><td>80879242-C088-469B-A16B-2A9B23436A25</td></row>
+		<row><td>UniqueId</td><td>8C5762B7-C11A-4D6C-BA9E-6A2CF6602A81</td></row>
 	</table>
 
 	<table name="ISTargetImage">
@@ -3914,6 +3906,15 @@
 		<col def="s255">Value</col>
 	</table>
 
+	<table name="ISVisualElement">
+		<col key="yes" def="s72">File_</col>
+		<col def="s72">BackgroundColor</col>
+		<col def="s72">ForegroundText</col>
+		<col def="s72">ShowNameOn150x150</col>
+		<col def="S255">Square150x150Logo</col>
+		<col def="S255">Square70x70Logo</col>
+	</table>
+
 	<table name="ISWSEWrap">
 		<col key="yes" def="s72">Action_</col>
 		<col key="yes" def="s72">Name</col>
@@ -3962,6 +3963,7 @@
 		<col def="I2">ISIconIndex</col>
 		<row><td>ARPPRODUCTICON.exe</td><td/><td>&lt;VSSolutionFolder&gt;\AMSExplorer\BitmapsPNG\Azure Explorer_ico.ico</td><td>0</td></row>
 		<row><td>KayakDemoInterface_B01AA13565D54E19B2202AF22AAED385.exe</td><td/><td>&lt;ISProductFolder&gt;\redist\Language Independent\OS Independent\GenericExe.ico</td><td>0</td></row>
+		<row><td>_Built1_8E8F95F0734A4955BB693AA0367A822F.exe</td><td/><td>&lt;VSSolutionFolder&gt;\AMSExplorer\BitmapsPNG\Azure Explorer_ico.ico</td><td>0</td></row>
 		<row><td>_Built_7CBECF5DD63B4DAC88869F3398803345.exe</td><td/><td>C:\Users\xpouyat\Desktop\cloud.fog.ico</td><td>0</td></row>
 		<row><td>_Built_88A92BF5B48E49FE8E4BD1F83B583DF5.exe</td><td/><td>C:\Users\xpouyat\Desktop\cloud.fog.ico</td><td>0</td></row>
 	</table>
@@ -4053,6 +4055,7 @@
 		<row><td>SelfRegModules</td><td/><td>5600</td><td>SelfRegModules</td><td/></row>
 		<row><td>SelfUnregModules</td><td/><td>2200</td><td>SelfUnregModules</td><td/></row>
 		<row><td>SetARPINSTALLLOCATION</td><td/><td>1100</td><td>SetARPINSTALLLOCATION</td><td/></row>
+		<row><td>SetARPReadme</td><td/><td>1001</td><td/><td/></row>
 		<row><td>SetAllUsersProfileNT</td><td>VersionNT = 400</td><td>970</td><td/><td/></row>
 		<row><td>SetODBCFolders</td><td/><td>1200</td><td>SetODBCFolders</td><td/></row>
 		<row><td>StartServices</td><td>VersionNT</td><td>5900</td><td>StartServices</td><td/></row>
@@ -4097,7 +4100,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>ISTheme</td><td>InstallShield Blue.theme</td></row>
 		<row><td>ISUSLock</td><td>{94055368-1BA8-484D-94B3-4FED11E44A97}</td></row>
 		<row><td>ISUSSignature</td><td>{0E4FDF20-D1F5-4528-B0F9-E06E51155DB1}</td></row>
-		<row><td>ISVisitedViews</td><td>viewAssistant,viewRelease,viewDesignPatches,viewISToday,viewProject,viewUpgradePaths,viewUpdateService,viewSystemSearch,viewSupportFiles,viewRealSetupDesign,viewAppV,viewCustomActions,viewInstallScriptStd,viewAppFiles,viewSetupTypes,viewSetupDesign,viewUI,viewObjects,viewShortcuts</td></row>
+		<row><td>ISVisitedViews</td><td>viewAssistant,viewRelease,viewDesignPatches,viewISToday,viewProject,viewUpgradePaths,viewUpdateService,viewSystemSearch,viewSupportFiles,viewRealSetupDesign,viewAppV,viewCustomActions,viewInstallScriptStd,viewAppFiles,viewSetupTypes,viewSetupDesign,viewUI,viewObjects,viewShortcuts,viewTextMessages,viewLearnMore,viewIniFiles</td></row>
 		<row><td>Limited</td><td>1</td></row>
 		<row><td>LockPermissionMode</td><td>1</td></row>
 		<row><td>MsiExecCmdLineOptions</td><td/></row>
@@ -4109,7 +4112,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>SaveAsSchema</td><td/></row>
 		<row><td>SccEnabled</td><td>0</td></row>
 		<row><td>SccPath</td><td/></row>
-		<row><td>SchemaVersion</td><td>776</td></row>
+		<row><td>SchemaVersion</td><td>778</td></row>
 		<row><td>Type</td><td>MSIE</td></row>
 	</table>
 
@@ -4136,6 +4139,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>PatchWelcome</td><td>Installed And PATCH And Not IS_MAJOR_UPGRADE</td><td>1205</td><td>Patch Panel</td><td/></row>
 		<row><td>RMCCPSearch</td><td>Not CCP_SUCCESS And CCP_TEST</td><td>600</td><td>RMCCPSearch</td><td/></row>
 		<row><td>ResolveSource</td><td>Not Installed</td><td>990</td><td>ResolveSource</td><td/></row>
+		<row><td>SetARPReadme</td><td/><td>1001</td><td/><td/></row>
 		<row><td>SetAllUsersProfileNT</td><td>VersionNT = 400</td><td>970</td><td/><td/></row>
 		<row><td>SetupCompleteError</td><td/><td>-3</td><td>SetupCompleteError</td><td/></row>
 		<row><td>SetupCompleteSuccess</td><td/><td>-1</td><td>SetupCompleteSuccess</td><td/></row>
@@ -4404,8 +4408,10 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<col def="L0">Value</col>
 		<col def="S255">ISComments</col>
 		<row><td>ALLUSERS</td><td>1</td><td/></row>
+		<row><td>ARPHELPLINK</td><td>##ID_STRING5##</td><td/></row>
 		<row><td>ARPINSTALLLOCATION</td><td/><td/></row>
 		<row><td>ARPPRODUCTICON</td><td>ARPPRODUCTICON.exe</td><td/></row>
+		<row><td>ARPREADME</td><td>https://github.com/Azure/Azure-Media-Services-Explorer/blob/master/README.md</td><td/></row>
 		<row><td>ARPSIZE</td><td/><td/></row>
 		<row><td>ARPURLINFOABOUT</td><td>##ID_STRING1##</td><td/></row>
 		<row><td>ARPURLUPDATEINFO</td><td>##ID_STRING3##</td><td/></row>
@@ -4446,7 +4452,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>LAUNCHPROGRAM</td><td>1</td><td/></row>
 		<row><td>LAUNCHPROGRAMCOMPCODE</td><td>{58C9A3B9-57A2-4C4E-8314-9EE6E699E4B7}</td><td/></row>
 		<row><td>LAUNCHPROGRAMFILEKEY</td><td>amsexplorer.primary_output</td><td/></row>
-		<row><td>MSIFASTINSTALL</td><td>0</td><td/></row>
+		<row><td>MSIFASTINSTALL</td><td>1</td><td/></row>
 		<row><td>Manufacturer</td><td>##COMPANY_NAME##</td><td/></row>
 		<row><td>PIDKEY</td><td/><td/></row>
 		<row><td>PIDTemplate</td><td>12345&lt;###-%%%%%%%&gt;@@@@@</td><td/></row>
@@ -4474,9 +4480,9 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>PROGMSG_IIS_ROLLBACKVROOTS</td><td>##IDS_PROGMSG_IIS_ROLLBACKVROOTS##</td><td/></row>
 		<row><td>PROGMSG_IIS_ROLLBACKWEBSERVICEEXTENSIONS</td><td>##IDS_PROGMSG_IIS_ROLLBACKWEBSERVICEEXTENSIONS##</td><td/></row>
 		<row><td>PROGRAMFILETOLAUNCHATEND</td><td>[INSTALLDIR]AMSExplorer.Primary output</td><td/></row>
-		<row><td>ProductCode</td><td>{908578A4-D0E4-4F9F-B80A-2D967276665A}</td><td/></row>
-		<row><td>ProductName</td><td>Azure Media Services Explorer</td><td/></row>
-		<row><td>ProductVersion</td><td>4.0.1.0</td><td/></row>
+		<row><td>ProductCode</td><td>{C4B62B8C-E944-46D9-85B9-B633EFA28DD5}</td><td/></row>
+		<row><td>ProductName</td><td>Azure Media Services Explorer for v3</td><td/></row>
+		<row><td>ProductVersion</td><td>5.0.12.0</td><td/></row>
 		<row><td>ProgressType0</td><td>install</td><td/></row>
 		<row><td>ProgressType1</td><td>Installing</td><td/></row>
 		<row><td>ProgressType2</td><td>installed</td><td/></row>
@@ -4493,7 +4499,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>SecureCustomProperties</td><td>ISFOUNDNEWERPRODUCTVERSION;USERNAME;COMPANYNAME;ISX_SERIALNUM;SUPPORTDIR;ISACTIONPROP1</td><td/></row>
 		<row><td>SelectedSetupType</td><td>##IDS__DisplayName_Typical##</td><td/></row>
 		<row><td>SetupType</td><td>Typical</td><td/></row>
-		<row><td>UpgradeCode</td><td>{A5BBF44B-328F-4634-A473-DDE290B53475}</td><td/></row>
+		<row><td>UpgradeCode</td><td>{16FA33A7-9F0D-4022-91D5-6161725D5A09}</td><td/></row>
 		<row><td>_IsMaintenance</td><td>Change</td><td/></row>
 		<row><td>_IsSetupTypeMin</td><td>Typical</td><td/></row>
 	</table>
@@ -4553,7 +4559,8 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<col def="L255">FileName</col>
 		<col def="s72">DirProperty</col>
 		<col def="i2">InstallMode</col>
-		<row><td>_Built</td><td>AMSExplorer.Primary_output</td><td/><td>azurem_1_azure_media_services_explorer</td><td>2</td></row>
+		<row><td>FileKey1</td><td>AMSExplorer.Primary_output</td><td/><td>azurem_1_azure_media_services_explorer_for_v3</td><td>2</td></row>
+		<row><td>_Built1</td><td>AMSExplorer.Primary_output</td><td/><td>azurem_1_azure_media_services_explorer_for_v3</td><td>2</td></row>
 	</table>
 
 	<table name="RemoveIniFile">
@@ -4639,7 +4646,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<col def="S255">ISComments</col>
 		<col def="S255">ISShortcutName</col>
 		<col def="I4">ISAttributes</col>
-		<row><td>_Built</td><td>azurem_1_azure_media_services_explorer</td><td>##IDS_SHORTCUT_DISPLAY_NAME10##</td><td>AMSExplorer.Primary_output</td><td>AlwaysInstall</td><td/><td/><td/><td/><td/><td>1</td><td/><td/><td/><td/><td/><td/><td/><td/></row>
+		<row><td>_Built1</td><td>azurem_1_azure_media_services_explorer_for_v3</td><td>##IDS_SHORTCUT_DISPLAY_NAME12##</td><td>AMSExplorer.Primary_output</td><td>AlwaysInstall</td><td/><td/><td/><td>_Built1_8E8F95F0734A4955BB693AA0367A822F.exe</td><td>0</td><td>1</td><td/><td/><td/><td/><td/><td/><td/><td/></row>
 	</table>
 
 	<table name="Signature">
@@ -4762,7 +4769,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<col def="s72">ActionProperty</col>
 		<col def="S72">ISDisplayName</col>
 		<row><td>{00000000-0000-0000-0000-000000000000}</td><td>***ALL_VERSIONS***</td><td></td><td></td><td>2</td><td/><td>ISFOUNDNEWERPRODUCTVERSION</td><td>ISPreventDowngrade</td></row>
-		<row><td>{A5BBF44B-328F-4634-A473-DDE290B53475}</td><td></td><td></td><td></td><td>0</td><td/><td>ISACTIONPROP1</td><td>NewUpgradeEntry</td></row>
+		<row><td>{16FA33A7-9F0D-4022-91D5-6161725D5A09}</td><td></td><td></td><td></td><td>0</td><td/><td>ISACTIONPROP1</td><td>NewUpgradeEntry</td></row>
 	</table>
 
 	<table name="Verb">
@@ -4815,7 +4822,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>AppId</td><td>RunAsInteractiveUser</td><td>Y</td><td>0</td><td>1</td><td/><td/><td/><td/><td/></row>
 		<row><td>AppId</td><td>ServiceParameters</td><td>Y</td><td/><td/><td/><td/><td>Text</td><td/><td/></row>
 		<row><td>AppSearch</td><td>Property</td><td>N</td><td/><td/><td/><td/><td>Identifier</td><td/><td>The property associated with a Signature</td></row>
-		<row><td>AppSearch</td><td>Signature_</td><td>N</td><td/><td/><td>ISXmlLocator;Signature</td><td>1</td><td>Identifier</td><td/><td>The Signature_ represents a unique file signature and is also the foreign key in the Signature,  RegLocator, IniLocator, CompLocator and the DrLocator tables.</td></row>
+		<row><td>AppSearch</td><td>Signature_</td><td>N</td><td/><td/><td>ISXmlLocator;Signature;RegLocator;IniLocator;DrLocator;CompLocator</td><td>1</td><td>Identifier</td><td/><td>The Signature_ represents a unique file signature and is also the foreign key in the Signature,  RegLocator, IniLocator, CompLocator and the DrLocator tables.</td></row>
 		<row><td>BBControl</td><td>Attributes</td><td>Y</td><td>0</td><td>2147483647</td><td/><td/><td/><td/><td>A 32-bit word that specifies the attribute flags to be applied to this control.</td></row>
 		<row><td>BBControl</td><td>BBControl</td><td>N</td><td/><td/><td/><td/><td>Identifier</td><td/><td>Name of the control. This name must be unique within a billboard, but can repeat on different billboard.</td></row>
 		<row><td>BBControl</td><td>Billboard_</td><td>N</td><td/><td/><td>Billboard</td><td>1</td><td>Identifier</td><td/><td>External key to the Billboard table, name of the billboard.</td></row>
@@ -5254,7 +5261,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>ISProductConfigurationInstance</td><td>Property</td><td>N</td><td/><td/><td/><td/><td>Text</td><td/><td>Product Congiuration property name</td></row>
 		<row><td>ISProductConfigurationInstance</td><td>Value</td><td>N</td><td/><td/><td/><td/><td>Text</td><td/><td>String value for property.</td></row>
 		<row><td>ISProductConfigurationProperty</td><td>ISProductConfiguration_</td><td>N</td><td/><td/><td>ISProductConfiguration</td><td>1</td><td>Text</td><td/><td>Foreign key into the ISProductConfiguration table.</td></row>
-		<row><td>ISProductConfigurationProperty</td><td>Property</td><td>N</td><td/><td/><td>Property</td><td>1</td><td>Text</td><td/><td>Product Congiuration property name</td></row>
+		<row><td>ISProductConfigurationProperty</td><td>Property</td><td>N</td><td/><td/><td/><td/><td>Text</td><td/><td>Product Congiuration property name</td></row>
 		<row><td>ISProductConfigurationProperty</td><td>Value</td><td>Y</td><td/><td/><td/><td/><td>Text</td><td/><td>String value for property. Never null or empty.</td></row>
 		<row><td>ISRelease</td><td>Attributes</td><td>N</td><td/><td/><td/><td/><td/><td/><td>Bitfield holding boolean values for various release attributes.</td></row>
 		<row><td>ISRelease</td><td>BuildLocation</td><td>N</td><td/><td/><td/><td/><td>Text</td><td/><td>Build location.</td></row>
@@ -5483,6 +5490,12 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>ISVirtualShortcut</td><td>Name</td><td>N</td><td/><td/><td/><td/><td>Identifier</td><td/><td>Property name</td></row>
 		<row><td>ISVirtualShortcut</td><td>Shortcut_</td><td>N</td><td/><td/><td>Shortcut</td><td>1</td><td>Identifier</td><td/><td>Foreign key into Shortcut table.</td></row>
 		<row><td>ISVirtualShortcut</td><td>Value</td><td>N</td><td/><td/><td/><td/><td/><td/><td>Property value</td></row>
+		<row><td>ISVisualElement</td><td>BackgroundColor</td><td>N</td><td/><td/><td/><td/><td>Text</td><td/><td>Background Color for the tile</td></row>
+		<row><td>ISVisualElement</td><td>File_</td><td>N</td><td/><td/><td>File</td><td>1</td><td>Identifier</td><td/><td>Foreign key into File table.</td></row>
+		<row><td>ISVisualElement</td><td>ForegroundText</td><td>N</td><td/><td/><td/><td/><td>Text</td><td>light;dark</td><td>Text color for the tile</td></row>
+		<row><td>ISVisualElement</td><td>ShowNameOn150x150</td><td>N</td><td/><td/><td/><td/><td>Text</td><td>on;off</td><td>Whether to show the name on a medium-sized square title</td></row>
+		<row><td>ISVisualElement</td><td>Square150x150Logo</td><td>Y</td><td/><td/><td/><td/><td>Text</td><td/><td>Optional base name for image to show on a medium-sized square tile</td></row>
+		<row><td>ISVisualElement</td><td>Square70x70Logo</td><td>Y</td><td/><td/><td/><td/><td>Text</td><td/><td>Optional base name for image to show on a small-sized square tile</td></row>
 		<row><td>ISWSEWrap</td><td>Action_</td><td>N</td><td/><td/><td>CustomAction</td><td>1</td><td>Identifier</td><td/><td>Foreign key into CustomAction table</td></row>
 		<row><td>ISWSEWrap</td><td>Name</td><td>N</td><td/><td/><td/><td/><td>Text</td><td/><td>Property associated with this Action</td></row>
 		<row><td>ISWSEWrap</td><td>Value</td><td>Y</td><td/><td/><td/><td/><td>Text</td><td/><td>Value associated with this Property</td></row>
@@ -5809,7 +5822,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>UIText</td><td>Text</td><td>Y</td><td/><td/><td/><td/><td>Text</td><td/><td>The localized version of the string.</td></row>
 		<row><td>Upgrade</td><td>ActionProperty</td><td>N</td><td/><td/><td/><td/><td>UpperCase</td><td/><td>The property to set when a product in this set is found.</td></row>
 		<row><td>Upgrade</td><td>Attributes</td><td>N</td><td>0</td><td>2147483647</td><td/><td/><td/><td/><td>The attributes of this product set.</td></row>
-		<row><td>Upgrade</td><td>ISDisplayName</td><td>Y</td><td/><td/><td>ISUpgradeMsiItem</td><td>1</td><td/><td/><td/></row>
+		<row><td>Upgrade</td><td>ISDisplayName</td><td>Y</td><td/><td/><td/><td/><td/><td/><td/></row>
 		<row><td>Upgrade</td><td>Language</td><td>Y</td><td/><td/><td/><td/><td>Language</td><td/><td>A comma-separated list of languages for either products in this set or products not in this set.</td></row>
 		<row><td>Upgrade</td><td>Remove</td><td>Y</td><td/><td/><td/><td/><td>Formatted</td><td/><td>The list of features to remove when uninstalling a product from this set.  The default is "ALL".</td></row>
 		<row><td>Upgrade</td><td>UpgradeCode</td><td>N</td><td/><td/><td/><td/><td>Guid</td><td/><td>The UpgradeCode GUID belonging to the products in this set.</td></row>

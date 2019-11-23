@@ -166,7 +166,7 @@
     <value>Bottom, Right</value>
   </data>
   <data name="buttonUpdateClose.Location" type="System.Drawing.Point, System.Drawing">
-    <value>580, 15</value>
+    <value>589, 15</value>
   </data>
   <data name="buttonUpdateClose.Size" type="System.Drawing.Size, System.Drawing">
     <value>185, 27</value>
@@ -252,33 +252,6 @@
   <data name="&gt;&gt;moreinfoSE.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="labelInfoMigration.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="labelInfoMigration.Location" type="System.Drawing.Point, System.Drawing">
-    <value>222, 19</value>
-  </data>
-  <data name="labelInfoMigration.Size" type="System.Drawing.Size, System.Drawing">
-    <value>173, 46</value>
-  </data>
-  <data name="labelInfoMigration.TabIndex" type="System.Int32, mscorlib">
-    <value>71</value>
-  </data>
-  <data name="labelInfoMigration.Text" xml:space="preserve">
-    <value>To enable Standard, switch to classic, stop and migrate the streaming endpoint</value>
-  </data>
-  <data name="&gt;&gt;labelInfoMigration.Name" xml:space="preserve">
-    <value>labelInfoMigration</value>
-  </data>
-  <data name="&gt;&gt;labelInfoMigration.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;labelInfoMigration.Parent" xml:space="preserve">
-    <value>groupBoxTypeScale</value>
-  </data>
-  <data name="&gt;&gt;labelInfoMigration.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
   <data name="radioButtonPremium.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -314,7 +287,7 @@
     <value>groupBoxTypeScale</value>
   </data>
   <data name="&gt;&gt;radioButtonPremium.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>0</value>
   </data>
   <data name="radioButtonStandard.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -347,37 +320,7 @@
     <value>groupBoxTypeScale</value>
   </data>
   <data name="&gt;&gt;radioButtonStandard.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="radioButtonClassic.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="radioButtonClassic.Location" type="System.Drawing.Point, System.Drawing">
-    <value>18, 23</value>
-  </data>
-  <data name="radioButtonClassic.Size" type="System.Drawing.Size, System.Drawing">
-    <value>61, 19</value>
-  </data>
-  <data name="radioButtonClassic.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="radioButtonClassic.Text" xml:space="preserve">
-    <value>Classic</value>
-  </data>
-  <data name="radioButtonClassic.ToolTip" xml:space="preserve">
-    <value>No dynamic packaging and encryption.</value>
-  </data>
-  <data name="&gt;&gt;radioButtonClassic.Name" xml:space="preserve">
-    <value>radioButtonClassic</value>
-  </data>
-  <data name="&gt;&gt;radioButtonClassic.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;radioButtonClassic.Parent" xml:space="preserve">
-    <value>groupBoxTypeScale</value>
-  </data>
-  <data name="&gt;&gt;radioButtonClassic.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>1</value>
   </data>
   <data name="numericUpDownRU.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
@@ -404,7 +347,7 @@
     <value>groupBoxTypeScale</value>
   </data>
   <data name="&gt;&gt;numericUpDownRU.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>2</value>
   </data>
   <data name="groupBoxTypeScale.Location" type="System.Drawing.Point, System.Drawing">
     <value>7, 21</value>
@@ -964,7 +907,7 @@ As a consequence, Allowed IP addresses, Akamai authentication and custom host na
     <value>433, 80</value>
   </data>
   <data name="lblMaxCacheAge.Size" type="System.Drawing.Size, System.Drawing">
-    <value>111, 15</value>
+    <value>112, 15</value>
   </data>
   <data name="lblMaxCacheAge.TabIndex" type="System.Int32, mscorlib">
     <value>8</value>
@@ -1243,7 +1186,7 @@ As a consequence, Allowed IP addresses, Akamai authentication and custom host na
     <value>$this</value>
   </data>
   <data name="&gt;&gt;tabControl1.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>3</value>
   </data>
   <data name="labelSEName.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
@@ -1273,13 +1216,13 @@ As a consequence, Allowed IP addresses, Akamai authentication and custom host na
     <value>$this</value>
   </data>
   <data name="&gt;&gt;labelSEName.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>2</value>
   </data>
   <data name="buttonClose.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
   </data>
   <data name="buttonClose.Location" type="System.Drawing.Point, System.Drawing">
-    <value>773, 15</value>
+    <value>782, 15</value>
   </data>
   <data name="buttonClose.Size" type="System.Drawing.Size, System.Drawing">
     <value>115, 27</value>
@@ -1302,14 +1245,14 @@ As a consequence, Allowed IP addresses, Akamai authentication and custom host na
   <data name="&gt;&gt;buttonClose.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="panel1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left, Right</value>
+  <data name="panel1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Bottom</value>
   </data>
   <data name="panel1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>-3, 592</value>
+    <value>0, 592</value>
   </data>
   <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>906, 55</value>
+    <value>915, 55</value>
   </data>
   <data name="panel1.TabIndex" type="System.Int32, mscorlib">
     <value>64</value>
@@ -1324,30 +1267,6 @@ As a consequence, Allowed IP addresses, Akamai authentication and custom host na
     <value>$this</value>
   </data>
   <data name="&gt;&gt;panel1.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="panel2.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Right</value>
-  </data>
-  <data name="panel2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>894, 591</value>
-  </data>
-  <data name="panel2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>26, 43</value>
-  </data>
-  <data name="panel2.TabIndex" type="System.Int32, mscorlib">
-    <value>77</value>
-  </data>
-  <data name="&gt;&gt;panel2.Name" xml:space="preserve">
-    <value>panel2</value>
-  </data>
-  <data name="&gt;&gt;panel2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;panel2.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;panel2.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
   <metadata name="errorProvider1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
@@ -1357,7 +1276,7 @@ As a consequence, Allowed IP addresses, Akamai authentication and custom host na
     <value>True</value>
   </metadata>
   <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>7, 15</value>
+    <value>96, 96</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
     <value>915, 647</value>

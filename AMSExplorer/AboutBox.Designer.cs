@@ -29,14 +29,14 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AboutBox));
             this.tableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
-            this.linkLabelWebSite = new System.Windows.Forms.LinkLabel();
-            this.linkLabelContact = new System.Windows.Forms.LinkLabel();
             this.labelCompanyName = new System.Windows.Forms.Label();
             this.logoPictureBox = new System.Windows.Forms.PictureBox();
             this.labelProductName = new System.Windows.Forms.Label();
             this.labelVersion = new System.Windows.Forms.Label();
             this.labelCopyright = new System.Windows.Forms.Label();
             this.buttonLicTerms = new System.Windows.Forms.Button();
+            this.linkLabelContact = new System.Windows.Forms.LinkLabel();
+            this.linkLabelWebSite = new System.Windows.Forms.LinkLabel();
             this.tableLayoutPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.logoPictureBox)).BeginInit();
             this.SuspendLayout();
@@ -44,31 +44,15 @@
             // tableLayoutPanel
             // 
             resources.ApplyResources(this.tableLayoutPanel, "tableLayoutPanel");
-            this.tableLayoutPanel.Controls.Add(this.linkLabelWebSite, 1, 5);
-            this.tableLayoutPanel.Controls.Add(this.linkLabelContact, 1, 4);
             this.tableLayoutPanel.Controls.Add(this.labelCompanyName, 1, 3);
             this.tableLayoutPanel.Controls.Add(this.logoPictureBox, 0, 0);
             this.tableLayoutPanel.Controls.Add(this.labelProductName, 1, 0);
             this.tableLayoutPanel.Controls.Add(this.labelVersion, 1, 1);
             this.tableLayoutPanel.Controls.Add(this.labelCopyright, 1, 2);
             this.tableLayoutPanel.Controls.Add(this.buttonLicTerms, 1, 6);
+            this.tableLayoutPanel.Controls.Add(this.linkLabelContact, 1, 4);
+            this.tableLayoutPanel.Controls.Add(this.linkLabelWebSite, 1, 5);
             this.tableLayoutPanel.Name = "tableLayoutPanel";
-            // 
-            // linkLabelWebSite
-            // 
-            resources.ApplyResources(this.linkLabelWebSite, "linkLabelWebSite");
-            this.linkLabelWebSite.Name = "linkLabelWebSite";
-            this.linkLabelWebSite.TabStop = true;
-            this.linkLabelWebSite.UseCompatibleTextRendering = true;
-            this.linkLabelWebSite.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelWebSite_LinkClicked);
-            // 
-            // linkLabelContact
-            // 
-            resources.ApplyResources(this.linkLabelContact, "linkLabelContact");
-            this.linkLabelContact.Name = "linkLabelContact";
-            this.linkLabelContact.TabStop = true;
-            this.linkLabelContact.UseCompatibleTextRendering = true;
-            this.linkLabelContact.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelContact_LinkClicked);
             // 
             // labelCompanyName
             // 
@@ -106,10 +90,26 @@
             this.buttonLicTerms.UseVisualStyleBackColor = true;
             this.buttonLicTerms.Click += new System.EventHandler(this.buttonLicTerms_Click);
             // 
+            // linkLabelContact
+            // 
+            resources.ApplyResources(this.linkLabelContact, "linkLabelContact");
+            this.linkLabelContact.Name = "linkLabelContact";
+            this.linkLabelContact.TabStop = true;
+            this.linkLabelContact.UseCompatibleTextRendering = true;
+            this.linkLabelContact.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelContact_LinkClicked);
+            // 
+            // linkLabelWebSite
+            // 
+            resources.ApplyResources(this.linkLabelWebSite, "linkLabelWebSite");
+            this.linkLabelWebSite.Name = "linkLabelWebSite";
+            this.linkLabelWebSite.TabStop = true;
+            this.linkLabelWebSite.UseCompatibleTextRendering = true;
+            this.linkLabelWebSite.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelWebSite_LinkClicked);
+            // 
             // AboutBox
             // 
             resources.ApplyResources(this, "$this");
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.Controls.Add(this.tableLayoutPanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;

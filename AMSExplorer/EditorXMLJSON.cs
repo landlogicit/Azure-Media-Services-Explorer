@@ -1,5 +1,5 @@
 ﻿//----------------------------------------------------------------------------------------------
-//    Copyright 2016 Microsoft Corporation
+//    Copyright 2019 Microsoft Corporation
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
 //    you may not use this file except in compliance with the License.
@@ -15,41 +15,29 @@
 //---------------------------------------------------------------------------------------------
 
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.Diagnostics;
-using Microsoft.WindowsAzure.MediaServices.Client;
-using Newtonsoft.Json.Linq;
-using System.Xml.Linq;
 using System.IO;
 using System.Threading;
+using System.Windows.Forms;
+using System.Xml.Linq;
 
 namespace AMSExplorer
 {
     public partial class EditorXMLJSON : Form
     {
-        string savedConfig;
-        string defaultConfig;
+        private string savedConfig;
+        private readonly string defaultConfig;
 
-        public string TextData
-        {
-            get
-            {
-                return textBoxConfiguration.Text;
-            }
-        }
+        public string TextData => textBoxConfiguration.Text;
 
         public EditorXMLJSON(string title = null, string text = null, bool editMode = false, bool showSamplePremium = false, bool DisplayFormatButton = true, string infoText = null)
         {
             InitializeComponent();
-            this.Icon = Bitmaps.Azure_Explorer_ico;
-            if (title != null) this.Text = title;
+            Icon = Bitmaps.Azure_Explorer_ico;
+            if (title != null)
+            {
+                Text = title;
+            }
+
             textBoxConfiguration.Text = savedConfig = defaultConfig = (text == null ? string.Empty : text);
             if (editMode)
             {
@@ -66,7 +54,7 @@ namespace AMSExplorer
             labelWarningJSON.Text = string.Empty;
             buttonFormat.Visible = DisplayFormatButton;
 
-            if (infoText!=null)
+            if (infoText != null)
             {
                 labelInfoText.Text = infoText;
                 labelInfoText.Visible = true;
@@ -75,7 +63,7 @@ namespace AMSExplorer
 
         public DialogResult Display()
         {
-            DialogResult DR = this.ShowDialog();
+            DialogResult DR = ShowDialog();
             if (DR == DialogResult.OK)
             {
                 savedConfig = textBoxConfiguration.Text;
@@ -120,15 +108,25 @@ namespace AMSExplorer
         {
             textBoxConfiguration.Text = Program.AnalyzeAndIndentXMLJSON(textBoxConfiguration.Text);
         }
+
+        private void EditorXMLJSON_Load(object sender, EventArgs e)
+        {
+            DpiUtils.InitPerMonitorDpi(this);
+        }
+
+        private void EditorXMLJSON_DpiChanged(object sender, DpiChangedEventArgs e)
+        {
+            DpiUtils.UpdatedSizeFontAfterDPIChange(textBoxConfiguration, e);
+        }
     }
 
-    class ButtonPremiumXMLData : Button
+    internal class ButtonPremiumXMLData : Button
     {
-        EditorXMLJSON myPremiumXML;
+        private EditorXMLJSON myPremiumXML;
 
         public ButtonPremiumXMLData()
         {
-            this.Click += ButtonXML_Click;
+            Click += ButtonXML_Click;
         }
 
         public void Initialize()
@@ -136,7 +134,7 @@ namespace AMSExplorer
             myPremiumXML = new EditorXMLJSON(editMode: true, showSamplePremium: true);
         }
 
-        void ButtonXML_Click(object sender, EventArgs e)
+        private void ButtonXML_Click(object sender, EventArgs e)
         {
             myPremiumXML.Display();
         }

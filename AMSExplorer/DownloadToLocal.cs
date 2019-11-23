@@ -1,5 +1,5 @@
 ﻿//----------------------------------------------------------------------------------------------
-//    Copyright 2016 Microsoft Corporation
+//    Copyright 2019 Microsoft Corporation
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
 //    you may not use this file except in compliance with the License.
@@ -14,73 +14,42 @@
 //    limitations under the License.
 //---------------------------------------------------------------------------------------------
 
+using Microsoft.Azure.Management.Media.Models;
+using Microsoft.WindowsAPICodePack.Dialogs;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using Microsoft.WindowsAzure.MediaServices.Client;
-using Excel = Microsoft.Office.Interop.Excel;
-using Microsoft.WindowsAzure.MediaServices.Client.DynamicEncryption;
-using System.Reflection;
 using System.IO;
-using Microsoft.WindowsAPICodePack.Dialogs;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace AMSExplorer
 {
     public partial class DownloadToLocal : Form
     {
-        private IEnumerable<IAsset> _selassets;
-        private string _backupfolder;
+        private readonly IEnumerable<Asset> _selassets;
+        private readonly string _backupfolder;
 
         public string FolderPath
         {
-            get
-            {
-                return textBoxFolderPath.Text;
-            }
-            set
-            {
-                textBoxFolderPath.Text = value;
-            }
+            get => textBoxFolderPath.Text;
+            set => textBoxFolderPath.Text = value;
         }
 
-        public DownloadToFolderOption FolderOption
-        {
-            get
-            {
-                DownloadToFolderOption option = DownloadToFolderOption.DoNotCreateSubfolder;
-                if (checkBoxCreateSubfolder.Checked)
-                {
-                    option = radioButtonAssetName.Checked ? DownloadToFolderOption.SubfolderAssetName : DownloadToFolderOption.SubfolderAssetId;
-                }
-                return option;
-            }
+        public DownloadToFolderOption FolderOption => checkBoxCreateSubfolder.Checked ? DownloadToFolderOption.SubfolderAssetName : DownloadToFolderOption.DoNotCreateSubfolder;
 
-        }
+        public bool OpenFolderAfterDownload => checkBoxOpenFileAfterExport.Checked;
 
-        public bool OpenFolderAfterDownload
-        {
-            get
-            {
-                return checkBoxOpenFileAfterExport.Checked;
-            }
-        }
-
-        public DownloadToLocal(IEnumerable<IAsset> selassets, string backupfolder)
+        public DownloadToLocal(IEnumerable<Asset> selassets, string backupfolder)
         {
             InitializeComponent();
-            this.Icon = Bitmaps.Azure_Explorer_ico;
+            Icon = Bitmaps.Azure_Explorer_ico;
             _selassets = selassets;
             _backupfolder = backupfolder;
         }
 
         private void DownloadToLocal_Load(object sender, EventArgs e)
         {
+            DpiUtils.InitPerMonitorDpi(this);
             if (string.IsNullOrEmpty(_backupfolder) || !Directory.Exists(_backupfolder))
             {
                 textBoxFolderPath.Text = Environment.GetFolderPath(Environment.SpecialFolder.MyVideos);
@@ -105,9 +74,9 @@ namespace AMSExplorer
         {
         }
 
-        private void checkBoxCreateSubfolder_CheckedChanged(object sender, EventArgs e)
+        private void DownloadToLocal_DpiChanged(object sender, DpiChangedEventArgs e)
         {
-            radioButtonAssetName.Enabled = radioButtonAssetId.Enabled = checkBoxCreateSubfolder.Checked;
+            DpiUtils.UpdatedSizeFontAfterDPIChange(labelTitle, e);
         }
     }
 }

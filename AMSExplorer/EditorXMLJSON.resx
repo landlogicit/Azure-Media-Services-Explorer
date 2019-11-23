@@ -123,7 +123,7 @@
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="buttonCancel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>642, 15</value>
+    <value>654, 15</value>
   </data>
   <data name="buttonCancel.Size" type="System.Drawing.Size, System.Drawing">
     <value>115, 27</value>
@@ -154,7 +154,7 @@
     <value>MiddleLeft</value>
   </data>
   <data name="buttonOk.Location" type="System.Drawing.Point, System.Drawing">
-    <value>520, 15</value>
+    <value>532, 15</value>
   </data>
   <data name="buttonOk.Size" type="System.Drawing.Size, System.Drawing">
     <value>115, 27</value>
@@ -177,14 +177,14 @@
   <data name="&gt;&gt;buttonOk.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="panel1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left, Right</value>
+  <data name="panel1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Bottom</value>
   </data>
   <data name="panel1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 505</value>
+    <value>0, 506</value>
   </data>
   <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>772, 55</value>
+    <value>784, 55</value>
   </data>
   <data name="panel1.TabIndex" type="System.Int32, mscorlib">
     <value>66</value>
@@ -199,7 +199,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;panel1.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>6</value>
   </data>
   <data name="textBoxConfiguration.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
@@ -217,7 +217,7 @@
     <value>Both</value>
   </data>
   <data name="textBoxConfiguration.Size" type="System.Drawing.Size, System.Drawing">
-    <value>608, 460</value>
+    <value>593, 460</value>
   </data>
   <data name="textBoxConfiguration.TabIndex" type="System.Int32, mscorlib">
     <value>67</value>
@@ -232,7 +232,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;textBoxConfiguration.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>5</value>
   </data>
   <data name="labelWarningJSON.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left, Right</value>
@@ -262,16 +262,19 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;labelWarningJSON.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>4</value>
   </data>
   <data name="buttonInsertSample.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
   </data>
+  <data name="buttonInsertSample.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="buttonInsertSample.Location" type="System.Drawing.Point, System.Drawing">
-    <value>626, 42</value>
+    <value>611, 42</value>
   </data>
   <data name="buttonInsertSample.Size" type="System.Drawing.Size, System.Drawing">
-    <value>149, 23</value>
+    <value>164, 23</value>
   </data>
   <data name="buttonInsertSample.TabIndex" type="System.Int32, mscorlib">
     <value>79</value>
@@ -289,7 +292,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;buttonInsertSample.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>3</value>
   </data>
   <data name="buttonCopyClipboard.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
@@ -297,17 +300,20 @@
   <data name="buttonCopyClipboard.ImageAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleLeft</value>
   </data>
+  <data name="buttonCopyClipboard.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="buttonCopyClipboard.Location" type="System.Drawing.Point, System.Drawing">
-    <value>626, 13</value>
+    <value>611, 13</value>
   </data>
   <data name="buttonCopyClipboard.Size" type="System.Drawing.Size, System.Drawing">
-    <value>149, 23</value>
+    <value>164, 23</value>
   </data>
   <data name="buttonCopyClipboard.TabIndex" type="System.Int32, mscorlib">
     <value>80</value>
   </data>
   <data name="buttonCopyClipboard.Text" xml:space="preserve">
-    <value>Copy to clipboard</value>
+    <value>Copy all to clipboard</value>
   </data>
   <data name="&gt;&gt;buttonCopyClipboard.Name" xml:space="preserve">
     <value>buttonCopyClipboard</value>
@@ -319,16 +325,19 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;buttonCopyClipboard.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>2</value>
   </data>
   <data name="buttonFormat.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
   </data>
+  <data name="buttonFormat.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="buttonFormat.Location" type="System.Drawing.Point, System.Drawing">
-    <value>626, 71</value>
+    <value>611, 71</value>
   </data>
   <data name="buttonFormat.Size" type="System.Drawing.Size, System.Drawing">
-    <value>149, 23</value>
+    <value>164, 23</value>
   </data>
   <data name="buttonFormat.TabIndex" type="System.Int32, mscorlib">
     <value>81</value>
@@ -346,16 +355,16 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;buttonFormat.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>1</value>
   </data>
   <data name="labelInfoText.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
   </data>
   <data name="labelInfoText.Location" type="System.Drawing.Point, System.Drawing">
-    <value>626, 107</value>
+    <value>611, 107</value>
   </data>
   <data name="labelInfoText.Size" type="System.Drawing.Size, System.Drawing">
-    <value>149, 80</value>
+    <value>164, 80</value>
   </data>
   <data name="labelInfoText.TabIndex" type="System.Int32, mscorlib">
     <value>82</value>
@@ -379,30 +388,6 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;labelInfoText.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="panel2.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Right</value>
-  </data>
-  <data name="panel2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>763, 505</value>
-  </data>
-  <data name="panel2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>24, 42</value>
-  </data>
-  <data name="panel2.TabIndex" type="System.Int32, mscorlib">
-    <value>67</value>
-  </data>
-  <data name="&gt;&gt;panel2.Name" xml:space="preserve">
-    <value>panel2</value>
-  </data>
-  <data name="&gt;&gt;panel2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;panel2.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;panel2.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <data name="dataGridViewTextBoxColumn1.HeaderText" xml:space="preserve">
@@ -415,7 +400,7 @@
     <value>True</value>
   </metadata>
   <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>7, 15</value>
+    <value>96, 96</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
     <value>784, 561</value>

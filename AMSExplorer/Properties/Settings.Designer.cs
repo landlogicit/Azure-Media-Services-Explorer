@@ -12,7 +12,7 @@ namespace AMSExplorer.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "14.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.1.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -20,29 +20,6 @@ namespace AMSExplorer.Properties {
         public static Settings Default {
             get {
                 return defaultInstance;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public global::System.Collections.Specialized.StringCollection LoginList {
-            get {
-                return ((global::System.Collections.Specialized.StringCollection)(this["LoginList"]));
-            }
-            set {
-                this["LoginList"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string WAMEPresetXMLFilesCurrentFolder {
-            get {
-                return ((string)(this["WAMEPresetXMLFilesCurrentFolder"]));
-            }
-            set {
-                this["WAMEPresetXMLFilesCurrentFolder"] = value;
             }
         }
         
@@ -73,30 +50,6 @@ namespace AMSExplorer.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool DisplayJobIDinGrid {
-            get {
-                return ((bool)(this["DisplayJobIDinGrid"]));
-            }
-            set {
-                this["DisplayJobIDinGrid"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool useStorageEncryption {
-            get {
-                return ((bool)(this["useStorageEncryption"]));
-            }
-            set {
-                this["useStorageEncryption"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool useProtectedConfiguration {
             get {
                 return ((bool)(this["useProtectedConfiguration"]));
@@ -115,42 +68,6 @@ namespace AMSExplorer.Properties {
             }
             set {
                 this["NbItemsDisplayedInGrid"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool DisplayLiveChannelIDinGrid {
-            get {
-                return ((bool)(this["DisplayLiveChannelIDinGrid"]));
-            }
-            set {
-                this["DisplayLiveChannelIDinGrid"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool DisplayLiveProgramIDinGrid {
-            get {
-                return ((bool)(this["DisplayLiveProgramIDinGrid"]));
-            }
-            set {
-                this["DisplayLiveProgramIDinGrid"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool DisplayOriginIDinGrid {
-            get {
-                return ((bool)(this["DisplayOriginIDinGrid"]));
-            }
-            set {
-                this["DisplayOriginIDinGrid"] = value;
             }
         }
         
@@ -229,18 +146,6 @@ namespace AMSExplorer.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("10")]
-        public int DefaultJobPriority {
-            get {
-                return ((int)(this["DefaultJobPriority"]));
-            }
-            set {
-                this["DefaultJobPriority"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("365")]
         public int DefaultLocatorDurationDays {
             get {
@@ -284,18 +189,6 @@ namespace AMSExplorer.Properties {
             }
             set {
                 this["Currency"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("60")]
-        public int DefaultTokenDuration {
-            get {
-                return ((int)(this["DefaultTokenDuration"]));
-            }
-            set {
-                this["DefaultTokenDuration"] = value;
             }
         }
         
@@ -361,25 +254,25 @@ namespace AMSExplorer.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://testacs")]
-        public string DynEncTokenIssuer {
+        [global::System.Configuration.DefaultSettingValueAttribute("myIssuer")]
+        public string DynEncTokenIssuerv3 {
             get {
-                return ((string)(this["DynEncTokenIssuer"]));
+                return ((string)(this["DynEncTokenIssuerv3"]));
             }
             set {
-                this["DynEncTokenIssuer"] = value;
+                this["DynEncTokenIssuerv3"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("urn:test")]
-        public string DynEncTokenAudience {
+        [global::System.Configuration.DefaultSettingValueAttribute("myAudience")]
+        public string DynEncTokenAudiencev3 {
             get {
-                return ((string)(this["DynEncTokenAudience"]));
+                return ((string)(this["DynEncTokenAudiencev3"]));
             }
             set {
-                this["DynEncTokenAudience"] = value;
+                this["DynEncTokenAudiencev3"] = value;
             }
         }
         
@@ -409,18 +302,6 @@ namespace AMSExplorer.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool DisplayIngestManifestIDinGrid {
-            get {
-                return ((bool)(this["DisplayIngestManifestIDinGrid"]));
-            }
-            set {
-                this["DisplayIngestManifestIDinGrid"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string SigniantFlightAPIKey {
             get {
@@ -440,18 +321,6 @@ namespace AMSExplorer.Properties {
             }
             set {
                 this["DisplayAssetAltIDinGrid"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool ShowLivePremiumChannel {
-            get {
-                return ((bool)(this["ShowLivePremiumChannel"]));
-            }
-            set {
-                this["ShowLivePremiumChannel"] = value;
             }
         }
         
@@ -506,30 +375,6 @@ namespace AMSExplorer.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool MigratedLoginListToJSON {
-            get {
-                return ((bool)(this["MigratedLoginListToJSON"]));
-            }
-            set {
-                this["MigratedLoginListToJSON"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string MESPresetFilesCurrentFolder {
-            get {
-                return ((string)(this["MESPresetFilesCurrentFolder"]));
-            }
-            set {
-                this["MESPresetFilesCurrentFolder"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool OutputAssetsAdaptiveStreamingFormat {
             get {
                 return ((bool)(this["OutputAssetsAdaptiveStreamingFormat"]));
@@ -553,18 +398,6 @@ namespace AMSExplorer.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0.035")]
-        public decimal MEPWPricePerMin {
-            get {
-                return ((decimal)(this["MEPWPricePerMin"]));
-            }
-            set {
-                this["MEPWPricePerMin"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool HideTaskbarNotifications {
             get {
@@ -577,37 +410,37 @@ namespace AMSExplorer.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0.02")]
-        public decimal IndexingPricePerMin2 {
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string LoginListRPv3JSON {
             get {
-                return ((decimal)(this["IndexingPricePerMin2"]));
+                return ((string)(this["LoginListRPv3JSON"]));
             }
             set {
-                this["IndexingPricePerMin2"] = value;
+                this["LoginListRPv3JSON"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("10")]
-        public int ParallelTransferThreadCount {
+        [global::System.Configuration.DefaultSettingValueAttribute("24")]
+        public int DefaultSASDurationInHours {
             get {
-                return ((int)(this["ParallelTransferThreadCount"]));
+                return ((int)(this["DefaultSASDurationInHours"]));
             }
             set {
-                this["ParallelTransferThreadCount"] = value;
+                this["DefaultSASDurationInHours"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("2")]
-        public int NumberOfConcurrentTransfers {
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string DynEncTokenSymKeyv3 {
             get {
-                return ((int)(this["NumberOfConcurrentTransfers"]));
+                return ((string)(this["DynEncTokenSymKeyv3"]));
             }
             set {
-                this["NumberOfConcurrentTransfers"] = value;
+                this["DynEncTokenSymKeyv3"] = value;
             }
         }
     }

@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>AMSExplorer</RootNamespace>
     <AssemblyName>AMSExplorer</AssemblyName>
-    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
@@ -26,7 +26,8 @@
     <ApplicationVersion>2.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <NuGetPackageImportStamp>c403f193</NuGetPackageImportStamp>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
     <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -53,46 +54,75 @@
     <StartupObject>AMSExplorer.Program</StartupObject>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Azure Explorer_ico.ico</ApplicationIcon>
+    <ApplicationIcon>BitmapsPNG\Azure Explorer_ico.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>App.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.Azure.KeyVault.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Azure.KeyVault.Core.1.0.0\lib\net40\Microsoft.Azure.KeyVault.Core.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Microsoft.Azure.Common, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Azure.Common.2.2.1\lib\net452\Microsoft.Azure.Common.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Data.Edm, Version=5.8.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Data.Edm.5.8.2\lib\net40\Microsoft.Data.Edm.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Microsoft.Azure.KeyVault.Core, Version=3.0.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Azure.KeyVault.Core.3.0.4\lib\net461\Microsoft.Azure.KeyVault.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Data.OData, Version=5.8.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Data.OData.5.8.2\lib\net40\Microsoft.Data.OData.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Microsoft.Azure.Management.Media, Version=2.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Azure.Management.Media.2.0.3\lib\net461\Microsoft.Azure.Management.Media.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Data.Services.Client, Version=5.8.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Data.Services.Client.5.8.2\lib\net40\Microsoft.Data.Services.Client.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Microsoft.Azure.Management.ResourceManager, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Azure.Management.ResourceManager.2.0.0-preview\lib\net452\Microsoft.Azure.Management.ResourceManager.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.IdentityModel.Clients.ActiveDirectory, Version=3.13.9.1126, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.IdentityModel.Clients.ActiveDirectory.3.13.9\lib\net45\Microsoft.IdentityModel.Clients.ActiveDirectory.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Microsoft.Azure.Management.Storage, Version=13.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Azure.Management.Storage.13.2.0\lib\net461\Microsoft.Azure.Management.Storage.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.IdentityModel.Clients.ActiveDirectory.Platform, Version=3.13.9.1126, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.IdentityModel.Clients.ActiveDirectory.3.13.9\lib\net45\Microsoft.IdentityModel.Clients.ActiveDirectory.Platform.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Microsoft.Data.Edm, Version=5.8.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Data.Edm.5.8.4\lib\net40\Microsoft.Data.Edm.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.IdentityModel.Protocol.Extensions, Version=1.0.2.33, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.IdentityModel.Protocol.Extensions.1.0.2.206221351\lib\net45\Microsoft.IdentityModel.Protocol.Extensions.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Microsoft.Data.OData, Version=5.8.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Data.OData.5.8.4\lib\net40\Microsoft.Data.OData.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Data.Services.Client, Version=5.8.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Data.Services.Client.5.8.4\lib\net40\Microsoft.Data.Services.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Clients.ActiveDirectory, Version=5.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Clients.ActiveDirectory.5.2.2\lib\net45\Microsoft.IdentityModel.Clients.ActiveDirectory.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.JsonWebTokens, Version=5.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.JsonWebTokens.5.5.0\lib\net461\Microsoft.IdentityModel.JsonWebTokens.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Logging, Version=5.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Logging.5.5.0\lib\net461\Microsoft.IdentityModel.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Tokens, Version=5.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Tokens.5.5.0\lib\net461\Microsoft.IdentityModel.Tokens.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </Reference>
-    <Reference Include="Microsoft.Office.Interop.Outlook, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
     <Reference Include="Microsoft.Practices.TransientFaultHandling.Core, Version=5.1.1209.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\TransientFaultHandling.Core.5.1.1209.1\lib\NET4\Microsoft.Practices.TransientFaultHandling.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Rest.ClientRuntime, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Rest.ClientRuntime.2.3.20\lib\net461\Microsoft.Rest.ClientRuntime.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Rest.ClientRuntime.Azure, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Rest.ClientRuntime.Azure.3.3.19\lib\net461\Microsoft.Rest.ClientRuntime.Azure.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Rest.ClientRuntime.Azure.Authentication, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Rest.ClientRuntime.Azure.Authentication.2.4.0\lib\net461\Microsoft.Rest.ClientRuntime.Azure.Authentication.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Threading.Tasks, Version=1.0.12.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.Async.1.0.168\lib\net40\Microsoft.Threading.Tasks.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Threading.Tasks.Extensions, Version=1.0.12.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.Async.1.0.168\lib\net40\Microsoft.Threading.Tasks.Extensions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Threading.Tasks.Extensions.Desktop, Version=1.0.168.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.Async.1.0.168\lib\net40\Microsoft.Threading.Tasks.Extensions.Desktop.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.WindowsAPICodePack, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Windows7APICodePack-Core.1.1.0.0\lib\Microsoft.WindowsAPICodePack.dll</HintPath>
@@ -102,55 +132,55 @@
       <HintPath>..\packages\Windows7APICodePack-Shell.1.1.0.0\lib\Microsoft.WindowsAPICodePack.Shell.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.WindowsAzure.Configuration, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.WindowsAzure.ConfigurationManager.3.2.3\lib\net40\Microsoft.WindowsAzure.Configuration.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Microsoft.WindowsAzure.Storage, Version=9.3.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WindowsAzure.Storage.9.3.3\lib\net45\Microsoft.WindowsAzure.Storage.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.WindowsAzure.MediaServices.Client, Version=4.0.0.4, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\windowsazure.mediaservices.4.0.0.4\lib\net45\Microsoft.WindowsAzure.MediaServices.Client.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.WindowsAzure.MediaServices.Client.Common.Authentication, Version=4.0.0.4, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\windowsazure.mediaservices.4.0.0.4\lib\net45\Microsoft.WindowsAzure.MediaServices.Client.Common.Authentication.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.WindowsAzure.MediaServices.Client.Common.BlobTransfer, Version=4.0.0.4, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\windowsazure.mediaservices.4.0.0.4\lib\net45\Microsoft.WindowsAzure.MediaServices.Client.Common.BlobTransfer.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.WindowsAzure.MediaServices.Client.Common.FileEncryption, Version=4.0.0.4, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\windowsazure.mediaservices.4.0.0.4\lib\net45\Microsoft.WindowsAzure.MediaServices.Client.Common.FileEncryption.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.WindowsAzure.MediaServices.Client.Extensions, Version=4.0.0.4, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\windowsazure.mediaservices.extensions.4.0.0.4\lib\net45\Microsoft.WindowsAzure.MediaServices.Client.Extensions.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.WindowsAzure.Storage, Version=8.1.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\WindowsAzure.Storage.8.1.4\lib\net45\Microsoft.WindowsAzure.Storage.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Services.Client" />
     <Reference Include="System.IdentityModel" />
-    <Reference Include="System.IdentityModel.Tokens.Jwt, Version=4.0.30826.1200, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.IdentityModel.Tokens.Jwt.4.0.3.308261200\lib\net45\System.IdentityModel.Tokens.Jwt.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="System.IdentityModel.Tokens.Jwt, Version=5.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IdentityModel.Tokens.Jwt.5.5.0\lib\net461\System.IdentityModel.Tokens.Jwt.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.4.3.0\lib\net462\System.IO.dll</HintPath>
     </Reference>
     <Reference Include="System.Net" />
-    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http, Version=4.1.1.3, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Net.Http.4.3.4\lib\net46\System.Net.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Extensions, Version=2.2.29.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Net.Http.2.2.29\lib\net45\System.Net.Http.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Primitives, Version=4.2.29.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Net.Http.2.2.29\lib\net45\System.Net.Http.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest" />
+    <Reference Include="System.Runtime, Version=4.1.1.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.4.3.1\lib\net462\System.Runtime.dll</HintPath>
+    </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
+    <Reference Include="System.Security.Cryptography.Algorithms, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Algorithms.4.3.1\lib\net463\System.Security.Cryptography.Algorithms.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Encoding, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Encoding.4.3.0\lib\net46\System.Security.Cryptography.Encoding.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Primitives, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Primitives.4.3.0\lib\net46\System.Security.Cryptography.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.X509Certificates, Version=4.1.1.2, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.X509Certificates.4.3.2\lib\net461\System.Security.Cryptography.X509Certificates.dll</HintPath>
+    </Reference>
     <Reference Include="System.ServiceModel" />
-    <Reference Include="System.Spatial, Version=5.8.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Spatial.5.8.2\lib\net40\System.Spatial.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="System.Spatial, Version=5.8.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Spatial.5.8.4\lib\net40\System.Spatial.dll</HintPath>
     </Reference>
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -165,71 +195,138 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Forms-DynamicEncryption\AddDynamicEncryptionFrame2_CENC_Cbcs_KeyConfig.cs">
+    <Compile Include="AMSLogin\AddAMSAccount2Manual.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms-DynamicEncryption\AddDynamicEncryptionFrame2_CENC_Cbcs_KeyConfig.Designer.cs">
-      <DependentUpon>AddDynamicEncryptionFrame2_CENC_Cbcs_KeyConfig.cs</DependentUpon>
+    <Compile Include="AMSLogin\AddAMSAccount2Manual.Designer.cs">
+      <DependentUpon>AddAMSAccount2Manual.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms-DynamicEncryption\AddDynamicEncryptionFrame3_ExistingPolicies.cs">
+    <Compile Include="AMSLogin\AddAMSAccount2Browse.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms-DynamicEncryption\AddDynamicEncryptionFrame3_ExistingPolicies.Designer.cs">
-      <DependentUpon>AddDynamicEncryptionFrame3_ExistingPolicies.cs</DependentUpon>
+    <Compile Include="AMSLogin\AddAMSAccount2Browse.Designer.cs">
+      <DependentUpon>AddAMSAccount2Browse.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms-DynamicEncryption\AddDynamicEncryptionFrame3_AESDelivery.cs">
+    <Compile Include="AMSLogin\AddAMSAccount1.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms-DynamicEncryption\AddDynamicEncryptionFrame3_AESDelivery.Designer.cs">
-      <DependentUpon>AddDynamicEncryptionFrame3_AESDelivery.cs</DependentUpon>
+    <Compile Include="AMSLogin\AddAMSAccount1.Designer.cs">
+      <DependentUpon>AddAMSAccount1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms-DynamicEncryption\AddDynamicEncryptionFrame3_CENC_Cbcs_Delivery.cs">
+    <Compile Include="AMSLogin\ExportSettings.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms-DynamicEncryption\AddDynamicEncryptionFrame3_CENC_Cbcs_Delivery.Designer.cs">
-      <DependentUpon>AddDynamicEncryptionFrame3_CENC_Cbcs_Delivery.cs</DependentUpon>
+    <Compile Include="AMSLogin\ExportSettings.Designer.cs">
+      <DependentUpon>ExportSettings.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms-DynamicEncryption\AddDynamicEncryptionFrame3_CENCDelivery.cs">
+    <Compile Include="DataGrid\DataGridViewLiveOutput.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DataGrid\DataGridViewLiveEvent.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DataGrid\DataGridViewAssets.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DataGrid\DataGridViewJobs.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DataGrid\DataGridViewProgress.cs" />
+    <Compile Include="DataGrid\DataGridViewTransforms.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Forms-DynamicEncryption\DRM_FairPlayLicense.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms-DynamicEncryption\AddDynamicEncryptionFrame3_CENCDelivery.Designer.cs">
-      <DependentUpon>AddDynamicEncryptionFrame3_CENCDelivery.cs</DependentUpon>
+    <Compile Include="Forms-DynamicEncryption\DRM_FairPlayLicense.designer.cs">
+      <DependentUpon>DRM_FairPlayLicense.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms-DynamicEncryption\AddDynamicEncryptionFrame4.cs">
+    <Compile Include="InputBox.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms-DynamicEncryption\AddDynamicEncryptionFrame4.Designer.cs">
-      <DependentUpon>AddDynamicEncryptionFrame4.cs</DependentUpon>
+    <Compile Include="InputBox.Designer.cs">
+      <DependentUpon>InputBox.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms-DynamicEncryption\AddDynamicEncryptionFrame2_AESKeyConfig.cs">
+    <Compile Include="Forms-DynamicEncryption\DRM_CENCCBSCDelivery.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms-DynamicEncryption\AddDynamicEncryptionFrame2_AESKeyConfig.Designer.cs">
-      <DependentUpon>AddDynamicEncryptionFrame2_AESKeyConfig.cs</DependentUpon>
+    <Compile Include="Forms-DynamicEncryption\DRM_CENCCBSCDelivery.designer.cs">
+      <DependentUpon>DRM_CENCCBSCDelivery.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms-DynamicEncryption\AddDynamicEncryptionFrame6_WidevineLicense.cs">
+    <Compile Include="Forms-DynamicEncryption\DRM_GenerateToken.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms-DynamicEncryption\AddDynamicEncryptionFrame6_WidevineLicense.Designer.cs">
-      <DependentUpon>AddDynamicEncryptionFrame6_WidevineLicense.cs</DependentUpon>
+    <Compile Include="Forms-DynamicEncryption\DRM_GenerateToken.designer.cs">
+      <DependentUpon>DRM_GenerateToken.cs</DependentUpon>
     </Compile>
-    <Compile Include="ChannelRunOnPremisesEncoder.cs">
+    <Compile Include="Forms-DynamicEncryption\DRM_WidevineLicense.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ChannelRunOnPremisesEncoder.Designer.cs">
-      <DependentUpon>ChannelRunOnPremisesEncoder.cs</DependentUpon>
+    <Compile Include="Forms-DynamicEncryption\DRM_WidevineLicense.designer.cs">
+      <DependentUpon>DRM_WidevineLicense.cs</DependentUpon>
     </Compile>
-    <Compile Include="ChannelAdSlateControl.cs">
+    <Compile Include="Forms-DynamicEncryption\DRM_PlayReadyLicense.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ChannelAdSlateControl.Designer.cs">
-      <DependentUpon>ChannelAdSlateControl.cs</DependentUpon>
+    <Compile Include="Forms-DynamicEncryption\DRM_PlayReadyLicense.designer.cs">
+      <DependentUpon>DRM_PlayReadyLicense.cs</DependentUpon>
     </Compile>
-    <Compile Include="CopyAsset.cs">
+    <Compile Include="Forms-DynamicEncryption\DRM_Config_TokenClaims.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="CopyAsset.Designer.cs">
-      <DependentUpon>CopyAsset.cs</DependentUpon>
+    <Compile Include="Forms-DynamicEncryption\DRM_Config_TokenClaims.Designer.cs">
+      <DependentUpon>DRM_Config_TokenClaims.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms-DynamicEncryption\DynamicEncryption.cs" />
+    <Compile Include="Forms-DynamicEncryption\WidevineConfiguration.cs" />
+    <Compile Include="MediaRUv2.cs" />
+    <Compile Include="Subclipping.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Subclipping.Designer.cs">
+      <DependentUpon>Subclipping.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TransformTypeCreation.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TransformTypeCreation.Designer.cs">
+      <DependentUpon>TransformTypeCreation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PresetStandardEncoder.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PresetStandardEncoder.Designer.cs">
+      <DependentUpon>PresetStandardEncoder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PresetFaceDetector.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PresetFaceDetector.Designer.cs">
+      <DependentUpon>PresetFaceDetector.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ProcessFromTransform.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ProcessFromTransform.Designer.cs">
+      <DependentUpon>ProcessFromTransform.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TransformInformation.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TransformInformation.Designer.cs">
+      <DependentUpon>TransformInformation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DeleteKeyAndPolicy.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DeleteKeyAndPolicy.Designer.cs">
+      <DependentUpon>DeleteKeyAndPolicy.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DisplayBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DisplayBox.Designer.cs">
+      <DependentUpon>DisplayBox.cs</DependentUpon>
     </Compile>
     <Compile Include="ChooseStreamingEndpoint.cs">
       <SubType>Form</SubType>
@@ -237,70 +334,16 @@
     <Compile Include="ChooseStreamingEndpoint.Designer.cs">
       <DependentUpon>ChooseStreamingEndpoint.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms-DynamicEncryption\SelectAutPolicy.cs">
+    <Compile Include="PresetVideoAnalyzer.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms-DynamicEncryption\SelectAutPolicy.Designer.cs">
-      <DependentUpon>SelectAutPolicy.cs</DependentUpon>
+    <Compile Include="PresetVideoAnalyzer.Designer.cs">
+      <DependentUpon>PresetVideoAnalyzer.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms-DynamicEncryption\SelectDeliveryPolicy.cs">
+    <Compile Include="AMSLogin\AMSLoginServicePrincipal.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms-DynamicEncryption\SelectDeliveryPolicy.Designer.cs">
-      <DependentUpon>SelectDeliveryPolicy.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms-MediaAnalytics\MediaAnalyticsContentModeration.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms-MediaAnalytics\MediaAnalyticsContentModeration.Designer.cs">
-      <DependentUpon>MediaAnalyticsContentModeration.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms-Telemetry\DisplayTelemetry.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms-Telemetry\DisplayTelemetry.Designer.cs">
-      <DependentUpon>DisplayTelemetry.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms-Telemetry\ConfigureTelemetry.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms-Telemetry\ConfigureTelemetry.Designer.cs">
-      <DependentUpon>ConfigureTelemetry.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms-MediaAnalytics\MediaAnalyticsRedaction.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms-MediaAnalytics\MediaAnalyticsRedaction.Designer.cs">
-      <DependentUpon>MediaAnalyticsRedaction.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms-MediaAnalytics\MediaAnalyticsMotionDetection.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms-MediaAnalytics\MediaAnalyticsMotionDetection.Designer.cs">
-      <DependentUpon>MediaAnalyticsMotionDetection.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms-MediaAnalytics\MediaAnalyticsVideoOCR.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms-MediaAnalytics\MediaAnalyticsVideoOCR.Designer.cs">
-      <DependentUpon>MediaAnalyticsVideoOCR.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms-MediaAnalytics\MediaAnalyticsPickVideoFileInAsset.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms-MediaAnalytics\MediaAnalyticsPickVideoFileInAsset.Designer.cs">
-      <DependentUpon>MediaAnalyticsPickVideoFileInAsset.cs</DependentUpon>
-    </Compile>
-    <Compile Include="IndexerV2.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="IndexerV2.Designer.cs">
-      <DependentUpon>IndexerV2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="AMSLoginServicePrincipal.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="AMSLoginServicePrincipal.Designer.cs">
+    <Compile Include="AMSLogin\AMSLoginServicePrincipal.Designer.cs">
       <DependentUpon>AMSLoginServicePrincipal.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\Resources.Designer.cs">
@@ -314,17 +357,17 @@
     <Compile Include="StreamingEndpointCDNEnable.Designer.cs">
       <DependentUpon>StreamingEndpointCDNEnable.cs</DependentUpon>
     </Compile>
+    <Compile Include="NewAsset.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NewAsset.Designer.cs">
+      <DependentUpon>NewAsset.cs</DependentUpon>
+    </Compile>
     <Compile Include="UploadOptions.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="UploadOptions.Designer.cs">
       <DependentUpon>UploadOptions.cs</DependentUpon>
-    </Compile>
-    <Compile Include="RegionEditor\RegionEditor.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="RegionEditor\RegionEditor.Designer.cs">
-      <DependentUpon>RegionEditor.cs</DependentUpon>
     </Compile>
     <Compile Include="SettingsSelection.cs">
       <SubType>Form</SubType>
@@ -339,24 +382,11 @@
       <DependentUpon>EDL.cs</DependentUpon>
     </Compile>
     <Compile Include="SortableBindingList.cs" />
-    <Compile Include="EncodingMESPickOverlay.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="EncodingMESPickOverlay.Designer.cs">
-      <DependentUpon>EncodingMESPickOverlay.cs</DependentUpon>
-    </Compile>
     <Compile Include="TimeRangeSelection.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="TimeRangeSelection.Designer.cs">
       <DependentUpon>TimeRangeSelection.cs</DependentUpon>
-    </Compile>
-    <Compile Include="DataGridViewIngestManifest.cs" />
-    <Compile Include="BulkUpload.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="BulkUpload.Designer.cs">
-      <DependentUpon>BulkUpload.cs</DependentUpon>
     </Compile>
     <Compile Include="DownloadToLocal.cs">
       <SubType>Form</SubType>
@@ -364,47 +394,11 @@
     <Compile Include="DownloadToLocal.Designer.cs">
       <DependentUpon>DownloadToLocal.cs</DependentUpon>
     </Compile>
-    <Compile Include="BulkContainerInfo.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="BulkContainerInfo.Designer.cs">
-      <DependentUpon>BulkContainerInfo.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms-MediaAnalytics\MediaAnalyticsVideoThumbnails.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms-MediaAnalytics\MediaAnalyticsVideoThumbnails.Designer.cs">
-      <DependentUpon>MediaAnalyticsVideoThumbnails.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms-MediaAnalytics\MediaAnalyticsFaceDetection.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms-MediaAnalytics\MediaAnalyticsFaceDetection.Designer.cs">
-      <DependentUpon>MediaAnalyticsFaceDetection.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms-MediaAnalytics\MediaAnalyticsGeneric.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms-MediaAnalytics\MediaAnalyticsGeneric.Designer.cs">
-      <DependentUpon>MediaAnalyticsGeneric.cs</DependentUpon>
-    </Compile>
     <Compile Include="SoftwareUpdate.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="SoftwareUpdate.Designer.cs">
       <DependentUpon>SoftwareUpdate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="ExportToExcel.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ExportToExcel.Designer.cs">
-      <DependentUpon>ExportToExcel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="CreateTestToken.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="CreateTestToken.Designer.cs">
-      <DependentUpon>CreateTestToken.cs</DependentUpon>
     </Compile>
     <Compile Include="EditorXMLJSON.cs">
       <SubType>Form</SubType>
@@ -418,43 +412,13 @@
     <Compile Include="StorageSettings.Designer.cs">
       <DependentUpon>StorageSettings.cs</DependentUpon>
     </Compile>
-    <Compile Include="Subclipping.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Subclipping.Designer.cs">
-      <DependentUpon>Subclipping.cs</DependentUpon>
-    </Compile>
     <Compile Include="DynManifestFilter.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="DynManifestFilter.Designer.cs">
       <DependentUpon>DynManifestFilter.cs</DependentUpon>
     </Compile>
-    <Compile Include="EncodingMES.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="EncodingMES.designer.cs">
-      <DependentUpon>EncodingMES.cs</DependentUpon>
-    </Compile>
     <Compile Include="GridTransfer.cs" />
-    <Compile Include="JobOptions.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="JobOptions.Designer.cs">
-      <DependentUpon>JobOptions.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Hyperlapse.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Hyperlapse.Designer.cs">
-      <DependentUpon>Hyperlapse.cs</DependentUpon>
-    </Compile>
-    <Compile Include="IndexerOptions.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="IndexerOptions.Designer.cs">
-      <DependentUpon>IndexerOptions.cs</DependentUpon>
-    </Compile>
     <Compile Include="Splash.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -467,22 +431,16 @@
     <Compile Include="AboutBox.Designer.cs">
       <DependentUpon>AboutBox.cs</DependentUpon>
     </Compile>
-    <Compile Include="AMSLogin.cs">
+    <Compile Include="AMSLogin\AMSLogin.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AMSLogin.Designer.cs">
+    <Compile Include="AMSLogin\AMSLogin.Designer.cs">
       <DependentUpon>AMSLogin.cs</DependentUpon>
     </Compile>
     <Compile Include="Bitmaps.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Bitmaps.resx</DependentUpon>
-    </Compile>
-    <Compile Include="MetadataInformation.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="MetadataInformation.Designer.cs">
-      <DependentUpon>MetadataInformation.cs</DependentUpon>
     </Compile>
     <Compile Include="BatchUploadFrame2.cs">
       <SubType>Form</SubType>
@@ -496,11 +454,11 @@
     <Compile Include="BatchUploadFrame1.Designer.cs">
       <DependentUpon>BatchUploadFrame1.cs</DependentUpon>
     </Compile>
-    <Compile Include="DeleteProgramChannel.cs">
+    <Compile Include="DeleteLiveOutputEvent.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="DeleteProgramChannel.Designer.cs">
-      <DependentUpon>DeleteProgramChannel.cs</DependentUpon>
+    <Compile Include="DeleteLiveOutputEvent.Designer.cs">
+      <DependentUpon>DeleteLiveOutputEvent.cs</DependentUpon>
     </Compile>
     <Compile Include="AttachStorage.cs">
       <SubType>Form</SubType>
@@ -508,40 +466,14 @@
     <Compile Include="AttachStorage.Designer.cs">
       <DependentUpon>AttachStorage.cs</DependentUpon>
     </Compile>
-    <Compile Include="ListViewTemplates.cs">
+    <Compile Include="ListViewTransforms.cs">
       <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="ProcessFromJobTemplate.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ProcessFromJobTemplate.Designer.cs">
-      <DependentUpon>ProcessFromJobTemplate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="ManagementREST.cs" />
-    <Compile Include="Forms-DynamicEncryption\AddDynamicEncryptionFrame5_PlayReadyLicense.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms-DynamicEncryption\AddDynamicEncryptionFrame5_PlayReadyLicense.Designer.cs">
-      <DependentUpon>AddDynamicEncryptionFrame5_PlayReadyLicense.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms-DynamicEncryption\AddDynamicEncryptionFrame1.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms-DynamicEncryption\AddDynamicEncryptionFrame1.Designer.cs">
-      <DependentUpon>AddDynamicEncryptionFrame1.cs</DependentUpon>
     </Compile>
     <Compile Include="CreateStreamingEndpoint.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="CreateStreamingEndpoint.Designer.cs">
       <DependentUpon>CreateStreamingEndpoint.cs</DependentUpon>
-    </Compile>
-    <Compile Include="DynamicEncryption.cs" />
-    <Compile Include="Forms-DynamicEncryption\AddDynamicEncryptionFrame2_CENCKeyConfig.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms-DynamicEncryption\AddDynamicEncryptionFrame2_CENCKeyConfig.Designer.cs">
-      <DependentUpon>AddDynamicEncryptionFrame2_CENCKeyConfig.cs</DependentUpon>
     </Compile>
     <Compile Include="StreamingEndpointInformation.cs">
       <SubType>Form</SubType>
@@ -550,41 +482,29 @@
       <DependentUpon>StreamingEndpointInformation.cs</DependentUpon>
     </Compile>
     <Compile Include="StreamingEndpoint.cs" />
-    <Compile Include="Indexer.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Indexer.Designer.cs">
-      <DependentUpon>Indexer.cs</DependentUpon>
-    </Compile>
     <Compile Include="ImportHttp.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="ImportHttp.Designer.cs">
       <DependentUpon>ImportHttp.cs</DependentUpon>
     </Compile>
-    <Compile Include="Thumbnails.cs">
+    <Compile Include="LiveOutputInformation.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Thumbnails.Designer.cs">
-      <DependentUpon>Thumbnails.cs</DependentUpon>
+    <Compile Include="LiveOutputInformation.Designer.cs">
+      <DependentUpon>LiveOutputInformation.cs</DependentUpon>
     </Compile>
-    <Compile Include="ProgramInformation.cs">
+    <Compile Include="LiveEventInformation.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ProgramInformation.Designer.cs">
-      <DependentUpon>ProgramInformation.cs</DependentUpon>
+    <Compile Include="LiveEventInformation.Designer.cs">
+      <DependentUpon>LiveEventInformation.cs</DependentUpon>
     </Compile>
-    <Compile Include="ChannelInformation.cs">
+    <Compile Include="LiveOutputCreation.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ChannelInformation.Designer.cs">
-      <DependentUpon>ChannelInformation.cs</DependentUpon>
-    </Compile>
-    <Compile Include="CreateProgram.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="CreateProgram.Designer.cs">
-      <DependentUpon>CreateProgram.cs</DependentUpon>
+    <Compile Include="LiveOutputCreation.Designer.cs">
+      <DependentUpon>LiveOutputCreation.cs</DependentUpon>
     </Compile>
     <Compile Include="AssetInformation.cs">
       <SubType>Form</SubType>
@@ -592,15 +512,13 @@
     <Compile Include="AssetInformation.Designer.cs">
       <DependentUpon>AssetInformation.cs</DependentUpon>
     </Compile>
-    <Compile Include="CreateLiveChannel.cs">
+    <Compile Include="LiveEventCreation.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="CreateLiveChannel.Designer.cs">
-      <DependentUpon>CreateLiveChannel.cs</DependentUpon>
+    <Compile Include="LiveEventCreation.Designer.cs">
+      <DependentUpon>LiveEventCreation.cs</DependentUpon>
     </Compile>
-    <Compile Include="live.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="live.cs" />
     <Compile Include="options.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -613,41 +531,11 @@
     <Compile Include="TimeControl.Designer.cs">
       <DependentUpon>TimeControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="WatchFolder.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="WatchFolder.Designer.cs">
-      <DependentUpon>WatchFolder.cs</DependentUpon>
-    </Compile>
     <Compile Include="CreateLocator.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="CreateLocator.Designer.cs">
       <DependentUpon>CreateLocator.cs</DependentUpon>
-    </Compile>
-    <Compile Include="MultipleProcessor.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="MultipleProcessor.Designer.cs">
-      <DependentUpon>MultipleProcessor.cs</DependentUpon>
-    </Compile>
-    <Compile Include="EncodingAMEAdv.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="EncodingAMEAdv.Designer.cs">
-      <DependentUpon>EncodingAMEAdv.cs</DependentUpon>
-    </Compile>
-    <Compile Include="EncodingPremium.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="EncodingPremium.Designer.cs">
-      <DependentUpon>EncodingPremium.cs</DependentUpon>
-    </Compile>
-    <Compile Include="HLSAESStatic.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="HLSAESStatic.Designer.cs">
-      <DependentUpon>HLSAESStatic.cs</DependentUpon>
     </Compile>
     <Compile Include="JobInformation.cs">
       <SubType>Form</SubType>
@@ -661,12 +549,6 @@
     <Compile Include="Mainform.Designer.cs">
       <DependentUpon>Mainform.cs</DependentUpon>
     </Compile>
-    <Compile Include="PlayReadyStaticEnc.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="PlayReadyStaticEnc.Designer.cs">
-      <DependentUpon>PlayReadyStaticEnc.cs</DependentUpon>
-    </Compile>
     <Compile Include="Priority.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -675,106 +557,13 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="EncodingAMEPreset.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="EncodingAMEPreset.Designer.cs">
-      <DependentUpon>EncodingAMEPreset.cs</DependentUpon>
-    </Compile>
-    <Compile Include="ExportAssetToAzureStorage.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ExportAssetToAzureStorage.Designer.cs">
-      <DependentUpon>ExportAssetToAzureStorage.cs</DependentUpon>
-    </Compile>
-    <Compile Include="ImportFromAzureStorage.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ImportFromAzureStorage.Designer.cs">
-      <DependentUpon>ImportFromAzureStorage.cs</DependentUpon>
-    </Compile>
+    <None Include="App.manifest" />
+    <None Include="BitmapsPNG\redactor-blur-black.png" />
+    <None Include="BitmapsPNG\redactor-blur-debug.png" />
+    <None Include="BitmapsPNG\redactor-blur-high.png" />
+    <None Include="BitmapsPNG\redactor-blur-low.png" />
+    <None Include="BitmapsPNG\redactor-blur-med.png" />
     <Content Include="Configurations\SampleSemaphore.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="MESPresetFiles\H264 Multiple Bitrate 1080p Audio 5.1.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="MESPresetFiles\H264 Multiple Bitrate 1080p.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="MESPresetFiles\H264 Multiple Bitrate 16x9 for iOS.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="MESPresetFiles\H264 Multiple Bitrate 16x9 SD Audio 5.1.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="MESPresetFiles\H264 Multiple Bitrate 16x9 SD.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="MESPresetFiles\H264 Multiple Bitrate 4K Audio 5.1.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="MESPresetFiles\H264 Multiple Bitrate 4K.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="MESPresetFiles\H264 Multiple Bitrate 4x3 for iOS.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="MESPresetFiles\H264 Multiple Bitrate 4x3 SD Audio 5.1.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="MESPresetFiles\H264 Multiple Bitrate 4x3 SD.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="MESPresetFiles\H264 Multiple Bitrate 720p Audio 5.1.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="MESPresetFiles\H264 Multiple Bitrate 720p.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="MESPresetFiles\H264 Single Bitrate 1080p Audio 5.1.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="MESPresetFiles\H264 Single Bitrate 1080p.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="MESPresetFiles\H264 Single Bitrate 16x9 SD Audio 5.1.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="MESPresetFiles\H264 Single Bitrate 16x9 SD.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="MESPresetFiles\H264 Single Bitrate 4K Audio 5.1.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="MESPresetFiles\H264 Single Bitrate 4K.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="MESPresetFiles\H264 Single Bitrate 4x3 SD Audio 5.1.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="MESPresetFiles\H264 Single Bitrate 4x3 SD.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="MESPresetFiles\H264 Single Bitrate 720p Audio 5.1.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="MESPresetFiles\H264 Single Bitrate 720p for Android.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="MESPresetFiles\H264 Single Bitrate 720p.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="MESPresetFiles\H264 Single Bitrate High Quality SD for Android.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="MESPresetFiles\H264 Single Bitrate Low Quality SD for Android.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="MESPresetFiles\AAC Good Quality Audio.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="MESPresetFiles\AAC Audio.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="BitmapsPNG\hyperlapse-large.png" />
@@ -798,22 +587,10 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="HelpFiles\MediaServices.chm">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="HelpFiles\MediaServices_ClientSDK.chm">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="HelpFiles\MediaServices_ClientSDK_Ext_API.chm">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="HelpFiles\MediaServices_Operations_RESTAPI.chm">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="HelpFiles\MediaServices_RESTAPI.chm">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Configurations\SampleWatchFolderJSONCall.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="HelpFiles\AMSv3doc.pdf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="IconsPNG\filter.png" />
@@ -828,6 +605,7 @@
     <None Include="IconsPNG\XY.png" />
     <None Include="IconsPNG\XYRect.png" />
     <None Include="IconsPNG\DRM_protection_Cbcs.png" />
+    <Content Include="IconsPNG\Clear.png" />
     <Content Include="Manifest\Manifest.ism">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -861,12 +639,6 @@
     <Content Include="PremiumWorkflowSamples\Tutorial\README.md">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="MESPresetFiles\Adaptive Streaming.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="MESPresetFiles\Content Adaptive Multiple Bitrate MP4.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <None Include="Resources\media-services-dvr-filter.png" />
     <None Include="Resources\media-services-livebackoff-filter.png" />
     <None Include="Resources\media-services-multiple-rules-filters.png" />
@@ -883,8 +655,32 @@
     <EmbeddedResource Include="AboutBox.ja.resx">
       <DependentUpon>AboutBox.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AMSLogin.ja.resx">
+    <EmbeddedResource Include="AMSLogin\AMSLogin.ja.resx">
       <DependentUpon>AMSLogin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AMSLogin\AddAMSAccount2Manual.ja.resx">
+      <DependentUpon>AddAMSAccount2Manual.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AMSLogin\AddAMSAccount2Manual.resx">
+      <DependentUpon>AddAMSAccount2Manual.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AMSLogin\AddAMSAccount2Browse.ja.resx">
+      <DependentUpon>AddAMSAccount2Browse.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AMSLogin\AddAMSAccount2Browse.resx">
+      <DependentUpon>AddAMSAccount2Browse.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AMSLogin\AddAMSAccount1.ja.resx">
+      <DependentUpon>AddAMSAccount1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AMSLogin\AddAMSAccount1.resx">
+      <DependentUpon>AddAMSAccount1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AMSLogin\ExportSettings.ja.resx">
+      <DependentUpon>ExportSettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AMSLogin\ExportSettings.resx">
+      <DependentUpon>ExportSettings.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AssetInformation.ja.resx">
       <DependentUpon>AssetInformation.cs</DependentUpon>
@@ -898,44 +694,113 @@
     <EmbeddedResource Include="BatchUploadFrame2.ja.resx">
       <DependentUpon>BatchUploadFrame2.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="BulkContainerInfo.ja.resx">
-      <DependentUpon>BulkContainerInfo.cs</DependentUpon>
+    <EmbeddedResource Include="Forms-DynamicEncryption\DRM_FairPlayLicense.ja.resx">
+      <DependentUpon>DRM_FairPlayLicense.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="BulkUpload.ja.resx">
-      <DependentUpon>BulkUpload.cs</DependentUpon>
+    <EmbeddedResource Include="Forms-DynamicEncryption\DRM_FairPlayLicense.resx">
+      <DependentUpon>DRM_FairPlayLicense.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ChannelAdSlateControl.ja.resx">
-      <DependentUpon>ChannelAdSlateControl.cs</DependentUpon>
+    <EmbeddedResource Include="InputBox.ja.resx">
+      <DependentUpon>InputBox.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ChannelInformation.ja.resx">
-      <DependentUpon>ChannelInformation.cs</DependentUpon>
+    <EmbeddedResource Include="InputBox.resx">
+      <DependentUpon>InputBox.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ChannelRunOnPremisesEncoder.ja.resx">
-      <DependentUpon>ChannelRunOnPremisesEncoder.cs</DependentUpon>
+    <EmbeddedResource Include="Forms-DynamicEncryption\DRM_CENCCBSCDelivery.ja.resx">
+      <DependentUpon>DRM_CENCCBSCDelivery.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms-DynamicEncryption\DRM_CENCCBSCDelivery.resx">
+      <DependentUpon>DRM_CENCCBSCDelivery.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms-DynamicEncryption\DRM_GenerateToken.ja.resx">
+      <DependentUpon>DRM_GenerateToken.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms-DynamicEncryption\DRM_GenerateToken.resx">
+      <DependentUpon>DRM_GenerateToken.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms-DynamicEncryption\DRM_WidevineLicense.ja.resx">
+      <DependentUpon>DRM_WidevineLicense.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms-DynamicEncryption\DRM_WidevineLicense.resx">
+      <DependentUpon>DRM_WidevineLicense.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms-DynamicEncryption\DRM_PlayReadyLicense.ja.resx">
+      <DependentUpon>DRM_PlayReadyLicense.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms-DynamicEncryption\DRM_PlayReadyLicense.resx">
+      <DependentUpon>DRM_PlayReadyLicense.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms-DynamicEncryption\DRM_Config_TokenClaims.ja.resx">
+      <DependentUpon>DRM_Config_TokenClaims.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms-DynamicEncryption\DRM_Config_TokenClaims.resx">
+      <DependentUpon>DRM_Config_TokenClaims.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Subclipping.resx">
+      <DependentUpon>Subclipping.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TransformTypeCreation.ja.resx">
+      <DependentUpon>TransformTypeCreation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TransformTypeCreation.resx">
+      <DependentUpon>TransformTypeCreation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresetStandardEncoder.ja.resx">
+      <DependentUpon>PresetStandardEncoder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresetStandardEncoder.resx">
+      <DependentUpon>PresetStandardEncoder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresetFaceDetector.ja.resx">
+      <DependentUpon>PresetFaceDetector.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresetFaceDetector.resx">
+      <DependentUpon>PresetFaceDetector.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProcessFromTransform.ja.resx">
+      <DependentUpon>ProcessFromTransform.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProcessFromTransform.resx">
+      <DependentUpon>ProcessFromTransform.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TransformInformation.ja.resx">
+      <DependentUpon>TransformInformation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TransformInformation.resx">
+      <DependentUpon>TransformInformation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LiveEventInformation.ja.resx">
+      <DependentUpon>LiveEventInformation.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ChooseStreamingEndpoint.ja.resx">
       <DependentUpon>ChooseStreamingEndpoint.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="CopyAsset.ja.resx">
-      <DependentUpon>CopyAsset.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="CreateLiveChannel.ja.resx">
-      <DependentUpon>CreateLiveChannel.cs</DependentUpon>
+    <EmbeddedResource Include="LiveEventCreation.ja.resx">
+      <DependentUpon>LiveEventCreation.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CreateLocator.ja.resx">
       <DependentUpon>CreateLocator.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="CreateProgram.ja.resx">
-      <DependentUpon>CreateProgram.cs</DependentUpon>
+    <EmbeddedResource Include="LiveOutputCreation.ja.resx">
+      <DependentUpon>LiveOutputCreation.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CreateStreamingEndpoint.ja.resx">
       <DependentUpon>CreateStreamingEndpoint.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="CreateTestToken.ja.resx">
-      <DependentUpon>CreateTestToken.cs</DependentUpon>
+    <EmbeddedResource Include="DeleteKeyAndPolicy.ja.resx">
+      <DependentUpon>DeleteKeyAndPolicy.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="DeleteProgramChannel.ja.resx">
-      <DependentUpon>DeleteProgramChannel.cs</DependentUpon>
+    <EmbeddedResource Include="DeleteKeyAndPolicy.resx">
+      <DependentUpon>DeleteKeyAndPolicy.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DeleteLiveOutputEvent.ja.resx">
+      <DependentUpon>DeleteLiveOutputEvent.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DisplayBox.ja.resx">
+      <DependentUpon>DisplayBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DisplayBox.resx">
+      <DependentUpon>DisplayBox.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DownloadToLocal.ja.resx">
       <DependentUpon>DownloadToLocal.cs</DependentUpon>
@@ -949,196 +814,25 @@
     <EmbeddedResource Include="EDL.ja.resx">
       <DependentUpon>EDL.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="EncodingAMEAdv.ja.resx">
-      <DependentUpon>EncodingAMEAdv.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="EncodingAMEPreset.ja.resx">
-      <DependentUpon>EncodingAMEPreset.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="EncodingMES.ja.resx">
-      <DependentUpon>EncodingMES.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="EncodingMESPickOverlay.ja.resx">
-      <DependentUpon>EncodingMESPickOverlay.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="EncodingPremium.ja.resx">
-      <DependentUpon>EncodingPremium.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ExportAssetToAzureStorage.ja.resx">
-      <DependentUpon>ExportAssetToAzureStorage.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ExportToExcel.ja.resx">
-      <DependentUpon>ExportToExcel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms-DynamicEncryption\AddDynamicEncryptionFrame1.ja.resx">
-      <DependentUpon>AddDynamicEncryptionFrame1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms-DynamicEncryption\AddDynamicEncryptionFrame2_AESKeyConfig.ja.resx">
-      <DependentUpon>AddDynamicEncryptionFrame2_AESKeyConfig.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms-DynamicEncryption\AddDynamicEncryptionFrame2_CENCKeyConfig.ja.resx">
-      <DependentUpon>AddDynamicEncryptionFrame2_CENCKeyConfig.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms-DynamicEncryption\AddDynamicEncryptionFrame2_CENC_Cbcs_KeyConfig.ja.resx">
-      <DependentUpon>AddDynamicEncryptionFrame2_CENC_Cbcs_KeyConfig.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms-DynamicEncryption\AddDynamicEncryptionFrame2_CENC_Cbcs_KeyConfig.resx">
-      <DependentUpon>AddDynamicEncryptionFrame2_CENC_Cbcs_KeyConfig.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms-DynamicEncryption\AddDynamicEncryptionFrame3_AESDelivery.ja.resx">
-      <DependentUpon>AddDynamicEncryptionFrame3_AESDelivery.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms-DynamicEncryption\AddDynamicEncryptionFrame3_CENCDelivery.ja.resx">
-      <DependentUpon>AddDynamicEncryptionFrame3_CENCDelivery.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms-DynamicEncryption\AddDynamicEncryptionFrame3_CENC_Cbcs_Delivery.ja.resx">
-      <DependentUpon>AddDynamicEncryptionFrame3_CENC_Cbcs_Delivery.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms-DynamicEncryption\AddDynamicEncryptionFrame3_ExistingPolicies.ja.resx">
-      <DependentUpon>AddDynamicEncryptionFrame3_ExistingPolicies.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms-DynamicEncryption\AddDynamicEncryptionFrame3_ExistingPolicies.resx">
-      <DependentUpon>AddDynamicEncryptionFrame3_ExistingPolicies.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms-DynamicEncryption\AddDynamicEncryptionFrame3_AESDelivery.resx">
-      <DependentUpon>AddDynamicEncryptionFrame3_AESDelivery.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms-DynamicEncryption\AddDynamicEncryptionFrame3_CENC_Cbcs_Delivery.resx">
-      <DependentUpon>AddDynamicEncryptionFrame3_CENC_Cbcs_Delivery.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms-DynamicEncryption\AddDynamicEncryptionFrame3_CENCDelivery.resx">
-      <DependentUpon>AddDynamicEncryptionFrame3_CENCDelivery.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms-DynamicEncryption\AddDynamicEncryptionFrame4.ja.resx">
-      <DependentUpon>AddDynamicEncryptionFrame4.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms-DynamicEncryption\AddDynamicEncryptionFrame4.resx">
-      <DependentUpon>AddDynamicEncryptionFrame4.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms-DynamicEncryption\AddDynamicEncryptionFrame2_AESKeyConfig.resx">
-      <DependentUpon>AddDynamicEncryptionFrame2_AESKeyConfig.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms-DynamicEncryption\AddDynamicEncryptionFrame5_PlayReadyLicense.ja.resx">
-      <DependentUpon>AddDynamicEncryptionFrame5_PlayReadyLicense.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms-DynamicEncryption\AddDynamicEncryptionFrame6_WidevineLicense.ja.resx">
-      <DependentUpon>AddDynamicEncryptionFrame6_WidevineLicense.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms-DynamicEncryption\AddDynamicEncryptionFrame6_WidevineLicense.resx">
-      <DependentUpon>AddDynamicEncryptionFrame6_WidevineLicense.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ChannelRunOnPremisesEncoder.resx">
-      <DependentUpon>ChannelRunOnPremisesEncoder.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ChannelAdSlateControl.resx">
-      <DependentUpon>ChannelAdSlateControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="CopyAsset.resx">
-      <DependentUpon>CopyAsset.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="ChooseStreamingEndpoint.resx">
       <DependentUpon>ChooseStreamingEndpoint.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="BulkUpload.resx">
-      <DependentUpon>BulkUpload.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="EDL.resx">
       <DependentUpon>EDL.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms-DynamicEncryption\SelectAutPolicy.ja.resx">
-      <DependentUpon>SelectAutPolicy.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms-DynamicEncryption\SelectAutPolicy.resx">
-      <DependentUpon>SelectAutPolicy.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms-DynamicEncryption\SelectDeliveryPolicy.ja.resx">
-      <DependentUpon>SelectDeliveryPolicy.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms-DynamicEncryption\SelectDeliveryPolicy.resx">
-      <DependentUpon>SelectDeliveryPolicy.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms-MediaAnalytics\MediaAnalyticsContentModeration.ja.resx">
-      <DependentUpon>MediaAnalyticsContentModeration.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms-MediaAnalytics\MediaAnalyticsContentModeration.resx">
-      <DependentUpon>MediaAnalyticsContentModeration.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms-MediaAnalytics\MediaAnalyticsFaceDetection.ja.resx">
-      <DependentUpon>MediaAnalyticsFaceDetection.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms-MediaAnalytics\MediaAnalyticsGeneric.ja.resx">
-      <DependentUpon>MediaAnalyticsGeneric.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms-MediaAnalytics\MediaAnalyticsMotionDetection.ja.resx">
-      <DependentUpon>MediaAnalyticsMotionDetection.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms-MediaAnalytics\MediaAnalyticsPickVideoFileInAsset.ja.resx">
-      <DependentUpon>MediaAnalyticsPickVideoFileInAsset.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms-MediaAnalytics\MediaAnalyticsRedaction.ja.resx">
-      <DependentUpon>MediaAnalyticsRedaction.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms-MediaAnalytics\MediaAnalyticsVideoOCR.ja.resx">
-      <DependentUpon>MediaAnalyticsVideoOCR.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms-MediaAnalytics\MediaAnalyticsVideoThumbnails.ja.resx">
-      <DependentUpon>MediaAnalyticsVideoThumbnails.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms-Telemetry\ConfigureTelemetry.ja.resx">
-      <DependentUpon>ConfigureTelemetry.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms-Telemetry\DisplayTelemetry.ja.resx">
-      <DependentUpon>DisplayTelemetry.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms-Telemetry\DisplayTelemetry.resx">
-      <DependentUpon>DisplayTelemetry.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms-Telemetry\ConfigureTelemetry.resx">
-      <DependentUpon>ConfigureTelemetry.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms-MediaAnalytics\MediaAnalyticsRedaction.resx">
-      <DependentUpon>MediaAnalyticsRedaction.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms-MediaAnalytics\MediaAnalyticsMotionDetection.resx">
-      <DependentUpon>MediaAnalyticsMotionDetection.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms-MediaAnalytics\MediaAnalyticsVideoOCR.resx">
-      <DependentUpon>MediaAnalyticsVideoOCR.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms-MediaAnalytics\MediaAnalyticsPickVideoFileInAsset.resx">
-      <DependentUpon>MediaAnalyticsPickVideoFileInAsset.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="EncodingMESPickOverlay.resx">
-      <DependentUpon>EncodingMESPickOverlay.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="HLSAESStatic.ja.resx">
-      <DependentUpon>HLSAESStatic.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Hyperlapse.ja.resx">
-      <DependentUpon>Hyperlapse.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ImportFromAzureStorage.ja.resx">
-      <DependentUpon>ImportFromAzureStorage.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="ImportHttp.ja.resx">
       <DependentUpon>ImportHttp.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Indexer.ja.resx">
-      <DependentUpon>Indexer.cs</DependentUpon>
+    <EmbeddedResource Include="PresetVideoAnalyzer.ja.resx">
+      <DependentUpon>PresetVideoAnalyzer.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="IndexerOptions.ja.resx">
-      <DependentUpon>IndexerOptions.cs</DependentUpon>
+    <EmbeddedResource Include="PresetVideoAnalyzer.resx">
+      <DependentUpon>PresetVideoAnalyzer.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="IndexerV2.ja.resx">
-      <DependentUpon>IndexerV2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="IndexerV2.resx">
-      <DependentUpon>IndexerV2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="AMSLoginServicePrincipal.ja.resx">
+    <EmbeddedResource Include="AMSLogin\AMSLoginServicePrincipal.ja.resx">
       <DependentUpon>AMSLoginServicePrincipal.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AMSLoginServicePrincipal.resx">
+    <EmbeddedResource Include="AMSLogin\AMSLoginServicePrincipal.resx">
       <DependentUpon>AMSLoginServicePrincipal.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.ja.resx" />
@@ -1155,35 +849,17 @@
     <EmbeddedResource Include="JobInformation.ja.resx">
       <DependentUpon>JobInformation.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="JobOptions.ja.resx">
-      <DependentUpon>JobOptions.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Mainform.ja.resx">
       <DependentUpon>Mainform.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="MetadataInformation.ja.resx">
-      <DependentUpon>MetadataInformation.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="MultipleProcessor.ja.resx">
-      <DependentUpon>MultipleProcessor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="options.ja.resx">
       <DependentUpon>options.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="PlayReadyStaticEnc.ja.resx">
-      <DependentUpon>PlayReadyStaticEnc.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Priority.ja.resx">
       <DependentUpon>Priority.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ProcessFromJobTemplate.ja.resx">
-      <DependentUpon>ProcessFromJobTemplate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ProgramInformation.ja.resx">
-      <DependentUpon>ProgramInformation.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="RegionEditor\RegionEditor.ja.resx">
-      <DependentUpon>RegionEditor.cs</DependentUpon>
+    <EmbeddedResource Include="LiveOutputInformation.ja.resx">
+      <DependentUpon>LiveOutputInformation.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SettingsSelection.ja.resx">
       <DependentUpon>SettingsSelection.cs</DependentUpon>
@@ -1200,26 +876,23 @@
     <EmbeddedResource Include="StreamingEndpointInformation.ja.resx">
       <DependentUpon>StreamingEndpointInformation.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Subclipping.ja.resx">
-      <DependentUpon>Subclipping.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Thumbnails.ja.resx">
-      <DependentUpon>Thumbnails.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="TimeControl.ja.resx">
       <DependentUpon>TimeControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TimeRangeSelection.ja.resx">
       <DependentUpon>TimeRangeSelection.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="NewAsset.ja.resx">
+      <DependentUpon>NewAsset.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NewAsset.resx">
+      <DependentUpon>NewAsset.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UploadOptions.ja.resx">
       <DependentUpon>UploadOptions.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UploadOptions.resx">
       <DependentUpon>UploadOptions.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="RegionEditor\RegionEditor.resx">
-      <DependentUpon>RegionEditor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SettingsSelection.resx">
       <DependentUpon>SettingsSelection.cs</DependentUpon>
@@ -1230,26 +903,8 @@
     <EmbeddedResource Include="DownloadToLocal.resx">
       <DependentUpon>DownloadToLocal.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="BulkContainerInfo.resx">
-      <DependentUpon>BulkContainerInfo.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms-MediaAnalytics\MediaAnalyticsVideoThumbnails.resx">
-      <DependentUpon>MediaAnalyticsVideoThumbnails.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms-MediaAnalytics\MediaAnalyticsFaceDetection.resx">
-      <DependentUpon>MediaAnalyticsFaceDetection.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms-MediaAnalytics\MediaAnalyticsGeneric.resx">
-      <DependentUpon>MediaAnalyticsGeneric.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="SoftwareUpdate.resx">
       <DependentUpon>SoftwareUpdate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ExportToExcel.resx">
-      <DependentUpon>ExportToExcel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="CreateTestToken.resx">
-      <DependentUpon>CreateTestToken.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="EditorXMLJSON.resx">
       <DependentUpon>EditorXMLJSON.cs</DependentUpon>
@@ -1257,23 +912,8 @@
     <EmbeddedResource Include="StorageSettings.resx">
       <DependentUpon>StorageSettings.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Subclipping.resx">
-      <DependentUpon>Subclipping.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="DynManifestFilter.resx">
       <DependentUpon>DynManifestFilter.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="EncodingMES.resx">
-      <DependentUpon>EncodingMES.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="JobOptions.resx">
-      <DependentUpon>JobOptions.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Hyperlapse.resx">
-      <DependentUpon>Hyperlapse.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="IndexerOptions.resx">
-      <DependentUpon>IndexerOptions.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Splash.resx">
       <DependentUpon>Splash.cs</DependentUpon>
@@ -1283,11 +923,8 @@
       <DependentUpon>AboutBox.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="AMSLogin.resx">
+    <EmbeddedResource Include="AMSLogin\AMSLogin.resx">
       <DependentUpon>AMSLogin.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="MetadataInformation.resx">
-      <DependentUpon>MetadataInformation.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="BatchUploadFrame2.resx">
       <DependentUpon>BatchUploadFrame2.cs</DependentUpon>
@@ -1300,54 +937,36 @@
       <SubType>Designer</SubType>
       <LastGenOutput>Bitmaps.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="DeleteProgramChannel.resx">
-      <DependentUpon>DeleteProgramChannel.cs</DependentUpon>
+    <EmbeddedResource Include="DeleteLiveOutputEvent.resx">
+      <DependentUpon>DeleteLiveOutputEvent.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AttachStorage.resx">
       <DependentUpon>AttachStorage.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ProcessFromJobTemplate.resx">
-      <DependentUpon>ProcessFromJobTemplate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms-DynamicEncryption\AddDynamicEncryptionFrame5_PlayReadyLicense.resx">
-      <DependentUpon>AddDynamicEncryptionFrame5_PlayReadyLicense.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms-DynamicEncryption\AddDynamicEncryptionFrame1.resx">
-      <DependentUpon>AddDynamicEncryptionFrame1.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="CreateStreamingEndpoint.resx">
       <DependentUpon>CreateStreamingEndpoint.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms-DynamicEncryption\AddDynamicEncryptionFrame2_CENCKeyConfig.resx">
-      <DependentUpon>AddDynamicEncryptionFrame2_CENCKeyConfig.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="StreamingEndpointInformation.resx">
       <DependentUpon>StreamingEndpointInformation.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Indexer.resx">
-      <DependentUpon>Indexer.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="ImportHttp.resx">
       <DependentUpon>ImportHttp.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Thumbnails.resx">
-      <DependentUpon>Thumbnails.cs</DependentUpon>
+    <EmbeddedResource Include="LiveOutputInformation.resx">
+      <DependentUpon>LiveOutputInformation.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ProgramInformation.resx">
-      <DependentUpon>ProgramInformation.cs</DependentUpon>
+    <EmbeddedResource Include="LiveEventInformation.resx">
+      <DependentUpon>LiveEventInformation.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ChannelInformation.resx">
-      <DependentUpon>ChannelInformation.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="CreateProgram.resx">
-      <DependentUpon>CreateProgram.cs</DependentUpon>
+    <EmbeddedResource Include="LiveOutputCreation.resx">
+      <DependentUpon>LiveOutputCreation.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AssetInformation.resx">
       <DependentUpon>AssetInformation.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="CreateLiveChannel.resx">
-      <DependentUpon>CreateLiveChannel.cs</DependentUpon>
+    <EmbeddedResource Include="LiveEventCreation.resx">
+      <DependentUpon>LiveEventCreation.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="options.resx">
       <DependentUpon>options.cs</DependentUpon>
@@ -1355,59 +974,24 @@
     <EmbeddedResource Include="TimeControl.resx">
       <DependentUpon>TimeControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="WatchFolder.ja.resx">
-      <DependentUpon>WatchFolder.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="WatchFolder.resx">
-      <DependentUpon>WatchFolder.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="CreateLocator.resx">
       <DependentUpon>CreateLocator.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="MultipleProcessor.resx">
-      <DependentUpon>MultipleProcessor.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="EncodingAMEAdv.resx">
-      <DependentUpon>EncodingAMEAdv.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="EncodingPremium.resx">
-      <DependentUpon>EncodingPremium.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="HLSAESStatic.resx">
-      <DependentUpon>HLSAESStatic.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="JobInformation.resx">
       <DependentUpon>JobInformation.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Mainform.resx">
       <DependentUpon>Mainform.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="PlayReadyStaticEnc.resx">
-      <DependentUpon>PlayReadyStaticEnc.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Priority.resx">
       <DependentUpon>Priority.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="EncodingAMEPreset.resx">
-      <DependentUpon>EncodingAMEPreset.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ExportAssetToAzureStorage.resx">
-      <DependentUpon>ExportAssetToAzureStorage.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ImportFromAzureStorage.resx">
-      <DependentUpon>ImportFromAzureStorage.cs</DependentUpon>
     </EmbeddedResource>
     <Content Include="Azure Explorer_ico.ico" />
     <None Include="BitmapsPNG\8-12-2014-13-20-04.png" />
     <None Include="BitmapsPNG\Azure Explorer.png" />
     <None Include="BitmapsPNG\Azure Explorer_ico.ico" />
     <None Include="BitmapsPNG\AzureMedia_Full-Color-64-opaque.png" />
-    <None Include="BitmapsPNG\modeltaskxenio1.png" />
-    <None Include="BitmapsPNG\modeltaskxenio2.png" />
-    <None Include="BitmapsPNG\modetaskjob1.png" />
-    <None Include="BitmapsPNG\modetaskjob2.png" />
-    <None Include="BitmapsPNG\modetaskjob3.png" />
     <Content Include="Configurations\CrossDomainPolicy.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -1480,115 +1064,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\%24this.Icon.ico" />
-    <Content Include="AMEPresetFiles\AAC Good Quality Audio.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="AMEPresetFiles\H264 Adaptive Bitrate MP4 Set SD 16x9 for iOS Cellular Only.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="AMEPresetFiles\H264 Adaptive Bitrate MP4 Set SD 4x3 for iOS Cellular Only.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="AMEPresetFiles\H264 Adaptive Bitrate MP4 Set 1080p for iOS Cellular Only.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="AMEPresetFiles\H264 Adaptive Bitrate MP4 Set 720p for iOS Cellular Only.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="AMEPresetFiles\H264 Adaptive Bitrate MP4 Set 1080p.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="AMEPresetFiles\H264 Adaptive Bitrate MP4 Set 720p.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="AMEPresetFiles\H264 Adaptive Bitrate MP4 Set SD 16x9.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="AMEPresetFiles\H264 Adaptive Bitrate MP4 Set SD 4x3.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="AMEPresetFiles\H264 Broadband 1080p.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="AMEPresetFiles\H264 Broadband 720p.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="AMEPresetFiles\H264 Broadband SD 16x9.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="AMEPresetFiles\H264 Broadband SD 4x3.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="AMEPresetFiles\H264 Smooth Streaming 720p Xbox Live ADK.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="AMEPresetFiles\H264 Smooth Streaming 1080p.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="AMEPresetFiles\H264 Smooth Streaming 720p for 3G or 4G.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="AMEPresetFiles\H264 Smooth Streaming 720p.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="AMEPresetFiles\H264 Smooth Streaming SD 16x9.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="AMEPresetFiles\H264 Smooth Streaming SD 4x3.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="AMEPresetFiles\H264 Smooth Streaming Windows Phone 7 Series.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="AMEPresetFiles\Thumbnails.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="AMEPresetFiles\VC1 Broadband 1080p.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="AMEPresetFiles\VC1 Broadband 720p.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="AMEPresetFiles\VC1 Broadband SD 16x9.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="AMEPresetFiles\VC1 Broadband SD 4x3.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="AMEPresetFiles\VC1 Smooth Streaming 1080p.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="AMEPresetFiles\VC1 Smooth Streaming 720p Xbox Live ADK.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="AMEPresetFiles\VC1 Smooth Streaming 720p.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="AMEPresetFiles\VC1 Smooth Streaming SD 16x9.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="AMEPresetFiles\VC1 Smooth Streaming SD 4x3.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="AMEPresetFiles\WMA High Quality Audio.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Configurations\MediaEncryptor_PlayReadyProtection.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="Configurations\MediaPackager_MP4toSmooth.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Configurations\MediaPackager_SmoothToHLS.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Configurations\MediaPackager_SmoothToHLSWithAES.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Configurations\MediaPackager_ValidateTask.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
@@ -1614,6 +1089,13 @@
     <Folder Include="Properties\DataSources\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets'))" />
+  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

@@ -1,5 +1,5 @@
 ﻿//----------------------------------------------------------------------------------------------
-//    Copyright 2016 Microsoft Corporation
+//    Copyright 2019 Microsoft Corporation
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
 //    you may not use this file except in compliance with the License.
@@ -16,16 +16,7 @@
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Diagnostics;
-using Microsoft.WindowsAzure.MediaServices.Client;
-using Microsoft.WindowsAzure.MediaServices.Client.Live;
 
 
 namespace AMSExplorer
@@ -36,26 +27,14 @@ namespace AMSExplorer
     {
 
         public static readonly List<Item> CDNProviders = new List<Item> {
-            new Item("Standard Verizon",  CdnProviderType.StandardVerizon.ToString("F")),
-            new Item("Standard Akamai", CdnProviderType.StandardAkamai.ToString("F")),
-            new Item("Premium Verizon", CdnProviderType.PremiumVerizon.ToString("F"))
+            new Item("Standard Verizon",  "StandardVerizon"),
+            new Item("Standard Akamai", "StandardAkamai"),
+            new Item("Premium Verizon", "PremiumVerizon")
                    };
 
-        public CdnProviderType ProviderSelected
-        {
-            get
-            {
-                return (CdnProviderType) Enum.Parse(typeof(CdnProviderType), ((Item)comboBoxProvider.SelectedItem).Value);
-            }
-        }
+        public string ProviderSelected => ((Item)comboBoxProvider.SelectedItem).Value.ToString();
 
-        public string ProviderSelectedString
-        {
-            get
-            {
-                return ((Item)comboBoxProvider.SelectedItem).Value;
-            }
-        }
+        public string ProviderSelectedString => ((Item)comboBoxProvider.SelectedItem).Value;
 
 
         public string Profile
@@ -78,7 +57,7 @@ namespace AMSExplorer
         public StreamingEndpointCDNEnable()
         {
             InitializeComponent();
-            this.Icon = Bitmaps.Azure_Explorer_ico;
+            Icon = Bitmaps.Azure_Explorer_ico;
 
             ControlsResetToDefault();
 
@@ -89,7 +68,7 @@ namespace AMSExplorer
         {
             comboBoxProvider.Items.Clear();
 
-            foreach (var provider in CDNProviders)
+            foreach (Item provider in CDNProviders)
             {
                 comboBoxProvider.Items.Add(provider);
             }
@@ -99,11 +78,15 @@ namespace AMSExplorer
         }
 
 
-        private void UploadOptions_Load(object sender, EventArgs e)
+        private void StreamingEndpointCDNEnable_Load(object sender, EventArgs e)
         {
-
+            DpiUtils.InitPerMonitorDpi(this);
         }
 
+        private void StreamingEndpointCDNEnable_DpiChanged(object sender, DpiChangedEventArgs e)
+        {
+            DpiUtils.UpdatedSizeFontAfterDPIChange(labelCDNOptions, e);
+        }
     }
 
 }

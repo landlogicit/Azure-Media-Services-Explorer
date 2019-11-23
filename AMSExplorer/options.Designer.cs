@@ -32,23 +32,16 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Options));
             this.buttonOk = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
-            this.checkBoxUseStorageEncryption = new System.Windows.Forms.CheckBox();
-            this.checkBoxUseProtectedConfig = new System.Windows.Forms.CheckBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.comboBoxNbItems = new System.Windows.Forms.ComboBox();
             this.buttonReset = new System.Windows.Forms.Button();
             this.checkBoxDisplayAssetID = new System.Windows.Forms.CheckBox();
-            this.checkBoxDisplayJobID = new System.Windows.Forms.CheckBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.checkBoxDisplayAssetAltId = new System.Windows.Forms.CheckBox();
-            this.checkBoxDisplayBulkContId = new System.Windows.Forms.CheckBox();
             this.checkBoxDisplayAssetStorage = new System.Windows.Forms.CheckBox();
             this.checkBoxAutoRefresh = new System.Windows.Forms.CheckBox();
             this.comboBoxAutoRefreshTime = new System.Windows.Forms.ComboBox();
-            this.checkBoxDisplayOriginID = new System.Windows.Forms.CheckBox();
-            this.checkBoxDisplayProgramID = new System.Windows.Forms.CheckBox();
-            this.checkBoxDisplayChannelID = new System.Windows.Forms.CheckBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.numericUpDownSASDuration = new System.Windows.Forms.NumericUpDown();
             this.checkBoxHideTaskbarNotifications = new System.Windows.Forms.CheckBox();
             this.checkBoxUseAdaptiveStreamingFormat = new System.Windows.Forms.CheckBox();
             this.label13 = new System.Windows.Forms.Label();
@@ -56,15 +49,8 @@
             this.label12 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.numericUpDownAssetAnalysisStart = new System.Windows.Forms.NumericUpDown();
-            this.checkBoxShowPremiumLiveEncoding = new System.Windows.Forms.CheckBox();
-            this.label8 = new System.Windows.Forms.Label();
-            this.numericUpDownTokenDuration = new System.Windows.Forms.NumericUpDown();
             this.label3 = new System.Windows.Forms.Label();
             this.numericUpDownLocatorDuration = new System.Windows.Forms.NumericUpDown();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.numericUpDownPriority = new System.Windows.Forms.NumericUpDown();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.labelcdn = new System.Windows.Forms.Label();
@@ -73,12 +59,8 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.label4 = new System.Windows.Forms.Label();
             this.numericUpDownMESPrice = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDownIndexingPrice = new System.Windows.Forms.NumericUpDown();
-            this.label6 = new System.Windows.Forms.Label();
             this.textBoxCurrency = new System.Windows.Forms.TextBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.label9 = new System.Windows.Forms.Label();
-            this.numericUpDownPremiumWorkflowPrice = new System.Windows.Forms.NumericUpDown();
             this.amspriceslink = new System.Windows.Forms.LinkLabel();
             this.label7 = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
@@ -90,36 +72,21 @@
             this.textBoxVLCPath = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.textBoxffmpegPath = new System.Windows.Forms.TextBox();
-            this.tabPage4 = new System.Windows.Forms.TabPage();
-            this.groupBox6 = new System.Windows.Forms.GroupBox();
-            this.label18 = new System.Windows.Forms.Label();
-            this.numericUpDownNumbConcurTrans = new System.Windows.Forms.NumericUpDown();
-            this.label19 = new System.Windows.Forms.Label();
-            this.numericUpDownParallelTransThreadCount = new System.Windows.Forms.NumericUpDown();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownSASDuration)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAssetAnalysisStep)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAssetAnalysisStart)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTokenDuration)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLocatorDuration)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPriority)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.groupBox3.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMESPrice)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownIndexingPrice)).BeginInit();
             this.groupBox4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPremiumWorkflowPrice)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.groupBox5.SuspendLayout();
-            this.tabPage4.SuspendLayout();
-            this.groupBox6.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownNumbConcurTrans)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownParallelTransThreadCount)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonOk
@@ -137,30 +104,6 @@
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
             // 
-            // checkBoxUseStorageEncryption
-            // 
-            resources.ApplyResources(this.checkBoxUseStorageEncryption, "checkBoxUseStorageEncryption");
-            this.checkBoxUseStorageEncryption.Name = "checkBoxUseStorageEncryption";
-            this.checkBoxUseStorageEncryption.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxUseProtectedConfig
-            // 
-            resources.ApplyResources(this.checkBoxUseProtectedConfig, "checkBoxUseProtectedConfig");
-            this.checkBoxUseProtectedConfig.Name = "checkBoxUseProtectedConfig";
-            this.checkBoxUseProtectedConfig.UseVisualStyleBackColor = true;
-            // 
-            // label1
-            // 
-            resources.ApplyResources(this.label1, "label1");
-            this.label1.Name = "label1";
-            // 
-            // comboBoxNbItems
-            // 
-            this.comboBoxNbItems.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            resources.ApplyResources(this.comboBoxNbItems, "comboBoxNbItems");
-            this.comboBoxNbItems.FormattingEnabled = true;
-            this.comboBoxNbItems.Name = "comboBoxNbItems";
-            // 
             // buttonReset
             // 
             resources.ApplyResources(this.buttonReset, "buttonReset");
@@ -171,29 +114,18 @@
             // checkBoxDisplayAssetID
             // 
             resources.ApplyResources(this.checkBoxDisplayAssetID, "checkBoxDisplayAssetID");
+            this.checkBoxDisplayAssetID.ForeColor = System.Drawing.SystemColors.WindowText;
             this.checkBoxDisplayAssetID.Name = "checkBoxDisplayAssetID";
             this.checkBoxDisplayAssetID.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxDisplayJobID
-            // 
-            resources.ApplyResources(this.checkBoxDisplayJobID, "checkBoxDisplayJobID");
-            this.checkBoxDisplayJobID.Name = "checkBoxDisplayJobID";
-            this.checkBoxDisplayJobID.UseVisualStyleBackColor = true;
             // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.checkBoxDisplayAssetAltId);
-            this.groupBox1.Controls.Add(this.checkBoxDisplayBulkContId);
             this.groupBox1.Controls.Add(this.checkBoxDisplayAssetStorage);
             this.groupBox1.Controls.Add(this.checkBoxAutoRefresh);
             this.groupBox1.Controls.Add(this.comboBoxAutoRefreshTime);
-            this.groupBox1.Controls.Add(this.checkBoxDisplayOriginID);
-            this.groupBox1.Controls.Add(this.checkBoxDisplayProgramID);
-            this.groupBox1.Controls.Add(this.checkBoxDisplayChannelID);
-            this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Controls.Add(this.checkBoxDisplayJobID);
-            this.groupBox1.Controls.Add(this.comboBoxNbItems);
             this.groupBox1.Controls.Add(this.checkBoxDisplayAssetID);
+            this.groupBox1.ForeColor = System.Drawing.Color.DarkBlue;
             resources.ApplyResources(this.groupBox1, "groupBox1");
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.TabStop = false;
@@ -201,24 +133,21 @@
             // checkBoxDisplayAssetAltId
             // 
             resources.ApplyResources(this.checkBoxDisplayAssetAltId, "checkBoxDisplayAssetAltId");
+            this.checkBoxDisplayAssetAltId.ForeColor = System.Drawing.SystemColors.WindowText;
             this.checkBoxDisplayAssetAltId.Name = "checkBoxDisplayAssetAltId";
             this.checkBoxDisplayAssetAltId.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxDisplayBulkContId
-            // 
-            resources.ApplyResources(this.checkBoxDisplayBulkContId, "checkBoxDisplayBulkContId");
-            this.checkBoxDisplayBulkContId.Name = "checkBoxDisplayBulkContId";
-            this.checkBoxDisplayBulkContId.UseVisualStyleBackColor = true;
             // 
             // checkBoxDisplayAssetStorage
             // 
             resources.ApplyResources(this.checkBoxDisplayAssetStorage, "checkBoxDisplayAssetStorage");
+            this.checkBoxDisplayAssetStorage.ForeColor = System.Drawing.SystemColors.WindowText;
             this.checkBoxDisplayAssetStorage.Name = "checkBoxDisplayAssetStorage";
             this.checkBoxDisplayAssetStorage.UseVisualStyleBackColor = true;
             // 
             // checkBoxAutoRefresh
             // 
             resources.ApplyResources(this.checkBoxAutoRefresh, "checkBoxAutoRefresh");
+            this.checkBoxAutoRefresh.ForeColor = System.Drawing.SystemColors.WindowText;
             this.checkBoxAutoRefresh.Name = "checkBoxAutoRefresh";
             this.toolTip1.SetToolTip(this.checkBoxAutoRefresh, resources.GetString("checkBoxAutoRefresh.ToolTip"));
             this.checkBoxAutoRefresh.UseVisualStyleBackColor = true;
@@ -226,35 +155,19 @@
             // comboBoxAutoRefreshTime
             // 
             this.comboBoxAutoRefreshTime.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            resources.ApplyResources(this.comboBoxAutoRefreshTime, "comboBoxAutoRefreshTime");
             this.comboBoxAutoRefreshTime.FormattingEnabled = true;
             this.comboBoxAutoRefreshTime.Items.AddRange(new object[] {
             resources.GetString("comboBoxAutoRefreshTime.Items"),
             resources.GetString("comboBoxAutoRefreshTime.Items1"),
             resources.GetString("comboBoxAutoRefreshTime.Items2"),
             resources.GetString("comboBoxAutoRefreshTime.Items3")});
+            resources.ApplyResources(this.comboBoxAutoRefreshTime, "comboBoxAutoRefreshTime");
             this.comboBoxAutoRefreshTime.Name = "comboBoxAutoRefreshTime";
-            // 
-            // checkBoxDisplayOriginID
-            // 
-            resources.ApplyResources(this.checkBoxDisplayOriginID, "checkBoxDisplayOriginID");
-            this.checkBoxDisplayOriginID.Name = "checkBoxDisplayOriginID";
-            this.checkBoxDisplayOriginID.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxDisplayProgramID
-            // 
-            resources.ApplyResources(this.checkBoxDisplayProgramID, "checkBoxDisplayProgramID");
-            this.checkBoxDisplayProgramID.Name = "checkBoxDisplayProgramID";
-            this.checkBoxDisplayProgramID.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxDisplayChannelID
-            // 
-            resources.ApplyResources(this.checkBoxDisplayChannelID, "checkBoxDisplayChannelID");
-            this.checkBoxDisplayChannelID.Name = "checkBoxDisplayChannelID";
-            this.checkBoxDisplayChannelID.UseVisualStyleBackColor = true;
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.label1);
+            this.groupBox2.Controls.Add(this.numericUpDownSASDuration);
             this.groupBox2.Controls.Add(this.checkBoxHideTaskbarNotifications);
             this.groupBox2.Controls.Add(this.checkBoxUseAdaptiveStreamingFormat);
             this.groupBox2.Controls.Add(this.label13);
@@ -262,36 +175,57 @@
             this.groupBox2.Controls.Add(this.label12);
             this.groupBox2.Controls.Add(this.label5);
             this.groupBox2.Controls.Add(this.numericUpDownAssetAnalysisStart);
-            this.groupBox2.Controls.Add(this.checkBoxShowPremiumLiveEncoding);
-            this.groupBox2.Controls.Add(this.label8);
-            this.groupBox2.Controls.Add(this.numericUpDownTokenDuration);
             this.groupBox2.Controls.Add(this.label3);
             this.groupBox2.Controls.Add(this.numericUpDownLocatorDuration);
-            this.groupBox2.Controls.Add(this.pictureBox2);
-            this.groupBox2.Controls.Add(this.label2);
-            this.groupBox2.Controls.Add(this.numericUpDownPriority);
-            this.groupBox2.Controls.Add(this.checkBoxUseStorageEncryption);
-            this.groupBox2.Controls.Add(this.pictureBox1);
-            this.groupBox2.Controls.Add(this.checkBoxUseProtectedConfig);
+            this.groupBox2.ForeColor = System.Drawing.Color.DarkBlue;
             resources.ApplyResources(this.groupBox2, "groupBox2");
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.TabStop = false;
             // 
+            // label1
+            // 
+            resources.ApplyResources(this.label1, "label1");
+            this.label1.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.label1.Name = "label1";
+            // 
+            // numericUpDownSASDuration
+            // 
+            resources.ApplyResources(this.numericUpDownSASDuration, "numericUpDownSASDuration");
+            this.numericUpDownSASDuration.Maximum = new decimal(new int[] {
+            24,
+            0,
+            0,
+            0});
+            this.numericUpDownSASDuration.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUpDownSASDuration.Name = "numericUpDownSASDuration";
+            this.numericUpDownSASDuration.Value = new decimal(new int[] {
+            24,
+            0,
+            0,
+            0});
+            // 
             // checkBoxHideTaskbarNotifications
             // 
             resources.ApplyResources(this.checkBoxHideTaskbarNotifications, "checkBoxHideTaskbarNotifications");
+            this.checkBoxHideTaskbarNotifications.ForeColor = System.Drawing.SystemColors.WindowText;
             this.checkBoxHideTaskbarNotifications.Name = "checkBoxHideTaskbarNotifications";
             this.checkBoxHideTaskbarNotifications.UseVisualStyleBackColor = true;
             // 
             // checkBoxUseAdaptiveStreamingFormat
             // 
             resources.ApplyResources(this.checkBoxUseAdaptiveStreamingFormat, "checkBoxUseAdaptiveStreamingFormat");
+            this.checkBoxUseAdaptiveStreamingFormat.ForeColor = System.Drawing.SystemColors.WindowText;
             this.checkBoxUseAdaptiveStreamingFormat.Name = "checkBoxUseAdaptiveStreamingFormat";
             this.checkBoxUseAdaptiveStreamingFormat.UseVisualStyleBackColor = true;
             // 
             // label13
             // 
             resources.ApplyResources(this.label13, "label13");
+            this.label13.ForeColor = System.Drawing.SystemColors.WindowText;
             this.label13.Name = "label13";
             // 
             // numericUpDownAssetAnalysisStep
@@ -312,11 +246,13 @@
             // label12
             // 
             resources.ApplyResources(this.label12, "label12");
+            this.label12.ForeColor = System.Drawing.SystemColors.WindowText;
             this.label12.Name = "label12";
             // 
             // label5
             // 
             resources.ApplyResources(this.label5, "label5");
+            this.label5.ForeColor = System.Drawing.SystemColors.WindowText;
             this.label5.Name = "label5";
             // 
             // numericUpDownAssetAnalysisStart
@@ -334,40 +270,10 @@
             0,
             0});
             // 
-            // checkBoxShowPremiumLiveEncoding
-            // 
-            resources.ApplyResources(this.checkBoxShowPremiumLiveEncoding, "checkBoxShowPremiumLiveEncoding");
-            this.checkBoxShowPremiumLiveEncoding.Name = "checkBoxShowPremiumLiveEncoding";
-            this.checkBoxShowPremiumLiveEncoding.UseVisualStyleBackColor = true;
-            // 
-            // label8
-            // 
-            resources.ApplyResources(this.label8, "label8");
-            this.label8.Name = "label8";
-            // 
-            // numericUpDownTokenDuration
-            // 
-            resources.ApplyResources(this.numericUpDownTokenDuration, "numericUpDownTokenDuration");
-            this.numericUpDownTokenDuration.Maximum = new decimal(new int[] {
-            36500,
-            0,
-            0,
-            0});
-            this.numericUpDownTokenDuration.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.numericUpDownTokenDuration.Name = "numericUpDownTokenDuration";
-            this.numericUpDownTokenDuration.Value = new decimal(new int[] {
-            5,
-            0,
-            0,
-            0});
-            // 
             // label3
             // 
             resources.ApplyResources(this.label3, "label3");
+            this.label3.ForeColor = System.Drawing.SystemColors.WindowText;
             this.label3.Name = "label3";
             // 
             // numericUpDownLocatorDuration
@@ -390,48 +296,20 @@
             0,
             0});
             // 
-            // pictureBox2
-            // 
-            this.pictureBox2.Image = global::AMSExplorer.Bitmaps.change_priority;
-            resources.ApplyResources(this.pictureBox2, "pictureBox2");
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.TabStop = false;
-            // 
-            // label2
-            // 
-            resources.ApplyResources(this.label2, "label2");
-            this.label2.Name = "label2";
-            // 
-            // numericUpDownPriority
-            // 
-            resources.ApplyResources(this.numericUpDownPriority, "numericUpDownPriority");
-            this.numericUpDownPriority.Name = "numericUpDownPriority";
-            this.numericUpDownPriority.Value = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = global::AMSExplorer.Bitmaps.storage_encryption;
-            resources.ApplyResources(this.pictureBox1, "pictureBox1");
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.TabStop = false;
-            // 
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.labelcdn);
             this.groupBox3.Controls.Add(this.textBoxCustomPlayer);
             this.groupBox3.Controls.Add(this.checkBoxEnableCustomPlayer);
+            this.groupBox3.ForeColor = System.Drawing.Color.DarkBlue;
             resources.ApplyResources(this.groupBox3, "groupBox3");
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.TabStop = false;
             // 
             // labelcdn
             // 
-            resources.ApplyResources(this.labelcdn, "labelcdn");
             this.labelcdn.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            resources.ApplyResources(this.labelcdn, "labelcdn");
             this.labelcdn.Name = "labelcdn";
             // 
             // textBoxCustomPlayer
@@ -442,60 +320,41 @@
             // checkBoxEnableCustomPlayer
             // 
             resources.ApplyResources(this.checkBoxEnableCustomPlayer, "checkBoxEnableCustomPlayer");
+            this.checkBoxEnableCustomPlayer.ForeColor = System.Drawing.SystemColors.WindowText;
             this.checkBoxEnableCustomPlayer.Name = "checkBoxEnableCustomPlayer";
             this.checkBoxEnableCustomPlayer.UseVisualStyleBackColor = true;
             this.checkBoxEnableCustomPlayer.CheckedChanged += new System.EventHandler(this.checkBoxEnableCustomPlayer_CheckedChanged);
             // 
             // panel1
             // 
-            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
             this.panel1.Controls.Add(this.buttonCancel);
             this.panel1.Controls.Add(this.buttonOk);
             this.panel1.Controls.Add(this.buttonReset);
+            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Name = "panel1";
             // 
             // label4
             // 
             resources.ApplyResources(this.label4, "label4");
+            this.label4.ForeColor = System.Drawing.SystemColors.WindowText;
             this.label4.Name = "label4";
             // 
             // numericUpDownMESPrice
             // 
             this.numericUpDownMESPrice.DecimalPlaces = 3;
-            resources.ApplyResources(this.numericUpDownMESPrice, "numericUpDownMESPrice");
             this.numericUpDownMESPrice.Increment = new decimal(new int[] {
             1,
             0,
             0,
             196608});
+            resources.ApplyResources(this.numericUpDownMESPrice, "numericUpDownMESPrice");
             this.numericUpDownMESPrice.Name = "numericUpDownMESPrice";
             this.numericUpDownMESPrice.Value = new decimal(new int[] {
             15,
             0,
             0,
             196608});
-            // 
-            // numericUpDownIndexingPrice
-            // 
-            this.numericUpDownIndexingPrice.DecimalPlaces = 2;
-            resources.ApplyResources(this.numericUpDownIndexingPrice, "numericUpDownIndexingPrice");
-            this.numericUpDownIndexingPrice.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            131072});
-            this.numericUpDownIndexingPrice.Name = "numericUpDownIndexingPrice";
-            this.numericUpDownIndexingPrice.Value = new decimal(new int[] {
-            2,
-            0,
-            0,
-            131072});
-            // 
-            // label6
-            // 
-            resources.ApplyResources(this.label6, "label6");
-            this.label6.Name = "label6";
             // 
             // textBoxCurrency
             // 
@@ -504,43 +363,20 @@
             // 
             // groupBox4
             // 
-            this.groupBox4.Controls.Add(this.label9);
-            this.groupBox4.Controls.Add(this.numericUpDownPremiumWorkflowPrice);
             this.groupBox4.Controls.Add(this.amspriceslink);
             this.groupBox4.Controls.Add(this.label7);
             this.groupBox4.Controls.Add(this.textBoxCurrency);
             this.groupBox4.Controls.Add(this.numericUpDownMESPrice);
-            this.groupBox4.Controls.Add(this.numericUpDownIndexingPrice);
-            this.groupBox4.Controls.Add(this.label6);
             this.groupBox4.Controls.Add(this.label4);
+            this.groupBox4.ForeColor = System.Drawing.Color.DarkBlue;
             resources.ApplyResources(this.groupBox4, "groupBox4");
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.TabStop = false;
             // 
-            // label9
-            // 
-            resources.ApplyResources(this.label9, "label9");
-            this.label9.Name = "label9";
-            // 
-            // numericUpDownPremiumWorkflowPrice
-            // 
-            this.numericUpDownPremiumWorkflowPrice.DecimalPlaces = 3;
-            resources.ApplyResources(this.numericUpDownPremiumWorkflowPrice, "numericUpDownPremiumWorkflowPrice");
-            this.numericUpDownPremiumWorkflowPrice.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            196608});
-            this.numericUpDownPremiumWorkflowPrice.Name = "numericUpDownPremiumWorkflowPrice";
-            this.numericUpDownPremiumWorkflowPrice.Value = new decimal(new int[] {
-            35,
-            0,
-            0,
-            196608});
-            // 
             // amspriceslink
             // 
             resources.ApplyResources(this.amspriceslink, "amspriceslink");
+            this.amspriceslink.ForeColor = System.Drawing.SystemColors.WindowText;
             this.amspriceslink.Name = "amspriceslink";
             this.amspriceslink.TabStop = true;
             this.amspriceslink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.amspriceslink_LinkClicked);
@@ -548,13 +384,13 @@
             // label7
             // 
             resources.ApplyResources(this.label7, "label7");
+            this.label7.ForeColor = System.Drawing.SystemColors.WindowText;
             this.label7.Name = "label7";
             // 
             // tabControl1
             // 
             resources.ApplyResources(this.tabControl1, "tabControl1");
             this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage4);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Name = "tabControl1";
@@ -589,6 +425,7 @@
             this.groupBox5.Controls.Add(this.textBoxVLCPath);
             this.groupBox5.Controls.Add(this.label10);
             this.groupBox5.Controls.Add(this.textBoxffmpegPath);
+            this.groupBox5.ForeColor = System.Drawing.Color.DarkBlue;
             resources.ApplyResources(this.groupBox5, "groupBox5");
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.TabStop = false;
@@ -596,6 +433,7 @@
             // label11
             // 
             resources.ApplyResources(this.label11, "label11");
+            this.label11.ForeColor = System.Drawing.SystemColors.WindowText;
             this.label11.Name = "label11";
             // 
             // textBoxVLCPath
@@ -606,6 +444,7 @@
             // label10
             // 
             resources.ApplyResources(this.label10, "label10");
+            this.label10.ForeColor = System.Drawing.SystemColors.WindowText;
             this.label10.Name = "label10";
             // 
             // textBoxffmpegPath
@@ -613,104 +452,38 @@
             resources.ApplyResources(this.textBoxffmpegPath, "textBoxffmpegPath");
             this.textBoxffmpegPath.Name = "textBoxffmpegPath";
             // 
-            // tabPage4
-            // 
-            this.tabPage4.Controls.Add(this.groupBox6);
-            resources.ApplyResources(this.tabPage4, "tabPage4");
-            this.tabPage4.Name = "tabPage4";
-            this.tabPage4.UseVisualStyleBackColor = true;
-            // 
-            // groupBox6
-            // 
-            this.groupBox6.Controls.Add(this.label18);
-            this.groupBox6.Controls.Add(this.numericUpDownNumbConcurTrans);
-            this.groupBox6.Controls.Add(this.label19);
-            this.groupBox6.Controls.Add(this.numericUpDownParallelTransThreadCount);
-            resources.ApplyResources(this.groupBox6, "groupBox6");
-            this.groupBox6.Name = "groupBox6";
-            this.groupBox6.TabStop = false;
-            // 
-            // label18
-            // 
-            resources.ApplyResources(this.label18, "label18");
-            this.label18.Name = "label18";
-            // 
-            // numericUpDownNumbConcurTrans
-            // 
-            resources.ApplyResources(this.numericUpDownNumbConcurTrans, "numericUpDownNumbConcurTrans");
-            this.numericUpDownNumbConcurTrans.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.numericUpDownNumbConcurTrans.Name = "numericUpDownNumbConcurTrans";
-            this.numericUpDownNumbConcurTrans.Value = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
-            // 
-            // label19
-            // 
-            resources.ApplyResources(this.label19, "label19");
-            this.label19.Name = "label19";
-            // 
-            // numericUpDownParallelTransThreadCount
-            // 
-            resources.ApplyResources(this.numericUpDownParallelTransThreadCount, "numericUpDownParallelTransThreadCount");
-            this.numericUpDownParallelTransThreadCount.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.numericUpDownParallelTransThreadCount.Name = "numericUpDownParallelTransThreadCount";
-            this.numericUpDownParallelTransThreadCount.Value = new decimal(new int[] {
-            2,
-            0,
-            0,
-            0});
-            // 
             // Options
             // 
             this.AcceptButton = this.buttonOk;
             resources.ApplyResources(this, "$this");
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.panel1);
             this.Name = "Options";
             this.Load += new System.EventHandler(this.options_Load);
+            this.DpiChanged += new System.Windows.Forms.DpiChangedEventHandler(this.Options_DpiChanged);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownSASDuration)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAssetAnalysisStep)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAssetAnalysisStart)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTokenDuration)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLocatorDuration)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPriority)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMESPrice)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownIndexingPrice)).EndInit();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPremiumWorkflowPrice)).EndInit();
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
-            this.tabPage4.ResumeLayout(false);
-            this.groupBox6.ResumeLayout(false);
-            this.groupBox6.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownNumbConcurTrans)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownParallelTransThreadCount)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -719,44 +492,26 @@
 
         public System.Windows.Forms.Button buttonOk;
         public System.Windows.Forms.Button buttonCancel;
-        private System.Windows.Forms.CheckBox checkBoxUseStorageEncryption;
-        private System.Windows.Forms.CheckBox checkBoxUseProtectedConfig;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ComboBox comboBoxNbItems;
         public System.Windows.Forms.Button buttonReset;
         private System.Windows.Forms.CheckBox checkBoxDisplayAssetID;
-        private System.Windows.Forms.CheckBox checkBoxDisplayJobID;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.CheckBox checkBoxDisplayOriginID;
-        private System.Windows.Forms.CheckBox checkBoxDisplayProgramID;
-        private System.Windows.Forms.CheckBox checkBoxDisplayChannelID;
         private System.Windows.Forms.CheckBox checkBoxAutoRefresh;
         private System.Windows.Forms.ComboBox comboBoxAutoRefreshTime;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.TextBox textBoxCustomPlayer;
         private System.Windows.Forms.CheckBox checkBoxEnableCustomPlayer;
-        private System.Windows.Forms.PictureBox pictureBox2;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.NumericUpDown numericUpDownPriority;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.NumericUpDown numericUpDownLocatorDuration;
         private System.Windows.Forms.CheckBox checkBoxDisplayAssetStorage;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.NumericUpDown numericUpDownMESPrice;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.NumericUpDown numericUpDownIndexingPrice;
-        private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox textBoxCurrency;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.LinkLabel amspriceslink;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.NumericUpDown numericUpDownTokenDuration;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.NumericUpDown numericUpDownPremiumWorkflowPrice;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
@@ -767,9 +522,7 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.TextBox textBoxffmpegPath;
         private System.Windows.Forms.Label labelcdn;
-        private System.Windows.Forms.CheckBox checkBoxDisplayBulkContId;
         private System.Windows.Forms.CheckBox checkBoxDisplayAssetAltId;
-        private System.Windows.Forms.CheckBox checkBoxShowPremiumLiveEncoding;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.NumericUpDown numericUpDownAssetAnalysisStep;
         private System.Windows.Forms.Label label12;
@@ -777,11 +530,7 @@
         private System.Windows.Forms.NumericUpDown numericUpDownAssetAnalysisStart;
         private System.Windows.Forms.CheckBox checkBoxUseAdaptiveStreamingFormat;
         private System.Windows.Forms.CheckBox checkBoxHideTaskbarNotifications;
-        private System.Windows.Forms.TabPage tabPage4;
-        private System.Windows.Forms.GroupBox groupBox6;
-        private System.Windows.Forms.Label label18;
-        private System.Windows.Forms.NumericUpDown numericUpDownNumbConcurTrans;
-        private System.Windows.Forms.Label label19;
-        private System.Windows.Forms.NumericUpDown numericUpDownParallelTransThreadCount;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.NumericUpDown numericUpDownSASDuration;
     }
 }

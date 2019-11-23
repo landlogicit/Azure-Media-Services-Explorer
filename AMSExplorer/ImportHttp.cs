@@ -1,5 +1,5 @@
 ﻿//----------------------------------------------------------------------------------------------
-//    Copyright 2016 Microsoft Corporation
+//    Copyright 2019 Microsoft Corporation
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
 //    you may not use this file except in compliance with the License.
@@ -14,137 +14,145 @@
 //    limitations under the License.
 //---------------------------------------------------------------------------------------------
 
+using Microsoft.Azure.Management.Media;
+using Microsoft.Azure.Management.Media.Models;
 using System;
 using System.Windows.Forms;
-using Microsoft.WindowsAzure.MediaServices.Client;
-
 
 namespace AMSExplorer
 {
     public partial class ImportHttp : Form
     {
-        private bool _AzureStorageContainerSASListMode;
-        private CloudMediaContext _context;
+        private readonly bool _AzureStorageContainerSASListMode;
+        private readonly AMSClientV3 _amsClientV3;
+        private readonly string _uniqueness;
+        private NewAsset newAssetForm = null;
+
 
         public Uri GetURL
         {
             get
             {
-                return new Uri(textBoxURL.Text);
+                try
+                {
+                    Uri myUri = new Uri(textBoxURL.Text);
+                    return myUri;
+                }
+                catch
+                {
+                    return null;
+                }
             }
-
-            set
-            {
-                textBoxURL.Text = value.ToString();
-            }
+            set => textBoxURL.Text = value.ToString();
         }
 
-        public string GetAssetFileName
+
+        public string StorageSelected => ((Item)comboBoxStorage.SelectedItem).Value;
+
+        public NewAsset assetCreationSetting
         {
             get
             {
-                return textBoxAssetFileName.Text;
-            }
-
-        }
-
-        public string GetAssetName
-        {
-            get
-            {
-                return textBoxAssetName.Text;
+                return newAssetForm;
             }
         }
 
-        public string StorageSelected
-        {
-            get
-            {
-                return ((Item)comboBoxStorage.SelectedItem).Value;
-            }
-        }
-
-        public ImportHttp(CloudMediaContext context, bool AzureStorageContainerSASListMode = false)
+        public ImportHttp(AMSClientV3 amsClient, bool AzureStorageContainerSASListMode = false)
         {
             InitializeComponent();
-            this.Icon = Bitmaps.Azure_Explorer_ico;
+            Icon = Bitmaps.Azure_Explorer_ico;
 
             _AzureStorageContainerSASListMode = AzureStorageContainerSASListMode;
-            _context = context;
+
+            _amsClientV3 = amsClient;
+            _uniqueness = Guid.NewGuid().ToString().Substring(0, 13);
         }
 
-        private void ImportHttp_Load(object sender, EventArgs e)
+        private async void ImportHttp_Load(object sender, EventArgs e)
         {
+            DpiUtils.InitPerMonitorDpi(this);
             labelURLFileNameWarning.Text = string.Empty;
+
+            await _amsClientV3.RefreshTokenIfNeededAsync();
 
             if (_AzureStorageContainerSASListMode)
             {
-                label4.Visible = textBoxAssetFileName.Visible = false;
                 labelExamples.Visible = false;
                 labelSASListExample.Visible = true;
-                labelTitle.Text = this.Text = AMSExplorer.Properties.Resources.ImportHttp_ImportHttp_Load_ImportFromSASContainerPath;
+                labelTitle.Text = Text = AMSExplorer.Properties.Resources.ImportHttp_ImportHttp_Load_ImportFromSASContainerPath;
             }
 
-            foreach (var storage in _context.StorageAccounts)
+            System.Collections.Generic.IList<StorageAccount> storAccounts = (await _amsClientV3.AMSclient.Mediaservices.GetAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName)).StorageAccounts;
+
+            comboBoxStorage.Items.Clear();
+            foreach (StorageAccount storage in storAccounts)
             {
-                comboBoxStorage.Items.Add(new Item(string.Format("{0} {1}", storage.Name, storage.IsDefault ? AMSExplorer.Properties.Resources.BatchUploadFrame2_BathUploadFrame2_Load_Default : ""), storage.Name));
-                if (storage.Name == _context.DefaultStorageAccount.Name) comboBoxStorage.SelectedIndex = comboBoxStorage.Items.Count - 1;
+                string sname = AMSClientV3.GetStorageName(storage.Id);
+                bool primary = (storage.Type == StorageAccountType.Primary);
+                comboBoxStorage.Items.Add(new Item(string.Format("{0} {1}", sname, primary ? "(primary)" : string.Empty), sname));
+                if (primary)
+                {
+                    comboBoxStorage.SelectedIndex = comboBoxStorage.Items.Count - 1;
+                }
             }
+
         }
 
         private void textBoxURL_TextChanged(object sender, EventArgs e)
         {
-
             bool Error = false;
             try
             {
-                Uri myUri = this.GetURL;
+                Uri myUri = new Uri(textBoxURL.Text);
             }
             catch
             {
                 Error = true;
                 labelURLFileNameWarning.Text = AMSExplorer.Properties.Resources.ImportHttp_textBoxURL_TextChanged_ErrorDetectedInTheURL;
                 buttonImport.Enabled = false;
-                return;
-            }
-
-            buttonImport.Enabled = true;
-            if (!_AzureStorageContainerSASListMode)
-            {
-                string filename = null;
-                try
-                {
-                    filename = System.IO.Path.GetFileName(this.GetURL.LocalPath);
-                }
-                catch
-                {
-                    Error = true;
-                    labelURLFileNameWarning.Text = AMSExplorer.Properties.Resources.ImportHttp_textBoxURL_TextChanged_FileNameNotFoundInTheURL;
-                }
-                if (!Error)
-                {
-                    textBoxAssetName.Text = filename;
-                    textBoxAssetFileName.Text = filename;
-                }
             }
 
             if (!Error)
             {
+                buttonImport.Enabled = true;
                 labelURLFileNameWarning.Text = string.Empty;
             }
         }
 
-        private void textBoxAssetFileName_TextChanged(object sender, EventArgs e)
+        private void ImportHttp_DpiChanged(object sender, DpiChangedEventArgs e)
         {
-            TextBox tb = (TextBox)sender;
+            DpiUtils.UpdatedSizeFontAfterDPIChange(labelTitle, e);
+        }
 
-            if (!AssetInfo.AssetFileNameIsOk(tb.Text))
+        private void ButtonAdvancedOptions_Click(object sender, EventArgs e)
+        {
+            string altid = null, assetName = null, desc = null, container = null;
+
+            if (newAssetForm == null)
             {
-                errorProvider1.SetError(tb, AMSExplorer.Properties.Resources.ImportHttp_textBoxAssetFileName_TextChanged_AssetFileNameIsNotCompatibleWithMediaServices);
+                string uniqueness = Guid.NewGuid().ToString().Substring(0, 13);
+                newAssetForm = new NewAsset(_amsClientV3, true)
+                {
+                    AssetName = "upload-" + uniqueness,
+                    AssetDescription = "Imported from : " + GetURL.AbsoluteUri
+                };
             }
             else
             {
-                errorProvider1.SetError(tb, String.Empty);
+                //let's backup settings
+                altid = newAssetForm.AssetAltId;
+                desc = newAssetForm.AssetDescription;
+                container = newAssetForm.AssetContainer;
+            }
+            assetName = newAssetForm.AssetName;
+
+
+            if (newAssetForm.ShowDialog() != DialogResult.OK)
+            {
+                newAssetForm.AssetAltId = altid;
+                newAssetForm.AssetName = assetName;
+                newAssetForm.AssetDescription = desc;
+                newAssetForm.AssetContainer = container;
             }
         }
     }

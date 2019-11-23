@@ -1,5 +1,5 @@
 ﻿//----------------------------------------------------------------------------------------------
-//    Copyright 2016 Microsoft Corporation
+//    Copyright 2019 Microsoft Corporation
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
 //    you may not use this file except in compliance with the License.
@@ -17,18 +17,8 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Diagnostics;
-using Microsoft.WindowsAzure.MediaServices.Client;
-using Newtonsoft.Json.Linq;
-using System.Xml.Linq;
-using System.IO;
-using System.Threading;
 
 namespace AMSExplorer
 {
@@ -45,13 +35,15 @@ namespace AMSExplorer
         protected virtual void OnChanged(EventArgs e)
         {
             if (Changed != null)
+            {
                 Changed(this, e);
+            }
         }
 
         public EDL()
         {
             InitializeComponent();
-            this.Icon = Bitmaps.Azure_Explorer_ico;
+            Icon = Bitmaps.Azure_Explorer_ico;
         }
 
         public void EDL_Load(object sender, EventArgs e)
@@ -85,7 +77,7 @@ namespace AMSExplorer
             if (dataGridViewEDL.SelectedRows.Count == 1 && dataGridViewEDL.SelectedRows[0].Index > 0)
             {
                 int index = dataGridViewEDL.SelectedRows[0].Index;
-                var backup = TimeCodeList[index - 1];
+                ExplorerEDLEntryInOut backup = TimeCodeList[index - 1];
                 TimeCodeList[index - 1] = TimeCodeList[index];
                 TimeCodeList[index] = backup;
                 dataGridViewEDL.ClearSelection();
@@ -99,7 +91,7 @@ namespace AMSExplorer
             if (dataGridViewEDL.SelectedRows.Count == 1 && dataGridViewEDL.SelectedRows[0].Index < TimeCodeList.Count - 1)
             {
                 int index = dataGridViewEDL.SelectedRows[0].Index;
-                var backup = TimeCodeList[index + 1];
+                ExplorerEDLEntryInOut backup = TimeCodeList[index + 1];
                 TimeCodeList[index + 1] = TimeCodeList[index];
                 TimeCodeList[index] = backup;
                 dataGridViewEDL.ClearSelection();
@@ -119,7 +111,7 @@ namespace AMSExplorer
 
         private void buttonOk_Click(object sender, EventArgs e)
         {
-            this.Hide();
+            Hide();
         }
 
         private void dataGridViewEDL_SelectionChanged(object sender, EventArgs e)
@@ -132,14 +124,17 @@ namespace AMSExplorer
 
         private void EDL_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (e.CloseReason != CloseReason.UserClosing) return;
+            if (e.CloseReason != CloseReason.UserClosing)
+            {
+                return;
+            }
+
             e.Cancel = true;
             Hide();
         }
     }
 
-
-    class ButtonEDL : Button
+    internal class ButtonEDL : Button
     {
         private EDL myEDL;
 
@@ -160,7 +155,7 @@ namespace AMSExplorer
 
         public ButtonEDL()
         {
-            this.Click += ButtonEDL_Click;
+            Click += ButtonEDL_Click;
 
         }
 
@@ -197,7 +192,7 @@ namespace AMSExplorer
 
     public class ExplorerEDLEntryInOut
     {
-        public TimeSpan Start { get; set; }
+        public TimeSpan? Start { get; set; }
         public TimeSpan? End { get; set; }
 
         public TimeSpan? Offset { get; set; }

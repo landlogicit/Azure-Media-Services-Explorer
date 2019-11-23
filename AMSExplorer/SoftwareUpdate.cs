@@ -1,5 +1,5 @@
 ﻿//----------------------------------------------------------------------------------------------
-//    Copyright 2016 Microsoft Corporation
+//    Copyright 2019 Microsoft Corporation
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
 //    you may not use this file except in compliance with the License.
@@ -15,33 +15,24 @@
 //---------------------------------------------------------------------------------------------
 
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using System.Diagnostics;
-using Microsoft.WindowsAzure.MediaServices.Client;
-using Newtonsoft.Json.Linq;
-using System.Xml.Linq;
 using System.IO;
 using System.Net;
+using System.Windows.Forms;
 
 namespace AMSExplorer
 {
     public partial class SoftwareUpdate : Form
     {
-        Uri _urlRelNotes;
-        Version _newVersion;
-        Uri _binaryUrl;
+        private readonly Uri _urlRelNotes;
+        private readonly Version _newVersion;
+        private readonly Uri _binaryUrl;
 
         public SoftwareUpdate(Uri urlRelNotes, Version newVersion, Uri binaryUrl)
         {
             InitializeComponent();
-            this.Icon = Bitmaps.Azure_Explorer_ico;
+            Icon = Bitmaps.Azure_Explorer_ico;
             _urlRelNotes = urlRelNotes;
             _newVersion = newVersion;
             _binaryUrl = binaryUrl;
@@ -49,9 +40,14 @@ namespace AMSExplorer
 
         private void SoftwareUpdate_Load(object sender, EventArgs e)
         {
-            if (_urlRelNotes != null) webBrowser1.Url = _urlRelNotes;
+            DpiUtils.InitPerMonitorDpi(this);
+            if (_urlRelNotes != null)
+            {
+                webBrowser1.Url = _urlRelNotes;
+            }
+
             linkLabelMoreInfoPrice.Links.Add(new LinkLabel.Link(0, linkLabelMoreInfoPrice.Text.Length, Constants.LinkAMSE));
-            label5.Text = string.Format(label5.Text, _newVersion);
+            labelTitle.Text = string.Format(labelTitle.Text, _newVersion);
         }
 
         private void linkLabelMoreInfoPrice_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -64,8 +60,8 @@ namespace AMSExplorer
         {
             progressBar1.Visible = true;
             buttonOk.Enabled = false;
-            var webClientB = new WebClient();
-            var filename = System.IO.Path.GetFileName(_binaryUrl.LocalPath);
+            WebClient webClientB = new WebClient();
+            string filename = System.IO.Path.GetFileName(_binaryUrl.LocalPath);
 
             webClientB.DownloadFileCompleted += DownloadFileCompletedBinary(filename);
             webClientB.DownloadProgressChanged += WebClientB_DownloadProgressChanged;
@@ -87,6 +83,11 @@ namespace AMSExplorer
                 Environment.Exit(0);
             };
             return new AsyncCompletedEventHandler(action);
+        }
+
+        private void SoftwareUpdate_DpiChanged(object sender, DpiChangedEventArgs e)
+        {
+            DpiUtils.UpdatedSizeFontAfterDPIChange(labelTitle, e);
         }
     }
 }

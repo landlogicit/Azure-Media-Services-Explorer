@@ -1,5 +1,5 @@
 ﻿//----------------------------------------------------------------------------------------------
-//    Copyright 2016 Microsoft Corporation
+//    Copyright 2019 Microsoft Corporation
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
 //    you may not use this file except in compliance with the License.
@@ -14,180 +14,111 @@
 //    limitations under the License.
 //---------------------------------------------------------------------------------------------
 
+using Microsoft.Azure.Management.Media;
+using Microsoft.Azure.Management.Media.Models;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Diagnostics;
-using System.Xml;
-using System.Xml.Linq;
 
 namespace AMSExplorer
 {
     public partial class AttachStorage : Form
     {
-        private CredentialsEntry _credentials;
-        private string SampleStorageURLTemplate;
+        private IAzureMediaServicesClient mediaClient;
+        private MediaService mediaService;
+        private readonly AMSClientV3 _amsClient;
 
-        public string GetAzureSubscriptionID
+        public List<string> StorageResourceIdToDetach
         {
             get
             {
-                return textBoxSubId.Text;
+                List<string> storages = new List<string>();
+                foreach (object stor in listViewStorage.CheckedItems)
+                {
+                    string storeId = (stor as ListViewItem).SubItems[1].Text;
+                    storages.Add(storeId);
+                }
+                return storages;
             }
         }
 
+        public List<string> StorageResourceIdToAttach => textBoxAttachStorage.Text.Split(new[] { Environment.NewLine },
+                               StringSplitOptions.RemoveEmptyEntries).ToList();
 
-        public string GetCertBody
-        {
-            get
-            {
-                return textBoxCertBody.Text;
-            }
-        }
-
-        public string GetAzureServiceManagementURL
-        {
-            get
-            {
-                return textBoxServiceManagement.Text;
-            }
-        }
-
-        public string GetStorageKey
-        {
-            get
-            {
-                return textBoxStorageKey.Text;
-            }
-
-        }
-
-        public string GetStorageName
-        {
-            get
-            {
-                return textBoxStorageName.Text;
-            }
-
-        }
-
-        public string GetStorageEndpointURL
-        {
-            get
-            {
-                return textBoxStorageEndPoint.Text;
-            }
-
-        }
-
-
-        public AttachStorage(CredentialsEntry credentials)
+        public AttachStorage(AMSClientV3 amsClient)
         {
             InitializeComponent();
-            this.Icon = Bitmaps.Azure_Explorer_ico;
-            linkLabelAttach.Links.Add(new LinkLabel.Link(0, linkLabelAttach.Text.Length, "https://manage.windowsazure.com/publishsettings"));
-            _credentials = credentials;
-
-
+            Icon = Bitmaps.Azure_Explorer_ico;
+            _amsClient = amsClient;
         }
 
         private void AttachStorage_Load(object sender, EventArgs e)
         {
-            SampleStorageURLTemplate = (_credentials.UseOtherAPI) ?
-                CredentialsEntry.CoreAttachStorageURL + _credentials.OtherAzureEndpoint : // "https://{0}.blob.core.chinacloudapi.cn/"
-                CredentialsEntry.CoreAttachStorageURL + CredentialsEntry.GlobalAzureEndpoint; // "https://{0}.blob.core.windows.net"
+            DpiUtils.InitPerMonitorDpi(this);
 
-            // let's poopulate the Azure Service Management URL field
-            if (_credentials.UseOtherAPI)
+            try
             {
-                textBoxServiceManagement.Text = CredentialsEntry.CoreServiceManagement + _credentials.OtherAzureEndpoint;
+                _amsClient.RefreshTokenIfNeeded();
+
+                mediaClient = _amsClient.AMSclient;
+                // Set the polling interval for long running operations to 2 seconds.
+                // The default value is 30 seconds for the .NET client SDK
+                mediaClient.LongRunningOperationRetryTimeout = 2;
+
+                mediaService = mediaClient.Mediaservices.Get(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName);
             }
-            else if (_credentials.UsePartnerAPI)
+            catch (Exception ex)
             {
-                textBoxServiceManagement.Text = AMSExplorer.Properties.Resources.AttachStorage_AttachStorage_Load_PleaseInsertAzureServiceManagementURLHere;
-            }
-            else // Global Azure
-            {
-                textBoxServiceManagement.Text = CredentialsEntry.CoreServiceManagement + CredentialsEntry.GlobalAzureEndpoint;
+                MessageBox.Show(ex.Message, "Error when connecting", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                buttonAttach.Enabled = false;
+                return;
             }
 
-            UpdateEndPointURL();
+            List<StorageAccount> storages = mediaService.StorageAccounts.ToList();
+            listViewStorage.Items.Clear();
 
-        }
-
-
-        private void linkLabelAttach_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            Process.Start(e.Link.LinkData as string);
-        }
-
-        private void textBoxStorageName_TextChanged(object sender, EventArgs e)
-        {
-            UpdateEndPointURL();
-            textBoxTXT_Validation(sender, e);
-        }
-
-        private void UpdateEndPointURL()
-        {
-            textBoxStorageEndPoint.Text = string.Format(SampleStorageURLTemplate, textBoxStorageName.Text);
-        }
-
-
-        private void textBoxURL_Validation(object sender, EventArgs e)
-        {
-            TextBox mytextbox = (TextBox)sender;
-            mytextbox.BackColor = (Uri.IsWellFormedUriString(mytextbox.Text, UriKind.Absolute)) ? Color.White : Color.Pink;
-        }
-
-        private void textBoxTXT_Validation(object sender, EventArgs e)
-        {
-            TextBox mytextbox = (TextBox)sender;
-            mytextbox.BackColor = (string.IsNullOrWhiteSpace(mytextbox.Text.Trim())) ? Color.Pink : Color.White;
-        }
-
-        private void buttonImportSubscriptionFile_Click(object sender, EventArgs e)
-        {
-            LoadSubscriptionFile();
-        }
-
-        private void LoadSubscriptionFile()
-        {
-            if (openFileDialogLoadSubFile.ShowDialog() == DialogResult.OK)
+            storages.ForEach(s =>
             {
-                try
+                if (s.Type == StorageAccountType.Secondary)
                 {
-                    var doc = new XDocument();
-                    doc = XDocument.Load(openFileDialogLoadSubFile.FileName);
-                    var subs = doc.Element("PublishData").Element("PublishProfile").Elements("Subscription");
-
-                    if (subs.Count() == 0)
+                    string[] names = s.Id.Split('/');
+                    ListViewItem lvitem = new ListViewItem(new string[] { names.Last(), s.Id })
                     {
-                        MessageBox.Show(AMSExplorer.Properties.Resources.AttachStorage_LoadSubscriptionFile_NoSubscriptionDataInTheFile, AMSExplorer.Properties.Resources.AMSLogin_buttonExport_Click_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                    else
-                    {
-                        var subscription = doc.Element("PublishData").Element("PublishProfile").Element("Subscription");
-
-                        if (subs.Count() > 1)
-                        {
-                            MessageBox.Show(string.Format(AMSExplorer.Properties.Resources.AttachStorage_LoadSubscriptionFile_ThereAreSeveralSubscriptionsDataInTheFileNNTheFirstEntry0WillBeUsed, subscription.Attribute("Name").Value), AMSExplorer.Properties.Resources.AttachStorage_LoadSubscriptionFile_SeveralSubscriptions, MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        }
-                        textBoxServiceManagement.Text = subscription.Attribute("ServiceManagementUrl").Value;
-                        textBoxSubId.Text = subscription.Attribute("Id").Value;
-                        textBoxCertBody.Text = subscription.Attribute("ManagementCertificate").Value;
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(AMSExplorer.Properties.Resources.AttachStorage_LoadSubscriptionFile_ErrorWhenReadingTheFileOriginalError + ex.Message, AMSExplorer.Properties.Resources.AMSLogin_buttonExport_Click_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        ToolTipText = s.Id
+                    };
+                    listViewStorage.Items.Add(lvitem);
                 }
             }
+            );
+            buttonAttach.Enabled = true;
+        }
+
+
+        public async Task UpdateStorageAccountsAsync()
+        {
+            // storage to detach
+            foreach (StorageAccount stor in mediaService.StorageAccounts.ToList())
+            {
+                if (StorageResourceIdToDetach.Contains(stor.Id))
+                {
+                    mediaService.StorageAccounts.Remove(stor);
+                }
+            }
+
+            // storage to attach
+            foreach (string storId in StorageResourceIdToAttach)
+            {
+                mediaService.StorageAccounts.Add(new StorageAccount(StorageAccountType.Secondary, storId));
+            }
+
+            await mediaClient.Mediaservices.UpdateAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, mediaService);
+        }
+
+        private void AttachStorage_DpiChanged(object sender, DpiChangedEventArgs e)
+        {
+            DpiUtils.UpdatedSizeFontAfterDPIChange(labelAssetCopy, e);
         }
     }
 }

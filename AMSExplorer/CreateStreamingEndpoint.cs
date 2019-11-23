@@ -1,5 +1,5 @@
 ﻿//----------------------------------------------------------------------------------------------
-//    Copyright 2016 Microsoft Corporation
+//    Copyright 2019 Microsoft Corporation
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
 //    you may not use this file except in compliance with the License.
@@ -15,15 +15,8 @@
 //---------------------------------------------------------------------------------------------
 
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace AMSExplorer
@@ -32,13 +25,13 @@ namespace AMSExplorer
     {
         public string StreamingEndpointName
         {
-            get { return textboxSEName.Text; }
-            set { textboxSEName.Text = value; }
+            get => textboxSEName.Text;
+            set => textboxSEName.Text = value;
         }
         public string StreamingEndpointDescription
         {
-            get { return textBoxOriginDescription.Text; }
-            set { textBoxOriginDescription.Text = value; }
+            get => textBoxOriginDescription.Text;
+            set => textBoxOriginDescription.Text = value;
         }
 
         public int scaleUnits
@@ -56,18 +49,12 @@ namespace AMSExplorer
             }
         }
 
-        public bool EnableAzureCDN
-        {
-            get
-            {
-                return checkBoxEnableAzureCDN.Checked;
-            }
-        }
+        public bool EnableAzureCDN => checkBoxEnableAzureCDN.Checked;
 
         public CreateStreamingEndpoint()
         {
             InitializeComponent();
-            this.Icon = Bitmaps.Azure_Explorer_ico;
+            Icon = Bitmaps.Azure_Explorer_ico;
         }
 
 
@@ -99,14 +86,14 @@ namespace AMSExplorer
             }
             else
             {
-                errorProvider1.SetError(tb, String.Empty);
+                errorProvider1.SetError(tb, string.Empty);
             }
         }
 
         internal static bool IsSENameValid(string name)
         {
-            Regex reg = new Regex(@"^[a-zA-Z0-9]([a-zA-Z0-9-]{0,30}[a-zA-Z0-9])?$", RegexOptions.Compiled);
-            return (reg.IsMatch(name));
+            Regex reg = new Regex(@"^[a-zA-Z0-9]+(-*[a-zA-Z0-9])*$", RegexOptions.Compiled);
+            return (name.Length > 0 && name.Length < 25 && reg.IsMatch(name));
         }
 
         private void textboxSEName_TextChanged(object sender, EventArgs e)

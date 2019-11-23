@@ -1,5 +1,5 @@
 ﻿//----------------------------------------------------------------------------------------------
-//    Copyright 2016 Microsoft Corporation
+//    Copyright 2019 Microsoft Corporation
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
 //    you may not use this file except in compliance with the License.
@@ -14,58 +14,53 @@
 //    limitations under the License.
 //---------------------------------------------------------------------------------------------
 
+using Microsoft.Azure.Management.Media.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Diagnostics;
-using Microsoft.WindowsAzure.MediaServices.Client;
-using System.Xml;
-using System.Xml.Linq;
-
-
 
 namespace AMSExplorer
 {
     public partial class DynManifestFilter : Form
     {
+        private const string TextCreateTempLoc = "A temporary clear locator is going to be created to access content timing information. It will be deleted a few seconds after. ";
         private string _filter_name;
-        private PresentationTimeRange _filter_presentationtimerange;
         private List<ExFilterTrack> filtertracks;
 
-        private bool isGlobalFilter = true;
+        private bool isAccountFilter = true;
         private bool newfilter = true;
-        CloudMediaContext _context;
         private DataTable dataPropertyType;
         private DataTable dataPropertyFourCC;
         private DataTable dataProperty;
         private DataTable dataOperator;
-        private IAsset _parentAsset = null;
         private ManifestTimingData _parentassetmanifestdata;
-        private ulong? _timescale = null;
-        private SubClipConfiguration _subclipconfig;
-        private IStreamingFilter _filterToDisplay;
+        private long _timescale = 10000000;
+        private readonly Asset _parentAsset;
+        private readonly SubClipConfiguration _subclipconfig;
+        private readonly AMSClientV3 _amsClient;
         private string _labelStartTimeDefault;
         private string _labelDefaultEnd;
         private string _labelDefaultDVR;
         private string _labelDefaultBakckoff;
+        private StreamingLocator _tempStreamingLocator = null;
+        private readonly object _filterToDisplay;
 
-        public DynManifestFilter(CloudMediaContext context, IStreamingFilter filterToDisplay = null, IAsset parentAsset = null, SubClipConfiguration subclipconfig = null)
+        public DynManifestFilter(AMSClientV3 amsClient, object filterToDisplay = null, Asset parentAsset = null, SubClipConfiguration subclipconfig = null)
         {
             InitializeComponent();
-            this.Icon = Bitmaps.Azure_Explorer_ico;
-            _context = context;
+            Icon = Bitmaps.Azure_Explorer_ico;
+            _amsClient = amsClient;
             _filterToDisplay = filterToDisplay;
             _parentAsset = parentAsset;
             _subclipconfig = subclipconfig;
         }
 
-        private void FillComboBoxImportFilters(IAsset asset)
+        private async void FillComboBoxImportFilters(Asset asset)
         {
             // combobox for filters
 
@@ -73,12 +68,18 @@ namespace AMSExplorer
 
             comboBoxLocatorsFilters.Items.Add(new Item(AMSExplorer.Properties.Resources.DynManifestFilter_FillComboBoxImportFilters_ImportTrackFilteringFrom, null));
 
+            await _amsClient.RefreshTokenIfNeededAsync();
             if (asset != null)
             {
-                asset.AssetFilters.Where(g => g.Tracks.Count > 0).ToList().ForEach(g => comboBoxLocatorsFilters.Items.Add(new Item("Asset filter : " + g.Name, g.Id)));
+                Microsoft.Rest.Azure.IPage<AssetFilter> filters = (await _amsClient.AMSclient.AssetFilters.ListWithHttpMessagesAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, asset.Name)).Body;
+                filters.Where(g => g.Tracks.Count > 0).ToList().ForEach(g => comboBoxLocatorsFilters.Items.Add(new Item("Asset filter : " + g.Name, g.Id)));
             }
-            // global filters
-            _context.Filters.ToList().Where(g => g.Tracks.Count > 0).ToList().ForEach(g => comboBoxLocatorsFilters.Items.Add(new Item("Global filter : " + g.Name, g.Name)));
+            // account filters
+
+            Microsoft.Rest.Azure.IPage<AccountFilter> acFilters = (await _amsClient.AMSclient.AccountFilters.ListWithHttpMessagesAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName)).Body;
+
+            acFilters.Where(g => g.Tracks.Count > 0).ToList().ForEach(g => comboBoxLocatorsFilters.Items.Add(new Item("Account filter : " + g.Name, g.Name)));
+
             if (comboBoxLocatorsFilters.Items.Count > 1)
             {
                 comboBoxLocatorsFilters.Enabled = true;
@@ -87,8 +88,10 @@ namespace AMSExplorer
             comboBoxLocatorsFilters.EndUpdate();
         }
 
-        private void DynManifestFilter_Load(object sender, EventArgs e)
+        private async void DynManifestFilter_Load(object sender, EventArgs e)
         {
+            DpiUtils.InitPerMonitorDpi(this);
+
             _labelStartTimeDefault = labelStartTimeDefault.Text;
             _labelDefaultEnd = labelDefaultEnd.Text;
             _labelDefaultDVR = labelDefaultDVR.Text;
@@ -103,61 +106,71 @@ namespace AMSExplorer
 
 
             /////////////////////////////////////////////
-            // New Global Filter
+            // New Account Filter
             /////////////////////////////////////////////
             if (_filterToDisplay == null && _parentAsset == null)
             {
                 newfilter = true;
-                isGlobalFilter = true;
+                isAccountFilter = true;
                 tabControl1.TabPages.Remove(tabPageInformation);
-                _filter_presentationtimerange = new PresentationTimeRange();
+                PresentationTimeRange _filter_presentationtimerange = new PresentationTimeRange() { Timescale = 10000000 };
                 filtertracks = new List<ExFilterTrack>();
                 timeControlStart.DisplayTrackBar = timeControlEnd.DisplayTrackBar = timeControlDVR.DisplayTrackBar = false;
 
-                _timescale = timeControlStart.TimeScale = timeControlEnd.TimeScale = timeControlDVR.TimeScale = _filter_presentationtimerange.Timescale;
+                _timescale = (long)_filter_presentationtimerange.Timescale;
+                timeControlStart.TimeScale = timeControlEnd.TimeScale = timeControlDVR.TimeScale = _filter_presentationtimerange.Timescale;
+
                 textBoxFilterTimeScale.Text = (_filter_presentationtimerange.Timescale == null) ? "(default)" : _filter_presentationtimerange.Timescale.ToString();
             }
 
 
             /////////////////////////////////////////////
-            // Existing Global Filter
+            // Existing Account Filter
             /////////////////////////////////////////////
-            else if (_filterToDisplay != null && _parentAsset == null)
+            else if (_filterToDisplay != null && _filterToDisplay.GetType() == typeof(AccountFilter) && _parentAsset == null)
             {
+                AccountFilter accFilter = (AccountFilter)_filterToDisplay;
                 newfilter = false;
-                isGlobalFilter = true;
+                isAccountFilter = true;
                 DisplayFilterInfo();
-                _filter_name = _filterToDisplay.Name;
-                _filter_presentationtimerange = _filterToDisplay.PresentationTimeRange;
-                filtertracks = ConvertFilterTracksToInternalVar(_filterToDisplay.Tracks);
+                _filter_name = accFilter.Name;
+                filtertracks = ConvertFilterTracksToInternalVar(accFilter.Tracks);
 
-                _timescale = _filterToDisplay.PresentationTimeRange.Timescale;
+                _timescale = accFilter.PresentationTimeRange?.Timescale ?? _timescale;
                 timeControlStart.TimeScale = timeControlEnd.TimeScale = timeControlDVR.TimeScale = _timescale;
                 buttonOk.Text = "Update Filter";
                 buttonOk.Enabled = true; // we can enable the button
-                toolTip1.SetToolTip(this.buttonOk, AMSExplorer.Properties.Resources.DynManifestFilter_DynManifestFilter_Load_ItCanTakeUpTo2MinutesForStreamingEndpointToRefreshTheRules);
+                toolTip1.SetToolTip(buttonOk, AMSExplorer.Properties.Resources.DynManifestFilter_DynManifestFilter_Load_ItCanTakeUpTo2MinutesForStreamingEndpointToRefreshTheRules);
 
                 textBoxFilterName.Enabled = false; // no way to change the filter name
                 textBoxFilterName.Text = _filter_name;
 
                 timeControlStart.DisplayTrackBar = timeControlEnd.DisplayTrackBar = timeControlDVR.DisplayTrackBar = false;
 
-                checkBoxStartTime.Checked = _filter_presentationtimerange.StartTimestamp != null;
-                checkBoxEndTime.Checked = _filter_presentationtimerange.EndTimestamp != null;
-                checkBoxDVRWindow.Checked = _filter_presentationtimerange.PresentationWindowDuration != null;
-                checkBoxLiveBackoff.Checked = _filter_presentationtimerange.LiveBackoffDuration != null;
+                checkBoxStartTime.Checked = accFilter.PresentationTimeRange?.StartTimestamp != null;
+                checkBoxEndTime.Checked = accFilter.PresentationTimeRange?.EndTimestamp != null;
+                checkBoxPresentationWindowDuration.Checked = accFilter.PresentationTimeRange?.PresentationWindowDuration != null;
+                checkBoxLiveBackoff.Checked = accFilter.PresentationTimeRange?.LiveBackoffDuration != null;
 
-                timeControlStart.SetScaledTimeStamp(_filter_presentationtimerange.StartTimestamp);
-                timeControlEnd.SetScaledTimeStamp(_filter_presentationtimerange.EndTimestamp);
-                timeControlDVR.SetTimeStamp(_filter_presentationtimerange.PresentationWindowDuration ?? TimeSpan.FromMinutes(2));  // we don't want to pass the max value to the control (overflow)
-                TimeSpan backoff = _filter_presentationtimerange.LiveBackoffDuration ?? new TimeSpan(0);
-                numericUpDownBackoffSeconds.Value = Convert.ToDecimal(backoff.TotalSeconds);
+                timeControlStart.SetScaledTimeStamp(accFilter.PresentationTimeRange?.StartTimestamp, 0);
+                timeControlEnd.SetScaledTimeStamp(accFilter.PresentationTimeRange?.EndTimestamp, 0);
+                timeControlDVR.SetScaledTimeStamp(accFilter.PresentationTimeRange?.PresentationWindowDuration, 0);
 
-                if (_filterToDisplay.FirstQuality != null)
+                if (accFilter.PresentationTimeRange?.LiveBackoffDuration != null)
+                {
+                    TimeSpan backoff = TimeSpan.FromTicks((long)(accFilter.PresentationTimeRange.LiveBackoffDuration / _timescale) * TimeSpan.TicksPerSecond);
+                    numericUpDownBackoffSeconds.Value = Convert.ToDecimal(backoff.TotalSeconds);
+                }
+
+
+                if (accFilter.FirstQuality != null)
                 {
                     checkBoxFirstQualityBitrate.Checked = true;
-                    numericUpDownFirstQualityBitrate.Value = _filterToDisplay.FirstQuality.Bitrate;
+                    numericUpDownFirstQualityBitrate.Value = accFilter.FirstQuality.Bitrate;
                 }
+
+                checkBoxForValueForLive.Checked = accFilter.PresentationTimeRange?.ForceEndTimestamp ?? false;
+
             }
 
 
@@ -167,10 +180,8 @@ namespace AMSExplorer
             else if (_filterToDisplay == null && _parentAsset != null)
             {
                 newfilter = true;
-                isGlobalFilter = false;
+                isAccountFilter = false;
                 tabControl1.TabPages.Remove(tabPageInformation);
-
-                _filter_presentationtimerange = new PresentationTimeRange();
 
                 filtertracks = new List<ExFilterTrack>();
 
@@ -179,13 +190,32 @@ namespace AMSExplorer
                 labelassetname.Visible = true;
                 textBoxAssetName.Text = _parentAsset != null ? _parentAsset.Name : string.Empty;
 
+
+                // temp locator creation
+                if (MessageBox.Show(TextCreateTempLoc, "Locator creation", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) == DialogResult.OK)
+                {
+                    try
+                    {
+                        _tempStreamingLocator = await AssetInfo.CreateTemporaryOnDemandLocatorAsync(_parentAsset, _amsClient);
+                    }
+                    catch
+                    {
+
+                    }
+                }
+
                 // let's try to read asset timing
-                _parentassetmanifestdata = AssetInfo.GetManifestTimingData(_parentAsset);
+                _parentassetmanifestdata = await AssetInfo.GetManifestTimingDataAsync(_parentAsset, _amsClient, _tempStreamingLocator?.Name);
+
+                // let's delete the temp locator
+                if (_tempStreamingLocator != null) await AssetInfo.DeleteStreamingLocatorAsync(_parentAsset, _amsClient, _tempStreamingLocator.Name);
 
                 if (!_parentassetmanifestdata.Error)  // we were able to read asset timings and not live
                 {
                     // timescale
-                    _timescale = timeControlStart.TimeScale = timeControlEnd.TimeScale = timeControlDVR.TimeScale = _parentassetmanifestdata.TimeScale;
+                    timeControlStart.TimeScale = timeControlEnd.TimeScale = timeControlDVR.TimeScale = _parentassetmanifestdata.TimeScale;
+                    _timescale = _parentassetmanifestdata.TimeScale ?? TimeSpan.TicksPerSecond;
+
                     timeControlStart.ScaledFirstTimestampOffset = timeControlEnd.ScaledFirstTimestampOffset = _parentassetmanifestdata.TimestampOffset;
 
                     textBoxOffset.Text = _parentassetmanifestdata.TimestampOffset.ToString();
@@ -216,12 +246,11 @@ namespace AMSExplorer
 
                     if (_subclipconfig != null && _subclipconfig.Trimming) // user used the subclip UI before and timings are passed
                     {
-                        timeControlStart.SetTimeStamp(_subclipconfig.StartTimeForAssetFilter - timeControlStart.GetOffSetAsTimeSpan());
-                        timeControlEnd.SetTimeStamp(_subclipconfig.EndTimeForAssetFilter - timeControlStart.GetOffSetAsTimeSpan());
+                        timeControlStart.SetTimeStamp(_subclipconfig.StartTime - timeControlStart.GetOffSetAsTimeSpan());
+                        timeControlEnd.SetTimeStamp(_subclipconfig.EndTime - timeControlStart.GetOffSetAsTimeSpan());
                         checkBoxStartTime.Checked = checkBoxEndTime.Checked = true;
                         textBoxFilterName.Text = "subclip" + new Random().Next(9999).ToString();
                     }
-
                 }
 
                 else // not able to read asset timings
@@ -229,7 +258,7 @@ namespace AMSExplorer
                     timeControlStart.DisplayTrackBar = timeControlEnd.DisplayTrackBar = timeControlDVR.DisplayTrackBar = false;
                     timeControlStart.TimeScale = timeControlEnd.TimeScale = timeControlDVR.TimeScale = _timescale;
                     timeControlStart.Max = timeControlEnd.Max = timeControlDVR.Max = TimeSpan.MaxValue;
-                    timeControlEnd.SetTimeStamp(timeControlEnd.Max);
+                    timeControlEnd.SetTimeStamp(new TimeSpan(0));// timeControlEnd.Max);
                     labelassetduration.Visible = textBoxAssetDuration.Visible = false;
                 }
             }
@@ -237,21 +266,21 @@ namespace AMSExplorer
             /////////////////////////////////////////////
             // Existing Asset Filter
             /////////////////////////////////////////////
-            else if (_filterToDisplay != null && _parentAsset != null)
+            else if (_filterToDisplay != null && _filterToDisplay.GetType() == typeof(AssetFilter) && _parentAsset != null)
             {
+                AssetFilter assetFilter = (AssetFilter)_filterToDisplay;
                 newfilter = false;
-                isGlobalFilter = false;
+                isAccountFilter = false;
                 DisplayFilterInfo();
 
-                _filter_name = _filterToDisplay.Name;
-                _filter_presentationtimerange = _filterToDisplay.PresentationTimeRange;
-                filtertracks = ConvertFilterTracksToInternalVar(_filterToDisplay.Tracks);
+                _filter_name = assetFilter.Name;
+                filtertracks = ConvertFilterTracksToInternalVar(assetFilter.Tracks);
 
-                _timescale = _filterToDisplay.PresentationTimeRange.Timescale;
+                _timescale = assetFilter.PresentationTimeRange.Timescale ?? _timescale;
 
                 buttonOk.Text = "Update Filter";
                 buttonOk.Enabled = true; // we can enable the button
-                toolTip1.SetToolTip(this.buttonOk, AMSExplorer.Properties.Resources.DynManifestFilter_DynManifestFilter_Load_ItCanTakeUpTo2MinutesForStreamingEndpointToRefreshTheRules);
+                toolTip1.SetToolTip(buttonOk, AMSExplorer.Properties.Resources.DynManifestFilter_DynManifestFilter_Load_ItCanTakeUpTo2MinutesForStreamingEndpointToRefreshTheRules);
 
                 labelFilterTitle.Text = "Asset Filter";
                 textBoxAssetName.Visible = true;
@@ -261,10 +290,27 @@ namespace AMSExplorer
                 textBoxFilterName.Enabled = false; // no way to change the filter name
                 textBoxFilterName.Text = _filter_name;
 
-                // let's try to read asset timing
-                _parentassetmanifestdata = AssetInfo.GetManifestTimingData(_parentAsset);
 
-                _timescale = timeControlStart.TimeScale = timeControlEnd.TimeScale = timeControlDVR.TimeScale = _filterToDisplay.PresentationTimeRange.Timescale;
+                // temp locator creation
+                if (MessageBox.Show(TextCreateTempLoc, "Locator creation", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) == DialogResult.OK)
+                {
+                    try
+                    {
+                        _tempStreamingLocator = await AssetInfo.CreateTemporaryOnDemandLocatorAsync(_parentAsset, _amsClient);
+                    }
+                    catch
+                    {
+
+                    }
+                }
+
+                // let's try to read asset timing
+                _parentassetmanifestdata = await AssetInfo.GetManifestTimingDataAsync(_parentAsset, _amsClient, _tempStreamingLocator?.Name);
+
+                // let's delete the temp locator
+                await AssetInfo.DeleteStreamingLocatorAsync(_parentAsset, _amsClient, _tempStreamingLocator.Name);
+
+                timeControlStart.TimeScale = timeControlEnd.TimeScale = timeControlDVR.TimeScale = _timescale;
 
                 if (!_parentassetmanifestdata.Error && _timescale == _parentassetmanifestdata.TimeScale)  // we were able to read asset timings and timescale between manifest and existing asset match
                 {
@@ -298,37 +344,42 @@ namespace AMSExplorer
                     labelassetduration.Visible = textBoxAssetDuration.Visible = false;
                 }
 
+                checkBoxStartTime.Checked = assetFilter.PresentationTimeRange?.StartTimestamp != null;
+                checkBoxEndTime.Checked = assetFilter.PresentationTimeRange?.EndTimestamp != null;
+                checkBoxPresentationWindowDuration.Checked = assetFilter.PresentationTimeRange?.PresentationWindowDuration != null;
+                checkBoxLiveBackoff.Checked = assetFilter.PresentationTimeRange?.LiveBackoffDuration != null;
 
-                checkBoxStartTime.Checked = _filter_presentationtimerange.StartTimestamp != null;
-                checkBoxEndTime.Checked = _filter_presentationtimerange.EndTimestamp != null;
-                checkBoxDVRWindow.Checked = _filter_presentationtimerange.PresentationWindowDuration != null;
-                checkBoxLiveBackoff.Checked = _filter_presentationtimerange.LiveBackoffDuration != null;
+                timeControlStart.SetScaledTimeStamp(assetFilter.PresentationTimeRange?.StartTimestamp, 0);
+                timeControlEnd.SetScaledTimeStamp(assetFilter.PresentationTimeRange?.EndTimestamp, 0);  // we don't want to pass the max value to the control (overflow)
+                timeControlDVR.SetScaledTimeStamp(assetFilter.PresentationTimeRange?.PresentationWindowDuration, 0);
 
-                timeControlStart.SetScaledTimeStamp(_filter_presentationtimerange.StartTimestamp);
-                timeControlEnd.SetScaledTimeStamp(_filter_presentationtimerange.EndTimestamp);  // we don't want to pass the max value to the control (overflow)
-                timeControlDVR.SetTimeStamp(_filter_presentationtimerange.PresentationWindowDuration ?? TimeSpan.FromMinutes(2));  // we don't want to pass the max value to the control (overflow)
-                TimeSpan backoff = _filter_presentationtimerange.LiveBackoffDuration ?? new TimeSpan(0);
-                numericUpDownBackoffSeconds.Value = Convert.ToDecimal(backoff.TotalSeconds);
+                if (assetFilter.PresentationTimeRange?.LiveBackoffDuration != null)
+                {
+                    TimeSpan backoff = TimeSpan.FromTicks((long)(assetFilter.PresentationTimeRange.LiveBackoffDuration / _timescale) * TimeSpan.TicksPerSecond);
+                    numericUpDownBackoffSeconds.Value = Convert.ToDecimal(backoff.TotalSeconds);
+                }
 
-                if (_filterToDisplay.FirstQuality != null)
+
+                if (assetFilter.FirstQuality != null)
                 {
                     checkBoxFirstQualityBitrate.Checked = true;
-                    numericUpDownFirstQualityBitrate.Value = _filterToDisplay.FirstQuality.Bitrate;
+                    numericUpDownFirstQualityBitrate.Value = assetFilter.FirstQuality.Bitrate;
                 }
+
+                checkBoxForValueForLive.Checked = assetFilter.PresentationTimeRange?.ForceEndTimestamp ?? false;
             }
 
             // Common code
-            textBoxFilterTimeScale.Text = (_timescale == null) ? "(default)" : _timescale.ToString();
+            textBoxFilterTimeScale.Text = _timescale.ToString();
 
             // dataPropertyType
             dataPropertyType = new DataTable();
             dataPropertyType.Columns.Add(new DataColumn("Value", typeof(string)));
             dataPropertyType.Columns.Add(new DataColumn("Description", typeof(string)));
 
-            dataPropertyType.Rows.Add(FilterTrackType.Audio.ToString(), FilterTrackType.Audio.ToString());
-            dataPropertyType.Rows.Add(FilterTrackType.Video.ToString(), FilterTrackType.Video.ToString());
-            dataPropertyType.Rows.Add(FilterTrackType.Text.ToString(), FilterTrackType.Text.ToString());
-
+            dataPropertyType.Rows.Add(FilterPropertyTypeValue.Audio, FilterPropertyTypeValue.Audio);
+            dataPropertyType.Rows.Add(FilterPropertyTypeValue.Video, FilterPropertyTypeValue.Video);
+            dataPropertyType.Rows.Add(FilterPropertyTypeValue.Text, FilterPropertyTypeValue.Text);
 
             // FilterPropertyFourCCValue
             dataPropertyFourCC = new DataTable();
@@ -338,38 +389,44 @@ namespace AMSExplorer
             dataPropertyFourCC.Rows.Add(FilterPropertyFourCCValue.avc1, FilterPropertyFourCCValue.avc1);
             dataPropertyFourCC.Rows.Add(FilterPropertyFourCCValue.ec3, FilterPropertyFourCCValue.ec3);
             dataPropertyFourCC.Rows.Add(FilterPropertyFourCCValue.mp4a, FilterPropertyFourCCValue.mp4a);
-            dataPropertyFourCC.Rows.Add(FilterPropertyFourCCValue.mp4v, FilterPropertyFourCCValue.mp4v);
+            dataPropertyFourCC.Rows.Add(FilterPropertyFourCCValue.hev1, FilterPropertyFourCCValue.hev1);
+            dataPropertyFourCC.Rows.Add(FilterPropertyFourCCValue.hvc1, FilterPropertyFourCCValue.hvc1);
 
             // dataProperty 
             dataProperty = new DataTable();
             dataProperty.Columns.Add(new DataColumn("Property", typeof(string)));
             dataProperty.Columns.Add(new DataColumn("Description", typeof(string)));
-            dataProperty.Rows.Add(FilterProperty.Type, FilterProperty.Type);
-            dataProperty.Rows.Add(FilterProperty.Bitrate, FilterProperty.Bitrate);
-            dataProperty.Rows.Add(FilterProperty.FourCC, FilterProperty.FourCC);
-            dataProperty.Rows.Add(FilterProperty.Language, FilterProperty.Language);
-            dataProperty.Rows.Add(FilterProperty.Name, FilterProperty.Name);
+            dataProperty.Rows.Add(FilterTrackPropertyType.Type.ToString(), FilterTrackPropertyType.Type.ToString());
+            dataProperty.Rows.Add(FilterTrackPropertyType.Bitrate.ToString(), FilterTrackPropertyType.Bitrate.ToString());
+            dataProperty.Rows.Add(FilterTrackPropertyType.FourCC.ToString(), FilterTrackPropertyType.FourCC.ToString());
+            dataProperty.Rows.Add(FilterTrackPropertyType.Language.ToString(), FilterTrackPropertyType.Language.ToString());
+            dataProperty.Rows.Add(FilterTrackPropertyType.Name.ToString(), FilterTrackPropertyType.Name.ToString());
+            dataProperty.Rows.Add(FilterTrackPropertyType.Unknown.ToString(), FilterTrackPropertyType.Unknown.ToString());
 
             // dataOperator
             dataOperator = new DataTable();
             dataOperator.Columns.Add(new DataColumn("Operator", typeof(string)));
             dataOperator.Columns.Add(new DataColumn("Description", typeof(string)));
-            dataOperator.Rows.Add(FilterTrackCompareOperator.Equal.ToString(), FilterTrackCompareOperator.Equal.ToString());
-            dataOperator.Rows.Add(FilterTrackCompareOperator.NotEqual.ToString(), FilterTrackCompareOperator.NotEqual.ToString());
+            dataOperator.Rows.Add(FilterTrackPropertyCompareOperation.Equal.ToString(), FilterTrackPropertyCompareOperation.Equal.ToString());
+            dataOperator.Rows.Add(FilterTrackPropertyCompareOperation.NotEqual.ToString(), FilterTrackPropertyCompareOperation.NotEqual.ToString());
 
-            var columnProperty = new DataGridViewComboBoxColumn();
-            columnProperty.DataSource = dataProperty;
-            columnProperty.ValueMember = "Property";
-            columnProperty.DisplayMember = "Description";
+            DataGridViewComboBoxColumn columnProperty = new DataGridViewComboBoxColumn
+            {
+                DataSource = dataProperty,
+                ValueMember = "Property",
+                DisplayMember = "Description"
+            };
             dataGridViewTracks.Columns.Add(columnProperty);
 
-            var columnOperator = new DataGridViewComboBoxColumn();
-            columnOperator.DataSource = dataOperator;
-            columnOperator.ValueMember = "Operator";
-            columnOperator.DisplayMember = "Description";
+            DataGridViewComboBoxColumn columnOperator = new DataGridViewComboBoxColumn
+            {
+                DataSource = dataOperator,
+                ValueMember = "Operator",
+                DisplayMember = "Description"
+            };
             dataGridViewTracks.Columns.Add(columnOperator);
 
-            var columnValue = new DataGridViewTextBoxColumn();
+            DataGridViewTextBoxColumn columnValue = new DataGridViewTextBoxColumn();
             dataGridViewTracks.Columns.Add(columnValue);
 
             moreinfoprofilelink.Links.Add(new LinkLabel.Link(0, moreinfoprofilelink.Text.Length, Constants.LinkHowIMoreInfoDynamicManifest));
@@ -384,72 +441,60 @@ namespace AMSExplorer
             DGInfo.ColumnCount = 2;
             // filter info
             DGInfo.Columns[0].DefaultCellStyle.BackColor = Color.Gainsboro;
-            DGInfo.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_Name, _filterToDisplay.Name);
 
-            if (isGlobalFilter)
+            if (isAccountFilter)
             {
+                AccountFilter accfilter = (AccountFilter)_filterToDisplay;
+                DGInfo.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_Name, accfilter.Name);
+
                 DGInfo.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_Type, AMSExplorer.Properties.Resources.DynManifestFilter_DisplayFilterInfo_GlobalFilter);
+
+                DGInfo.Rows.Add(AMSExplorer.Properties.Resources.DynManifestFilter_DisplayFilterInfo_FirstQualityBitrate, accfilter.FirstQuality == null ? Constants.stringNull : accfilter.FirstQuality.Bitrate.ToString());
+                DGInfo.Rows.Add(AMSExplorer.Properties.Resources.DynManifestFilter_DisplayFilterInfo_Timescale, accfilter.PresentationTimeRange?.Timescale.ToString());
+                DGInfo.Rows.Add(AMSExplorer.Properties.Resources.DynManifestFilter_DisplayFilterInfo_StartTimestamp, accfilter.PresentationTimeRange?.StartTimestamp.ToString());
+                DGInfo.Rows.Add(AMSExplorer.Properties.Resources.DynManifestFilter_DisplayFilterInfo_EndTimestamp, accfilter.PresentationTimeRange?.EndTimestamp.ToString());
+                DGInfo.Rows.Add("Force end timestamp", accfilter.PresentationTimeRange?.ForceEndTimestamp);
+
+                DGInfo.Rows.Add(AMSExplorer.Properties.Resources.DynManifestFilter_DisplayFilterInfo_PresentationWindowDuration, accfilter.PresentationTimeRange?.PresentationWindowDuration.ToString());
+                DGInfo.Rows.Add(AMSExplorer.Properties.Resources.DynManifestFilter_DisplayFilterInfo_LiveBackoffDuration, accfilter.PresentationTimeRange?.LiveBackoffDuration.ToString());
+                DGInfo.Rows.Add(AMSExplorer.Properties.Resources.DynManifestFilter_DisplayFilterInfo_TrackCount, accfilter.Tracks.Count);
             }
             else
             {
-                var assetfilter = (IStreamingAssetFilter)_filterToDisplay;
+                AssetFilter assetfilter = (AssetFilter)_filterToDisplay;
+                DGInfo.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_Name, assetfilter.Name);
+
                 DGInfo.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_Type, AMSExplorer.Properties.Resources.DynManifestFilter_DisplayFilterInfo_AssetFilter);
                 DGInfo.Rows.Add("Id", assetfilter.Id);
-                DGInfo.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_ParentAssetId, assetfilter.ParentAssetId);
+
+                DGInfo.Rows.Add(AMSExplorer.Properties.Resources.DynManifestFilter_DisplayFilterInfo_FirstQualityBitrate, assetfilter.FirstQuality == null ? Constants.stringNull : assetfilter.FirstQuality.Bitrate.ToString());
+                DGInfo.Rows.Add(AMSExplorer.Properties.Resources.DynManifestFilter_DisplayFilterInfo_Timescale, assetfilter.PresentationTimeRange?.Timescale.ToString());
+                DGInfo.Rows.Add(AMSExplorer.Properties.Resources.DynManifestFilter_DisplayFilterInfo_StartTimestamp, assetfilter.PresentationTimeRange?.StartTimestamp.ToString());
+                DGInfo.Rows.Add(AMSExplorer.Properties.Resources.DynManifestFilter_DisplayFilterInfo_EndTimestamp, assetfilter.PresentationTimeRange?.EndTimestamp.ToString());
+                DGInfo.Rows.Add("Force end timestamp", assetfilter.PresentationTimeRange.ForceEndTimestamp);
+
+                DGInfo.Rows.Add(AMSExplorer.Properties.Resources.DynManifestFilter_DisplayFilterInfo_PresentationWindowDuration, assetfilter.PresentationTimeRange?.PresentationWindowDuration.ToString());
+                DGInfo.Rows.Add(AMSExplorer.Properties.Resources.DynManifestFilter_DisplayFilterInfo_LiveBackoffDuration, assetfilter.PresentationTimeRange?.LiveBackoffDuration.ToString());
+                DGInfo.Rows.Add(AMSExplorer.Properties.Resources.DynManifestFilter_DisplayFilterInfo_TrackCount, assetfilter.Tracks.Count);
             }
-            DGInfo.Rows.Add(AMSExplorer.Properties.Resources.DynManifestFilter_DisplayFilterInfo_FirstQualityBitrate, _filterToDisplay.FirstQuality == null ? Constants.stringNull : _filterToDisplay.FirstQuality.Bitrate.ToString());
-            DGInfo.Rows.Add(AMSExplorer.Properties.Resources.DynManifestFilter_DisplayFilterInfo_Timescale, _filterToDisplay.PresentationTimeRange.Timescale == null ? Constants.stringNull : _filterToDisplay.PresentationTimeRange.Timescale.ToString());
-            DGInfo.Rows.Add(AMSExplorer.Properties.Resources.DynManifestFilter_DisplayFilterInfo_StartTimestamp, _filterToDisplay.PresentationTimeRange.StartTimestamp == null ? Constants.stringNull : _filterToDisplay.PresentationTimeRange.StartTimestamp.ToString());
-            DGInfo.Rows.Add(AMSExplorer.Properties.Resources.DynManifestFilter_DisplayFilterInfo_EndTimestamp, _filterToDisplay.PresentationTimeRange.EndTimestamp == null ? Constants.stringNull : _filterToDisplay.PresentationTimeRange.EndTimestamp.ToString());
-            DGInfo.Rows.Add(AMSExplorer.Properties.Resources.DynManifestFilter_DisplayFilterInfo_PresentationWindowDuration, _filterToDisplay.PresentationTimeRange.PresentationWindowDuration == null ? Constants.stringNull : _filterToDisplay.PresentationTimeRange.PresentationWindowDuration.ToString());
-            DGInfo.Rows.Add(AMSExplorer.Properties.Resources.DynManifestFilter_DisplayFilterInfo_LiveBackoffDuration, _filterToDisplay.PresentationTimeRange.LiveBackoffDuration == null ? Constants.stringNull : _filterToDisplay.PresentationTimeRange.LiveBackoffDuration.ToString());
-            DGInfo.Rows.Add(AMSExplorer.Properties.Resources.DynManifestFilter_DisplayFilterInfo_TrackCount, _filterToDisplay.Tracks.Count);
         }
 
-        private List<ExFilterTrack> ConvertFilterTracksToInternalVar(IList<FilterTrackSelectStatement> tracks)
+        private List<ExFilterTrack> ConvertFilterTracksToInternalVar(IList<FilterTrackSelection> tracks)
         // copy filter tracks to internal list used for display in grid
         {
             List<ExFilterTrack> targettracks = new List<ExFilterTrack>();
-            foreach (var track in tracks)
+            foreach (FilterTrackSelection track in tracks)
             {
-                var mytrack = new ExFilterTrack();
-                var myconditions = new List<ExCondition>();
-                foreach (var condition in track.PropertyConditions)
+                ExFilterTrack mytrack = new ExFilterTrack();
+                List<ExCondition> myconditions = new List<ExCondition>();
+                foreach (FilterTrackPropertyCondition condition in track.TrackSelections)
                 {
-                    var mycondition = new ExCondition();
-                    mycondition.oper = condition.Operator.ToString();
-
-                    if (condition.GetType() == typeof(FilterTrackTypeCondition)) // property type
+                    ExCondition mycondition = new ExCondition
                     {
-                        FilterTrackTypeCondition conditionc = condition as FilterTrackTypeCondition;
-                        mycondition.property = FilterProperty.Type;
-                        mycondition.value = conditionc.Value.ToString();
-                    }
-                    else if (condition.GetType() == typeof(FilterTrackFourCCCondition)) // property FourCC 
-                    {
-                        FilterTrackFourCCCondition conditionc = condition as FilterTrackFourCCCondition;
-                        mycondition.property = FilterProperty.FourCC;
-                        mycondition.value = conditionc.Value;
-
-                    }
-                    else if (condition.GetType() == typeof(FilterTrackLanguageCondition)) // property Type - we want to propose supported FourCC
-                    {
-                        FilterTrackLanguageCondition conditionc = condition as FilterTrackLanguageCondition;
-                        mycondition.property = FilterProperty.Language;
-                        mycondition.value = conditionc.Value;
-                    }
-                    else if (condition.GetType() == typeof(FilterTrackBitrateRangeCondition)) // property Bitrange - we want to propose supported FourCC
-                    {
-                        FilterTrackBitrateRangeCondition conditionc = condition as FilterTrackBitrateRangeCondition;
-                        mycondition.property = FilterProperty.Bitrate;
-                        mycondition.value = ReturnFilterTrackBitrateRangeAsString(conditionc.Value);
-                    }
-                    else if (condition.GetType() == typeof(FilterTrackNameCondition)) // property Name - we want to propose supported FourCC
-                    {
-                        FilterTrackNameCondition conditionc = condition as FilterTrackNameCondition;
-                        mycondition.property = FilterProperty.Name;
-                        mycondition.value = conditionc.Value;
-                    }
+                        oper = condition.Operation.ToString(),
+                        property = condition.Property.ToString(),
+                        value = condition.Value
+                    };
 
                     myconditions.Add(mycondition);
                 }
@@ -460,48 +505,63 @@ namespace AMSExplorer
         }
 
 
-        private List<FilterTrackSelectStatement> CreateFilterTracks()
+        private List<FilterTrackSelection> CreateFilterTracks()
         // use internal list to create filter tracks
         {
+            List<FilterTrackSelection> filterTrackSelectStatements = new List<FilterTrackSelection>();
 
-            List<FilterTrackSelectStatement> filterTrackSelectStatements = new List<FilterTrackSelectStatement>();
-
-            foreach (var track in filtertracks)
+            foreach (ExFilterTrack track in filtertracks)
             {
-                FilterTrackSelectStatement filterTrackSelectStatement = new FilterTrackSelectStatement();
-                filterTrackSelectStatement.PropertyConditions = new List<IFilterTrackPropertyCondition>();
-
-                foreach (var condition in track.conditions)
+                FilterTrackSelection filterTrackSelectStatement = new FilterTrackSelection
                 {
-                    FilterTrackCompareOperator oper = (FilterTrackCompareOperator)Enum.Parse(typeof(FilterTrackCompareOperator), condition.oper);
+                    TrackSelections = new List<FilterTrackPropertyCondition>()
+                };
 
-                    switch (condition.property)
+                foreach (ExCondition condition in track.conditions)
+                {
+
+                    FilterTrackPropertyCompareOperation op;
+                    if (condition.oper == FilterTrackPropertyCompareOperation.Equal.ToString())
                     {
-                        case (FilterProperty.Bitrate):
-                            filterTrackSelectStatement.PropertyConditions.Add(new FilterTrackBitrateRangeCondition(ReturnFilterTrackBitrateRangeFromString(condition.value), oper));
-                            break;
-
-                        case (FilterProperty.FourCC):
-                            filterTrackSelectStatement.PropertyConditions.Add(new FilterTrackFourCCCondition(condition.value, oper));
-                            break;
-                        case (FilterProperty.Language):
-                            filterTrackSelectStatement.PropertyConditions.Add(new FilterTrackLanguageCondition(condition.value, oper));
-                            break;
-
-                        case (FilterProperty.Name):
-                            filterTrackSelectStatement.PropertyConditions.Add(new FilterTrackNameCondition(condition.value, oper));
-                            break;
-
-                        case (FilterProperty.Type):
-                            var mytype = (FilterTrackType)Enum.Parse(typeof(FilterTrackType), condition.value);
-                            filterTrackSelectStatement.PropertyConditions.Add(new FilterTrackTypeCondition(mytype, oper));
-                            break;
+                        op = FilterTrackPropertyCompareOperation.Equal;
                     }
+                    else
+                    {
+                        op = FilterTrackPropertyCompareOperation.NotEqual;
+                    }
+
+                    FilterTrackPropertyType prop;
+                    if (condition.property == FilterTrackPropertyType.Bitrate.ToString())
+                    {
+                        prop = FilterTrackPropertyType.Bitrate;
+                    }
+                    else if (condition.property == FilterTrackPropertyType.FourCC.ToString())
+                    {
+                        prop = FilterTrackPropertyType.FourCC;
+                    }
+                    else if (condition.property == FilterTrackPropertyType.Language.ToString())
+                    {
+                        prop = FilterTrackPropertyType.Language;
+                    }
+                    else if (condition.property == FilterTrackPropertyType.Name.ToString())
+                    {
+                        prop = FilterTrackPropertyType.Name;
+                    }
+                    else if (condition.property == FilterTrackPropertyType.Type.ToString())
+                    {
+                        prop = FilterTrackPropertyType.Type;
+                    }
+                    else
+                    {
+                        prop = FilterTrackPropertyType.Unknown;
+                    }
+
+                    filterTrackSelectStatement.TrackSelections.Add(new FilterTrackPropertyCondition(prop, condition.value, op));
                 }
                 filterTrackSelectStatements.Add(filterTrackSelectStatement);
             }
 
-            return filterTrackSelectStatements;
+            return filtertracks.Count > 0 ? filterTrackSelectStatements : null;
         }
 
         private void RefreshTracks()
@@ -510,7 +570,7 @@ namespace AMSExplorer
             dataGridViewTracks.Rows.Clear();
 
             int i = 1;
-            foreach (var track in filtertracks)
+            foreach (ExFilterTrack track in filtertracks)
             {
                 listBoxTracks.Items.Add("Rule" + i);
                 i++;
@@ -525,22 +585,23 @@ namespace AMSExplorer
         {
             get
             {
-                FilterCreationInfo filterinfo = new FilterCreationInfo();
-                filterinfo.Name = newfilter ? textBoxFilterName.Text : _filter_name;
-                filterinfo.Firstquality = checkBoxFirstQualityBitrate.Checked ? new FirstQuality((int)numericUpDownFirstQualityBitrate.Value) : null;
+                FilterCreationInfo filterinfo = new FilterCreationInfo
+                {
+                    Name = newfilter ? textBoxFilterName.Text : _filter_name,
+                    Firstquality = checkBoxFirstQualityBitrate.Checked ? new FirstQuality((int)numericUpDownFirstQualityBitrate.Value) : null
+                };
                 if (checkBoxRawMode.Checked) // RAW Mode
                 {
                     try
                     {
-                        var presentation = new PresentationTimeRange(
-                                               string.IsNullOrWhiteSpace(textBoxRawTimescale.Text) ? null : (ulong?)ulong.Parse(textBoxRawTimescale.Text),
-                                               string.IsNullOrWhiteSpace(textBoxRawStart.Text) ? null : (ulong?)ulong.Parse(textBoxRawStart.Text),
-                                               string.IsNullOrWhiteSpace(textBoxRawEnd.Text) ? null : (ulong?)ulong.Parse(textBoxRawEnd.Text),
-                                               string.IsNullOrWhiteSpace(textBoxRawDVR.Text) ? null : (TimeSpan?)TimeSpan.FromTicks(long.Parse(textBoxRawDVR.Text)),
-                                               string.IsNullOrWhiteSpace(textBoxRawBackoff.Text) ? null : (TimeSpan?)TimeSpan.FromTicks(long.Parse(textBoxRawBackoff.Text))
-
+                        filterinfo.Presentationtimerange = new PresentationTimeRange(
+                                               string.IsNullOrWhiteSpace(textBoxRawStart.Text) ? (long?)null : long.Parse(textBoxRawStart.Text),
+                                               string.IsNullOrWhiteSpace(textBoxRawEnd.Text) ? (long?)null : long.Parse(textBoxRawEnd.Text),
+                                               string.IsNullOrWhiteSpace(textBoxRawDVR.Text) ? (long?)null : long.Parse(textBoxRawDVR.Text),
+                                               string.IsNullOrWhiteSpace(textBoxRawBackoff.Text) ? (long?)null : long.Parse(textBoxRawBackoff.Text),
+                                               string.IsNullOrWhiteSpace(textBoxRawTimescale.Text) ? (long?)null : long.Parse(textBoxRawTimescale.Text),
+                                               checkBoxForValueLiveRaw.Checked ? true : (bool?)null
                                                );
-                        filterinfo.Presentationtimerange = presentation;
                     }
                     catch
                     {
@@ -553,26 +614,20 @@ namespace AMSExplorer
                     filterinfo.Presentationtimerange = GetFilterPresenTationTRDefaultMode;
                 }
                 // to make sure it is null to avoid puting data in JSON
-                filterinfo.Trackconditions = CreateFilterTracks();
+                filterinfo.Tracks = CreateFilterTracks();
 
                 return filterinfo;
             }
         }
 
-        private PresentationTimeRange GetFilterPresenTationTRDefaultMode
-        {
-            get
-            {
-                var ptr = new PresentationTimeRange(
-                    start: checkBoxStartTime.Checked ? (ulong?)timeControlStart.ScaledTimeStampWithOffset : null,
-                    end: checkBoxEndTime.Checked ? (ulong?)timeControlEnd.ScaledTimeStampWithOffset : null,
-                    backoff: checkBoxLiveBackoff.Checked ? (TimeSpan?)TimeSpan.FromSeconds((double)numericUpDownBackoffSeconds.Value) : null,
-                    pwDuration: checkBoxDVRWindow.Checked ? (TimeSpan?)timeControlDVR.TimeStampWithoutOffset : null,
-                    timescale: (ulong?)_timescale
-                );
-                return ptr;
-            }
-        }
+        private PresentationTimeRange GetFilterPresenTationTRDefaultMode => new PresentationTimeRange(
+                     startTimestamp: checkBoxStartTime.Checked ? timeControlStart.ScaledTimeStampWithOffset : (long?)null,
+                     endTimestamp: checkBoxEndTime.Checked ? timeControlEnd.ScaledTimeStampWithOffset : (long?)null,
+                     presentationWindowDuration: checkBoxPresentationWindowDuration.Checked ? timeControlDVR.TimeStampWithoutOffset.Ticks : (long?)null,
+                     liveBackoffDuration: checkBoxLiveBackoff.Checked ? (long)numericUpDownBackoffSeconds.Value : (long?)null,
+                     timescale: _timescale,
+                    forceEndTimestamp: checkBoxForValueForLive.Checked ? true : (bool?)null
+                 );
 
 
         private void listBoxTracks_SelectedIndexChanged(object sender, EventArgs e)
@@ -592,27 +647,31 @@ namespace AMSExplorer
                 if (dataGridViewTracks.CurrentCell.ColumnIndex == 0) // if first column
                 {
                     string pstring = dataGridViewTracks.CurrentCell.Value.ToString();
-                    if (pstring == FilterProperty.Type) // property type
+                    if (pstring == nameof(FilterTrackPropertyType.Type)) // property type
                     {
-                        var cellValue = new DataGridViewComboBoxCell();
-                        cellValue.DataSource = dataPropertyType;
-                        cellValue.ValueMember = "Value";
-                        cellValue.DisplayMember = "Description";
+                        DataGridViewComboBoxCell cellValue = new DataGridViewComboBoxCell
+                        {
+                            DataSource = dataPropertyType,
+                            ValueMember = "Value",
+                            DisplayMember = "Description"
+                        };
                         dataGridViewTracks[2, dataGridViewTracks.CurrentCell.RowIndex] = cellValue;
                         dataGridViewTracks.CommitEdit(DataGridViewDataErrorContexts.Commit);
                     }
-                    else if (pstring == FilterProperty.FourCC) // property FourCC
+                    else if (pstring == nameof(FilterTrackPropertyType.FourCC)) // property FourCC
                     {
-                        var cellValue = new DataGridViewComboBoxCell();
-                        cellValue.DataSource = dataPropertyFourCC;
-                        cellValue.ValueMember = "Value";
-                        cellValue.DisplayMember = "Description";
+                        DataGridViewComboBoxCell cellValue = new DataGridViewComboBoxCell
+                        {
+                            DataSource = dataPropertyFourCC,
+                            ValueMember = "Value",
+                            DisplayMember = "Description"
+                        };
                         dataGridViewTracks[2, dataGridViewTracks.CurrentCell.RowIndex] = cellValue;
                         dataGridViewTracks.CommitEdit(DataGridViewDataErrorContexts.Commit);
                     }
                     else
                     {
-                        var cellValue = new DataGridViewTextBoxCell();
+                        DataGridViewTextBoxCell cellValue = new DataGridViewTextBoxCell();
                         dataGridViewTracks[2, dataGridViewTracks.CurrentCell.RowIndex] = cellValue;
                         dataGridViewTracks.CommitEdit(DataGridViewDataErrorContexts.Commit);
                     }
@@ -634,59 +693,6 @@ namespace AMSExplorer
                         break;
                 }
 
-            }
-        }
-
-        private FilterTrackBitrateRange ReturnFilterTrackBitrateRangeFromString(string s)
-        {
-            if (s.Contains("-")) // range
-            {
-                int? low = null;
-                int? high = null;
-                try
-                {
-                    low = Convert.ToInt32(s.Substring(0, s.IndexOf("-")));
-                    high = Convert.ToInt32(s.Substring(s.IndexOf("-") + 1));
-                }
-                catch
-                {
-
-                }
-                return (new FilterTrackBitrateRange(low, high));
-            }
-            else
-            {
-                int? value = null;
-                try
-                {
-                    value = Convert.ToInt32(s);
-                }
-                catch
-                {
-
-                }
-
-                return (new FilterTrackBitrateRange(value, value));
-            }
-        }
-
-
-        private string ReturnFilterTrackBitrateRangeAsString(FilterTrackBitrateRange br)
-        {
-            if (br.HighBound != null && br.LowBound != null)
-            {
-                return string.Format("{0}-{1}", br.LowBound, br.HighBound);
-            }
-            else
-            {
-                if (br.HighBound != null)
-                {
-                    return br.HighBound.ToString();
-                }
-                else
-                {
-                    return br.LowBound.ToString();
-                }
             }
         }
 
@@ -712,8 +718,7 @@ namespace AMSExplorer
         {
             if (listBoxTracks.SelectedIndex > -1)
             {
-                filtertracks[listBoxTracks.SelectedIndex].conditions.Add(new ExCondition() { oper = FilterTrackCompareOperator.Equal.ToString() });
-                //_filter_tracks[listBoxTracks.SelectedIndex].PropertyConditions.Add(new FilterTrackTypeCondition(FilterTrackType.Video, FilterTrackCompareOperator.Equal));
+                filtertracks[listBoxTracks.SelectedIndex].conditions.Add(new ExCondition() { oper = FilterTrackPropertyCompareOperation.Equal.ToString() });
                 RefreshTracksConditions();
             }
         }
@@ -723,40 +728,48 @@ namespace AMSExplorer
             dataGridViewTracks.Rows.Clear();
             if (listBoxTracks.SelectedIndex > -1)
             {
-                var track = filtertracks[listBoxTracks.SelectedIndex];
-                foreach (var condition in track.conditions)
+                ExFilterTrack track = filtertracks[listBoxTracks.SelectedIndex];
+                foreach (ExCondition condition in track.conditions)
                 {
-                    if (condition.property == FilterProperty.Type) // property type - we want to propose audio, video or text dropbox
+                    if (condition.property == FilterTrackPropertyType.Type.ToString()) // property type - we want to propose audio, video or text dropbox
                     {
-                        int index = dataGridViewTracks.Rows.Add(FilterProperty.Type, condition.oper, condition.value);
-                        var cellValue = new DataGridViewComboBoxCell();
-                        cellValue.DataSource = dataPropertyType;
-                        cellValue.ValueMember = "Value";
-                        cellValue.DisplayMember = "Description";
-                        cellValue.Value = condition.value;
+                        int index = dataGridViewTracks.Rows.Add(FilterTrackPropertyType.Type.ToString(), condition.oper, condition.value);
+                        DataGridViewComboBoxCell cellValue = new DataGridViewComboBoxCell
+                        {
+                            DataSource = dataPropertyType,
+                            ValueMember = "Value",
+                            DisplayMember = "Description",
+                            Value = condition.value
+                        };
                         dataGridViewTracks[2, index] = cellValue;
                     }
-                    else if (condition.property == FilterProperty.FourCC) // property FourCC - we want to propose supported FourCC
+                    else if (condition.property == FilterTrackPropertyType.FourCC.ToString()) // property FourCC - we want to propose supported FourCC
                     {
-                        int index = dataGridViewTracks.Rows.Add(FilterProperty.FourCC, condition.oper, condition.value);
-                        var cellValue = new DataGridViewComboBoxCell();
-                        cellValue.DataSource = dataPropertyFourCC;
-                        cellValue.ValueMember = "Value";
-                        cellValue.DisplayMember = "Description";
-                        cellValue.Value = condition.value;
+                        int index = dataGridViewTracks.Rows.Add(FilterTrackPropertyType.FourCC.ToString(), condition.oper, condition.value);
+                        DataGridViewComboBoxCell cellValue = new DataGridViewComboBoxCell
+                        {
+                            DataSource = dataPropertyFourCC,
+                            ValueMember = "Value",
+                            DisplayMember = "Description",
+                            Value = condition.value
+                        };
                         dataGridViewTracks[2, index] = cellValue;
                     }
-                    else if (condition.property == FilterProperty.Language) // property language
+                    else if (condition.property == FilterTrackPropertyType.Language.ToString()) // property language
                     {
-                        int index = dataGridViewTracks.Rows.Add(FilterProperty.Language, condition.oper, condition.value);
+                        int index = dataGridViewTracks.Rows.Add(FilterTrackPropertyType.Language.ToString(), condition.oper, condition.value);
                     }
-                    else if (condition.property == FilterProperty.Bitrate) // property bitrate
+                    else if (condition.property == FilterTrackPropertyType.Bitrate.ToString()) // property bitrate
                     {
-                        int index = dataGridViewTracks.Rows.Add(FilterProperty.Bitrate, condition.oper, condition.value);
+                        int index = dataGridViewTracks.Rows.Add(FilterTrackPropertyType.Bitrate.ToString(), condition.oper, condition.value);
                     }
-                    else if (condition.property == FilterProperty.Name) // property Name - we want to propose supported FourCC
+                    else if (condition.property == FilterTrackPropertyType.Name.ToString()) // property Name - we want to propose supported FourCC
                     {
-                        int index = dataGridViewTracks.Rows.Add(FilterProperty.Name, condition.oper, condition.value);
+                        int index = dataGridViewTracks.Rows.Add(FilterTrackPropertyType.Name.ToString(), condition.oper, condition.value);
+                    }
+                    else if (condition.property == FilterTrackPropertyType.Unknown.ToString()) // property Name - we want to propose supported FourCC
+                    {
+                        int index = dataGridViewTracks.Rows.Add(FilterTrackPropertyType.Unknown.ToString(), condition.oper, condition.value);
                     }
                     else
                     {
@@ -771,7 +784,6 @@ namespace AMSExplorer
             if (listBoxTracks.SelectedIndex > -1 && dataGridViewTracks.SelectedRows.Count > 0)
             {
                 filtertracks[listBoxTracks.SelectedIndex].conditions.RemoveAt(dataGridViewTracks.SelectedRows[0].Index);
-                //_filter_tracks[listBoxTracks.SelectedIndex].PropertyConditions.RemoveAt(dataGridViewTracks.SelectedRows[0].Index);
                 RefreshTracksConditions();
             }
         }
@@ -786,7 +798,7 @@ namespace AMSExplorer
             }
             else
             {
-                errorProvider1.SetError(tb, String.Empty);
+                errorProvider1.SetError(tb, string.Empty);
             }
         }
 
@@ -794,29 +806,36 @@ namespace AMSExplorer
         private void buttonInsertSample_Click(object sender, EventArgs e)
         {
             // Filter sample
-            // _filter.PresentationTimeRange = new IFilterPresentationTimeRange() { LiveBackoffDuration = string.Empty, StartTimestamp = string.Empty, PresentationWindowDuration = string.Empty, EndTimestamp = "300000000", Timescale = "10000000" };
 
-            List<FilterTrackSelectStatement> filterTrackSelectStatements = new List<FilterTrackSelectStatement>();
-            FilterTrackSelectStatement filterTrackSelectStatement = new FilterTrackSelectStatement();
+            List<FilterTrackSelection> filterTrackSelections = new List<FilterTrackSelection>()
+            {
+                new FilterTrackSelection
+                {
+                    TrackSelections = new List<FilterTrackPropertyCondition>()
+                    {
+                        new FilterTrackPropertyCondition(FilterTrackPropertyType.Type, FilterPropertyTypeValue.Video, FilterTrackPropertyCompareOperation.Equal),
+                        new FilterTrackPropertyCondition(FilterTrackPropertyType.Bitrate, "0-1048576", FilterTrackPropertyCompareOperation.Equal)
+                    }
+                },
+                 new FilterTrackSelection
+                 {
+                     TrackSelections = new List<FilterTrackPropertyCondition>()
+                    {
+                        new FilterTrackPropertyCondition(FilterTrackPropertyType.Type, FilterPropertyTypeValue.Audio, FilterTrackPropertyCompareOperation.Equal),
+                        new FilterTrackPropertyCondition(FilterTrackPropertyType.FourCC, FilterPropertyFourCCValue.mp4a, FilterTrackPropertyCompareOperation.Equal)
+                    }
+                 },
+                 new FilterTrackSelection
+                 {
+                     TrackSelections = new List<FilterTrackPropertyCondition>()
+                    {
+                        new FilterTrackPropertyCondition(FilterTrackPropertyType.Type, FilterPropertyTypeValue.Text, FilterTrackPropertyCompareOperation.Equal),
+                        new FilterTrackPropertyCondition(FilterTrackPropertyType.Language, "en", FilterTrackPropertyCompareOperation.Equal)
+                    }
+                 }
+            };
 
-            filterTrackSelectStatement.PropertyConditions = new List<IFilterTrackPropertyCondition>();
-            filterTrackSelectStatement.PropertyConditions.Add(new FilterTrackTypeCondition(FilterTrackType.Video, FilterTrackCompareOperator.Equal));
-            filterTrackSelectStatement.PropertyConditions.Add(new FilterTrackBitrateRangeCondition(new FilterTrackBitrateRange(0, 1048576), FilterTrackCompareOperator.Equal));
-            filterTrackSelectStatements.Add(filterTrackSelectStatement);
-
-            filterTrackSelectStatement = new FilterTrackSelectStatement();
-            filterTrackSelectStatement.PropertyConditions = new List<IFilterTrackPropertyCondition>();
-            filterTrackSelectStatement.PropertyConditions.Add(new FilterTrackTypeCondition(FilterTrackType.Audio, FilterTrackCompareOperator.Equal));
-            filterTrackSelectStatement.PropertyConditions.Add(new FilterTrackFourCCCondition(FilterPropertyFourCCValue.mp4a, FilterTrackCompareOperator.Equal));
-            filterTrackSelectStatements.Add(filterTrackSelectStatement);
-
-            filterTrackSelectStatement = new FilterTrackSelectStatement();
-            filterTrackSelectStatement.PropertyConditions = new List<IFilterTrackPropertyCondition>();
-            filterTrackSelectStatement.PropertyConditions.Add(new FilterTrackTypeCondition(FilterTrackType.Text, FilterTrackCompareOperator.Equal));
-            filterTrackSelectStatement.PropertyConditions.Add(new FilterTrackLanguageCondition("en", FilterTrackCompareOperator.Equal));
-            filterTrackSelectStatements.Add(filterTrackSelectStatement);
-
-            filtertracks = ConvertFilterTracksToInternalVar(filterTrackSelectStatements);
+            filtertracks = ConvertFilterTracksToInternalVar(filterTrackSelections);
 
             RefreshTracks();
             RefreshTracksConditions();
@@ -832,7 +851,7 @@ namespace AMSExplorer
 
         private void tableLayoutPanel1_CellPaint(object sender, TableLayoutCellPaintEventArgs e)
         {
-            var rectangle = e.CellBounds;
+            System.Drawing.Rectangle rectangle = e.CellBounds;
             rectangle.Inflate(-1, -1);
             ControlPaint.DrawBorder(e.Graphics, rectangle, Color.Gray, ButtonBorderStyle.Dotted); // 
         }
@@ -842,13 +861,11 @@ namespace AMSExplorer
             buttonOk.Enabled = !string.IsNullOrWhiteSpace(textBoxFilterName.Text);
         }
 
-
-
         private void CheckIfErrorTimeControls()
         {
 
             // time start control
-            if (checkBoxStartTime.Checked && isGlobalFilter)
+            if (checkBoxStartTime.Checked && isAccountFilter)
             {
                 errorProvider1.SetError(timeControlStart, AMSExplorer.Properties.Resources.DynManifestFilter_CheckIfErrorTimeControls_ItIsNotRecommendedToUseAGlobalFilterToDoTimeTrimmingConsiderCreatingAnAssetFilterInstead);
             }
@@ -858,14 +875,11 @@ namespace AMSExplorer
             }
             else
             {
-                errorProvider1.SetError(timeControlStart, String.Empty);
+                errorProvider1.SetError(timeControlStart, string.Empty);
             }
 
-
-
-
             // time end control
-            if (checkBoxEndTime.Checked && isGlobalFilter)
+            if (checkBoxEndTime.Checked && isAccountFilter)
             {
                 errorProvider1.SetError(timeControlEnd, AMSExplorer.Properties.Resources.DynManifestFilter_CheckIfErrorTimeControls_ItIsNotRecommendedToUseAGlobalFilterToDoTimeTrimmingConsiderCreatingAnAssetFilterInstead);
             }
@@ -875,22 +889,19 @@ namespace AMSExplorer
             }
             else
             {
-                errorProvider1.SetError(timeControlEnd, String.Empty);
+                errorProvider1.SetError(timeControlEnd, string.Empty);
             }
 
-
             // dvr
-            if (checkBoxDVRWindow.Checked && timeControlDVR.TimeStampWithoutOffset < TimeSpan.FromMinutes(2))
+            if (checkBoxPresentationWindowDuration.Checked && timeControlDVR.TimeStampWithoutOffset < TimeSpan.FromMinutes(1))
             {
                 errorProvider1.SetError(timeControlDVR, AMSExplorer.Properties.Resources.DynManifestFilter_CheckIfErrorTimeControls_TheDVRWindowMustBeAtLeast2MinutesOrMore);
             }
             else
             {
-                errorProvider1.SetError(timeControlDVR, String.Empty);
+                errorProvider1.SetError(timeControlDVR, string.Empty);
             }
-
         }
-
 
 
         private void timeControlEnd_ValueChanged(object sender, EventArgs e)
@@ -898,7 +909,6 @@ namespace AMSExplorer
             CheckIfErrorTimeControls();
             UpdateDurationText();
         }
-
 
 
         private void checkBoxStartTime_CheckedChanged(object sender, EventArgs e)
@@ -941,8 +951,8 @@ namespace AMSExplorer
 
         private void checkBoxDVRWindow_CheckedChanged(object sender, EventArgs e)
         {
-            timeControlDVR.Enabled = checkBoxDVRWindow.Checked;
-            labelDefaultDVR.Text = checkBoxDVRWindow.Checked ? string.Empty : _labelDefaultDVR;
+            timeControlDVR.Enabled = checkBoxPresentationWindowDuration.Checked;
+            labelDefaultDVR.Text = checkBoxPresentationWindowDuration.Checked ? string.Empty : _labelDefaultDVR;
             CheckIfErrorTimeControls();
         }
 
@@ -954,8 +964,6 @@ namespace AMSExplorer
 
         private void timeControlDVR_ValueChanged(object sender, EventArgs e)
         {
-
-
             CheckIfErrorTimeControls();
         }
 
@@ -973,24 +981,31 @@ namespace AMSExplorer
         {
             if (checkBoxRawMode.Checked)
             {
-                var seltab = tabControl1.SelectedTab;
+                TabPage seltab = tabControl1.SelectedTab;
                 tabControl1.TabPages.Insert(0, tabPageTRRaw);
                 tabControl1.TabPages.Remove(tabPageTR);
-                if (seltab == tabPageTR) tabControl1.SelectedTab = tabPageTRRaw;
+                if (seltab == tabPageTR)
+                {
+                    tabControl1.SelectedTab = tabPageTRRaw;
+                }
 
-                var ptr = GetFilterPresenTationTRDefaultMode;
-                textBoxRawTimescale.Text = ptr.Timescale == null ? string.Empty : ptr.Timescale.ToString();
-                textBoxRawStart.Text = ptr.StartTimestamp == null ? string.Empty : ptr.StartTimestamp.ToString();
-                textBoxRawEnd.Text = ptr.EndTimestamp == null ? string.Empty : ptr.EndTimestamp.ToString();
-                textBoxRawDVR.Text = ptr.PresentationWindowDuration == null ? string.Empty : ((TimeSpan)ptr.PresentationWindowDuration).Ticks.ToString();
-                textBoxRawBackoff.Text = ptr.LiveBackoffDuration == null ? string.Empty : ((TimeSpan)ptr.LiveBackoffDuration).Ticks.ToString();
+                PresentationTimeRange ptr = GetFilterPresenTationTRDefaultMode;
+                textBoxRawTimescale.Text = ptr.Timescale.ToString();
+                textBoxRawStart.Text = ptr.StartTimestamp.ToString();
+                textBoxRawEnd.Text = ptr.EndTimestamp.ToString();
+                textBoxRawDVR.Text = ptr.PresentationWindowDuration.ToString();
+                textBoxRawBackoff.Text = ptr.LiveBackoffDuration.ToString();
+                checkBoxForValueLiveRaw.Checked = ptr.ForceEndTimestamp ?? false;
             }
             else
             {
-                var seltab = tabControl1.SelectedTab;
+                TabPage seltab = tabControl1.SelectedTab;
                 tabControl1.TabPages.Remove(tabPageTRRaw);
                 tabControl1.TabPages.Insert(0, tabPageTR);
-                if (seltab == tabPageTRRaw) tabControl1.SelectedTab = tabPageTR;
+                if (seltab == tabPageTRRaw)
+                {
+                    tabControl1.SelectedTab = tabPageTR;
+                }
             }
         }
 
@@ -1000,26 +1015,39 @@ namespace AMSExplorer
             UpdateDurationText();
         }
 
-        private void comboBoxLocatorsFilters_SelectedIndexChanged(object sender, EventArgs e)
+        private async void comboBoxLocatorsFilters_SelectedIndexChanged(object sender, EventArgs e)
         {
             string filtername = ((Item)comboBoxLocatorsFilters.SelectedItem).Value;
+            await _amsClient.RefreshTokenIfNeededAsync();
+
             if (filtername != null)
             {
-                IStreamingFilter importfilter = null;
+                object importfilter = null;
                 if (filtername.StartsWith(Constants.AssetIdPrefix)) // asset filter
                 {
-                    importfilter = _parentAsset.AssetFilters.Where(f => f.Id == filtername).FirstOrDefault();
+                    Microsoft.Rest.Azure.IPage<AssetFilter> filters = (await _amsClient.AMSclient.AssetFilters.ListWithHttpMessagesAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, _parentAsset.Name)).Body;
+                    importfilter = filters.Where(f => f.Id == filtername).FirstOrDefault();
 
+                    if (importfilter != null)
+                    {
+                        filtertracks = ConvertFilterTracksToInternalVar(((AssetFilter)importfilter).Tracks);
+                        RefreshTracks();
+                        RefreshTracksConditions();
+
+                    }
                 }
                 else // global filter
                 {
-                    importfilter = _context.Filters.Where(f => f.Name == filtername).FirstOrDefault();
-                }
-                if (importfilter != null)
-                {
-                    filtertracks = ConvertFilterTracksToInternalVar(importfilter.Tracks);
-                    RefreshTracks();
-                    RefreshTracksConditions();
+                    Microsoft.Rest.Azure.IPage<AccountFilter> filters = (await _amsClient.AMSclient.AccountFilters.ListWithHttpMessagesAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName)).Body;
+                    importfilter = filters.Where(f => f.Name == filtername).FirstOrDefault();
+
+                    if (importfilter != null)
+                    {
+                        filtertracks = ConvertFilterTracksToInternalVar(((AccountFilter)importfilter).Tracks);
+                        RefreshTracks();
+                        RefreshTracksConditions();
+
+                    }
                 }
             }
         }
@@ -1056,7 +1084,7 @@ namespace AMSExplorer
             bool Error = false;
             try
             {
-                var value = string.IsNullOrWhiteSpace(tb.Text) ? null : (ulong?)ulong.Parse(tb.Text);
+                ulong? value = string.IsNullOrWhiteSpace(tb.Text) ? null : (ulong?)ulong.Parse(tb.Text);
             }
             catch
             {
@@ -1066,7 +1094,7 @@ namespace AMSExplorer
             }
             if (!Error)
             {
-                errorProvider1.SetError(tb, String.Empty);
+                errorProvider1.SetError(tb, string.Empty);
             }
         }
 
@@ -1077,7 +1105,7 @@ namespace AMSExplorer
             bool Error = false;
             try
             {
-                var value = string.IsNullOrWhiteSpace(tb.Text) ? null : (TimeSpan?)TimeSpan.FromTicks(long.Parse(tb.Text));
+                TimeSpan? value = string.IsNullOrWhiteSpace(tb.Text) ? null : (TimeSpan?)TimeSpan.FromTicks(long.Parse(tb.Text));
             }
             catch
             {
@@ -1087,7 +1115,7 @@ namespace AMSExplorer
             }
             if (!Error)
             {
-                errorProvider1.SetError(tb, String.Empty);
+                errorProvider1.SetError(tb, string.Empty);
             }
         }
 
@@ -1095,6 +1123,11 @@ namespace AMSExplorer
         {
             numericUpDownFirstQualityBitrate.Enabled = checkBoxFirstQualityBitrate.Checked;
         }
-    }
 
+        private void DynManifestFilter_DpiChanged(object sender, DpiChangedEventArgs e)
+        {
+            // for controls which are not using the default font
+            DpiUtils.UpdatedSizeFontAfterDPIChange(new List<Control> { labelFilterTitle, labeltime1, labeltime2, labeltime3, labeltime4, labeltime5, checkBoxLiveBackoff, timeControlStart, timeControlEnd, timeControlDVR, contextMenuStripInfo }, e, this);
+        }
+    }
 }

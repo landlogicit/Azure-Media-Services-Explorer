@@ -1,5 +1,5 @@
 ﻿//----------------------------------------------------------------------------------------------
-//    Copyright 2016 Microsoft Corporation
+//    Copyright 2019 Microsoft Corporation
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
 //    you may not use this file except in compliance with the License.
@@ -18,40 +18,12 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Drawing;
+using System.Diagnostics;
 using System.Linq;
-using System.Text;
+using System.Runtime.CompilerServices;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Security.Cryptography;
-using Microsoft.WindowsAzure;
-using Microsoft.WindowsAzure.MediaServices.Client;
-using System.Configuration;
-using System.IO;
-using System.Threading;
-using System.Globalization;
-using System.Net;
-using System.Runtime.Serialization.Json;
-using System.Web;
-using System.Xml;
-using System.Xml.Linq;
-using System.Diagnostics;
-using Microsoft.WindowsAzure.Storage;
-using Microsoft.WindowsAzure.Storage.Auth;
-using Microsoft.WindowsAzure.Storage.Blob;
-using Microsoft.WindowsAzure.Storage.Blob.Protocol;
-using System.Collections.ObjectModel;
-using System.Drawing.Drawing2D;
-using Outlook = Microsoft.Office.Interop.Outlook;
-using System.Collections.Specialized;
-using System.Windows.Forms.DataVisualization.Charting;
-using System.Reflection;
-using Microsoft.WindowsAzure.MediaServices.Client.ContentKeyAuthorization;
-using Microsoft.WindowsAzure.MediaServices.Client.DynamicEncryption;
-using System.Timers;
-using System.Text.RegularExpressions;
-using System.IdentityModel.Tokens;
-using System.Runtime.CompilerServices;
 
 namespace AMSExplorer
 {
@@ -63,11 +35,17 @@ namespace AMSExplorer
 
     public class TransferEntry : INotifyPropertyChanged
     {
+        private SynchronizationContext syncContext;
+
+        public TransferEntry(SynchronizationContext mysyncContext)
+        {
+            syncContext = mysyncContext;
+        }
+
         private string _Name;
         public string Name
         {
-            get
-            { return _Name; }
+            get => _Name;
             set
             {
                 if (value != _Name)
@@ -81,8 +59,7 @@ namespace AMSExplorer
         private TransferType _Type;
         public TransferType Type
         {
-            get
-            { return _Type; }
+            get => _Type;
             set
             {
                 if (value != _Type)
@@ -96,8 +73,7 @@ namespace AMSExplorer
         private TransferState _State;
         public TransferState State
         {
-            get
-            { return _State; }
+            get => _State;
             set
             {
                 if (value != _State)
@@ -111,8 +87,7 @@ namespace AMSExplorer
         private double _Progress;
         public double Progress
         {
-            get
-            { return _Progress; }
+            get => _Progress;
             set
             {
                 if (value != _Progress)
@@ -126,8 +101,7 @@ namespace AMSExplorer
         private string _ProgressText;
         public string ProgressText
         {
-            get
-            { return _ProgressText; }
+            get => _ProgressText;
             set
             {
                 if (value != _ProgressText)
@@ -140,8 +114,7 @@ namespace AMSExplorer
         private Nullable<DateTime> _SubmitTime;
         public Nullable<DateTime> SubmitTime
         {
-            get
-            { return _SubmitTime; }
+            get => _SubmitTime;
             set
             {
                 if (value != _SubmitTime)
@@ -151,11 +124,11 @@ namespace AMSExplorer
                 }
             }
         }
+
         private Nullable<DateTime> _StartTime;
         public Nullable<DateTime> StartTime
         {
-            get
-            { return _StartTime; }
+            get => _StartTime;
             set
             {
                 if (value != _StartTime)
@@ -165,11 +138,11 @@ namespace AMSExplorer
                 }
             }
         }
+
         private string _EndTime;
         public string EndTime
         {
-            get
-            { return _EndTime; }
+            get => _EndTime;
             set
             {
                 if (value != _EndTime)
@@ -183,8 +156,7 @@ namespace AMSExplorer
         private string _DestLocation;
         public string DestLocation
         {
-            get
-            { return _DestLocation; }
+            get => _DestLocation;
             set
             {
                 if (value != _DestLocation)
@@ -196,15 +168,13 @@ namespace AMSExplorer
         }
 
         public bool processedinqueue { get; set; }  // true if we want to process in the queue. Otherwise, we don't wait and we do paralell transfers
-
         public CancellationTokenSource tokenSource { get; set; }
         public Guid Id { get; set; }
 
         private string _ErrorDescription;
         public string ErrorDescription
         {
-            get
-            { return _ErrorDescription; }
+            get => _ErrorDescription;
             set
             {
                 if (value != _ErrorDescription)
@@ -214,12 +184,37 @@ namespace AMSExplorer
                 }
             }
         }
+        /*
         public event PropertyChangedEventHandler PropertyChanged;
-        private void NotifyPropertyChanged([CallerMemberName] String p = "")
+        private void NotifyPropertyChanged([CallerMemberName] string p = "")
         {
             if (PropertyChanged != null)
             {
                 PropertyChanged(this, new PropertyChangedEventArgs(p));
+            }
+        }
+        */
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private void NotifyPropertyChanged([CallerMemberName] string p = "")
+        {
+            if (PropertyChanged != null)
+            {
+                try
+                {
+                    var handler = PropertyChanged;
+
+                    if (syncContext != null)
+                        syncContext.Post(_ => handler(this, new PropertyChangedEventArgs(p)), null);
+                    else
+                        handler(this, new PropertyChangedEventArgs(p));
+
+                }
+                catch
+                {
+
+                }
             }
         }
     }
@@ -270,9 +265,10 @@ namespace AMSExplorer
 
             tabPageTransfers.Invoke(new Action(() => tabPageTransfers.Text = string.Format(AMSExplorer.Properties.Resources.TabTransfers + " ({0})", 0)));
         }
+
         public TransferEntryResponse DoGridTransferAddItem(string text, TransferType TType, bool CanBePutInTheQueue)
         {
-            TransferEntry myTE = new TransferEntry()
+            TransferEntry myTE = new TransferEntry(SynchronizationContext.Current)
             {
                 Name = text,
                 SubmitTime = DateTime.Now,
@@ -285,7 +281,7 @@ namespace AMSExplorer
 
             }
                 ));
-            myTE.Id = Guid.NewGuid();             // _MyListTransfer.IndexOf(myTE);
+            myTE.Id = Guid.NewGuid();
 
             if (CanBePutInTheQueue)
             {
@@ -326,6 +322,7 @@ namespace AMSExplorer
             transfer.ProgressText = progresstext;
             DoGridTransferUpdateProgress(progress, guid);
         }
+
         private void DoGridTransferUpdateProgress(double progress, Guid guid)
         {
             TransferEntry transfer = ReturnTransfer(guid);
@@ -333,7 +330,7 @@ namespace AMSExplorer
             transfer.Progress = progress;
             if (progress > 3 && transfer.StartTime != null)
             {
-                TimeSpan interval = (TimeSpan)(DateTime.UtcNow - ((DateTime)transfer.StartTime).ToUniversalTime());
+                TimeSpan interval = DateTime.UtcNow - ((DateTime)transfer.StartTime).ToUniversalTime();
                 DateTime ETA = DateTime.UtcNow.AddSeconds((100d / progress - 1d) * interval.TotalSeconds);
                 transfer.EndTime = ETA.ToLocalTime().ToString("G") + " ?";
             }
@@ -341,8 +338,9 @@ namespace AMSExplorer
 
         private TransferEntry ReturnTransfer(Guid guid)
         {
-            return _MyListTransfer.Where(t => t.Id == guid).FirstOrDefault();
+            return _MyListTransfer.ToList().Where(t => t.Id == guid).FirstOrDefault();
         }
+
         private void DoGridTransferDeclareCompleted(Guid guid, string DestLocation)  // Process is completed
         {
             TransferEntry transfer = ReturnTransfer(guid);
@@ -353,12 +351,11 @@ namespace AMSExplorer
             transfer.DestLocation = DestLocation;
             transfer.ProgressText = string.Empty;
 
-            this.BeginInvoke(new Action(() =>
+            BeginInvoke(new Action(() =>
             {
-                this.Notify(AMSExplorer.Properties.Resources.Mainform_DoGridTransferDeclareCompleted_TransferCompleted, string.Format("{0}", transfer.Name));
-                this.TextBoxLogWriteLine(string.Format(AMSExplorer.Properties.Resources.Mainform_DoGridTransferDeclareCompleted_Transfer0Completed, transfer.Name));
+                Notify(AMSExplorer.Properties.Resources.Mainform_DoGridTransferDeclareCompleted_TransferCompleted, string.Format("{0}", transfer.Name));
+                TextBoxLogWriteLine(string.Format(AMSExplorer.Properties.Resources.Mainform_DoGridTransferDeclareCompleted_Transfer0Completed, transfer.Name));
             }));
-
         }
 
         private void DoGridTransferDeclareCancelled(Guid guid)  // Process is completed
@@ -370,12 +367,11 @@ namespace AMSExplorer
             transfer.EndTime = DateTime.Now.ToString();
             transfer.ProgressText = string.Empty;
 
-            this.BeginInvoke(new Action(() =>
+            BeginInvoke(new Action(() =>
             {
-                this.TextBoxLogWriteLine(string.Format(AMSExplorer.Properties.Resources.Mainform_DoGridTransferDeclareCancelled_Transfer0CancelledByUser, transfer.Name), true);
+                TextBoxLogWriteLine(string.Format(AMSExplorer.Properties.Resources.Mainform_DoGridTransferDeclareCancelled_Transfer0CancelledByUser, transfer.Name), true);
             }));
         }
-
 
         private void DoGridTransferDeclareError(Guid guid, Exception e)  // Process is completed
         {
@@ -397,19 +393,18 @@ namespace AMSExplorer
             transfer.ProgressText = AMSExplorer.Properties.Resources.Mainform_DoGridTransferDeclareError_Error + ErrorDesc;
             transfer.ErrorDescription = ErrorDesc;
 
-            this.BeginInvoke(new Action(() =>
+            BeginInvoke(new Action(() =>
             {
-                this.Notify("Transfer Error", string.Format("{0}", transfer.Name), true);
-                this.TextBoxLogWriteLine(string.Format(AMSExplorer.Properties.Resources.Mainform_DoGridTransferDeclareError_Transfer0Error, transfer.Name), true);
-                this.TextBoxLogWriteLine(ErrorDesc, true);
-
+                Notify("Transfer Error", string.Format("{0}", transfer.Name), true);
+                TextBoxLogWriteLine(string.Format(AMSExplorer.Properties.Resources.Mainform_DoGridTransferDeclareError_Transfer0Error, transfer.Name), true);
+                TextBoxLogWriteLine(ErrorDesc, true);
             }));
         }
 
         private void DoGridTransferClearCompletedTransfers()
         {
-            var list = _MyListTransfer.Where(l => l.State == TransferState.Cancelled || l.State == TransferState.Error || l.State == TransferState.Finished).ToList();
-            foreach (var l in list)
+            List<TransferEntry> list = _MyListTransfer.Where(l => l.State == TransferState.Cancelled || l.State == TransferState.Error || l.State == TransferState.Finished).ToList();
+            foreach (TransferEntry l in list)
             {
                 _MyListTransfer.Remove(l);
             }
@@ -417,18 +412,21 @@ namespace AMSExplorer
 
         private void DoGridTransferDeclareTransferStarted(Guid guid)  // Process is started
         {
-            if (DoGridTransferIsQueueRequested(guid)) _MyListTransferQueue.Remove(guid);
+            if (DoGridTransferIsQueueRequested(guid))
+            {
+                _MyListTransferQueue.Remove(guid);
+            }
 
             TransferEntry transfer = ReturnTransfer(guid);
             transfer.Progress = 0;
             transfer.State = TransferState.Processing;
             transfer.StartTime = DateTime.Now;
-            this.TextBoxLogWriteLine(string.Format(AMSExplorer.Properties.Resources.Mainform_DoGridTransferDeclareTransferStarted_Transfer0Started, transfer.Name));
+            TextBoxLogWriteLine(string.Format(AMSExplorer.Properties.Resources.Mainform_DoGridTransferDeclareTransferStarted_Transfer0Started, transfer.Name));
         }
 
         private bool DoGridTransferQueueOurTurn(Guid guid)  // Return true if this is our turn
         {
-            var runningTransfers = _MyListTransfer.Where(t => t.processedinqueue && t.State == TransferState.Processing);
+            IEnumerable<TransferEntry> runningTransfers = _MyListTransfer.ToList().Where(t => t.processedinqueue && t.State == TransferState.Processing);
 
             if (runningTransfers.Count() < Properties.Settings.Default.ConcurrentTransfers && _MyListTransferQueue[0] == guid)
             {
@@ -438,8 +436,6 @@ namespace AMSExplorer
             {
                 return false;
             }
-
-           // return (_MyListTransferQueue.Count > 0) ? (_MyListTransferQueue[0] == guid) : true;
         }
 
         private bool DoGridTransferIsQueueRequested(Guid guid)  // Return true trasfer is managed in the queue
@@ -447,7 +443,7 @@ namespace AMSExplorer
             return (ReturnTransfer(guid).processedinqueue);
         }
 
-        private void DoGridTransferWaitIfNeeded(Guid guid)
+        private async Task DoGridTransferWaitIfNeededAsync(Guid guid)
         {
             // If upload in the queue, let's wait our turn
             if (DoGridTransferIsQueueRequested(guid))
@@ -455,7 +451,7 @@ namespace AMSExplorer
                 while (!DoGridTransferQueueOurTurn(guid) && Properties.Settings.Default.ConcurrentTransfers < Constants.MaxTransfersAsUnlimited)
                 {
                     Debug.Print("wait " + guid.ToString());
-                    Thread.Sleep(500);
+                    await Task.Delay(500);
                 }
                 DoGridTransferDeclareTransferStarted(guid);
             }

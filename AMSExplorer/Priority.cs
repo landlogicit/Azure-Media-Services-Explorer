@@ -1,5 +1,5 @@
 ﻿//----------------------------------------------------------------------------------------------
-//    Copyright 2016 Microsoft Corporation
+//    Copyright 2019 Microsoft Corporation
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
 //    you may not use this file except in compliance with the License.
@@ -15,46 +15,70 @@
 //---------------------------------------------------------------------------------------------
 
 
+using Microsoft.Azure.Management.Media.Models;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace AMSExplorer
 {
-    public partial class Priority : Form
+    public partial class PriorityForm : Form
     {
-        public int JobPriority
+        public Priority? JobPriority
         {
             get
             {
-                return (int)numericUpDownPriority.Value;
+                Priority p;
+                switch (comboBoxPriority.SelectedItem)
+                {
+                    case "Low":
+                        p = Priority.Low;
+                        break;
+
+                    case "High":
+                        p = Priority.High;
+                        break;
+
+                    default:
+                        p = Priority.Normal;
+                        break;
+                }
+
+                return p;
             }
 
-            set
-            {
-                numericUpDownPriority.Value = value;
-            }
+            set => comboBoxPriority.SelectedIndex = comboBoxPriority.Items.IndexOf(value);
         }
-        public Priority()
+        public PriorityForm()
         {
             InitializeComponent();
-            this.Icon = Bitmaps.Azure_Explorer_ico;
+            Icon = Bitmaps.Azure_Explorer_ico;
+
+            List<string> ep = new List<string>() { Priority.Low, Priority.Normal, Priority.High };
+            comboBoxPriority.Items.AddRange(ep.ToArray());
+            comboBoxPriority.SelectedIndex = 1;
+
         }
 
         private void Priority_Load(object sender, EventArgs e)
         {
+            DpiUtils.InitPerMonitorDpi(this);
 
+            // to scale the bitmap in the buttons
+            HighDpiHelper.AdjustControlImagesDpiScale(panel1);
         }
 
         private void buttonCancel_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void PriorityForm_DpiChanged(object sender, DpiChangedEventArgs e)
+        {
+            DpiUtils.UpdatedSizeFontAfterDPIChange(label2, e);
+
+            // to scale the bitmap in the buttons
+            HighDpiHelper.AdjustControlImagesDpiScale(panel1);
         }
     }
 }

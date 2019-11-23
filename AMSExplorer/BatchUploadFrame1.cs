@@ -1,5 +1,5 @@
 ﻿//----------------------------------------------------------------------------------------------
-//    Copyright 2016 Microsoft Corporation
+//    Copyright 2019 Microsoft Corporation
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
 //    you may not use this file except in compliance with the License.
@@ -14,18 +14,10 @@
 //    limitations under the License.
 //---------------------------------------------------------------------------------------------
 
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.IO;
 using Microsoft.WindowsAPICodePack.Dialogs;
-using Microsoft.WindowsAzure.MediaServices.Client;
+using System;
+using System.IO;
+using System.Windows.Forms;
 
 namespace AMSExplorer
 {
@@ -33,48 +25,20 @@ namespace AMSExplorer
     {
         public string BatchFolder
         {
-            get
-            {
-                return textBoxFolder.Text;
-            }
-            set
-            {
-                textBoxFolder.Text = value;
-            }
+            get => textBoxFolder.Text;
+            set => textBoxFolder.Text = value;
         }
 
         public bool BatchProcessSubFolders
         {
-            get
-            {
-                return checkBoxSubFolder.Checked;
-            }
-            set
-            {
-                checkBoxSubFolder.Checked = value;
-            }
+            get => checkBoxSubFolder.Checked;
+            set => checkBoxSubFolder.Checked = value;
         }
         public bool BatchProcessFiles
         {
-            get
-            {
-                return checkBoxProcessFiles.Checked;
-            }
-            set
-            {
-                checkBoxProcessFiles.Checked = value;
-            }
+            get => checkBoxProcessFiles.Checked;
+            set => checkBoxProcessFiles.Checked = value;
         }
-
-        public AssetCreationOptions EncryptionOption
-        {
-            get
-            {
-                return  (AssetCreationOptions)Enum.Parse(typeof(AssetCreationOptions), (comboBoxEncryption.SelectedItem as Item).Value);
-            }
-        }
-
-
 
         public BatchUploadFrame1()
         {
@@ -92,17 +56,7 @@ namespace AMSExplorer
 
         private void BathUploadFrame1_Load(object sender, EventArgs e)
         {
-            comboBoxEncryption.Items.Add(new Item(AMSExplorer.Properties.Resources.BatchUploadFrame1_BathUploadFrame1_Load_NoneNoEncryptionBeforeUpload, AssetCreationOptions.None.ToString()));
-            comboBoxEncryption.Items.Add(new Item(AMSExplorer.Properties.Resources.BatchUploadFrame1_BathUploadFrame1_Load_StorageEncryptionContentWillBeEncryptedLocallyToAES256BeforeUpload, AssetCreationOptions.StorageEncrypted.ToString()));
-            comboBoxEncryption.Items.Add(new Item(AMSExplorer.Properties.Resources.BatchUploadFrame1_BathUploadFrame1_Load_CommonEncryptionContentIsAlreadyEncryptedWithPlayReady, AssetCreationOptions.CommonEncryptionProtected.ToString()));
-            if (Properties.Settings.Default.useStorageEncryption)
-            {
-                comboBoxEncryption.SelectedIndex = 1;
-            }
-            else
-            {
-                comboBoxEncryption.SelectedIndex = 0;
-            }
+            DpiUtils.InitPerMonitorDpi(this);
         }
 
         private void buttonNext_Click(object sender, EventArgs e)
@@ -110,7 +64,7 @@ namespace AMSExplorer
             if (!Directory.Exists(textBoxFolder.Text))
             {
                 MessageBox.Show(AMSExplorer.Properties.Resources.BatchUploadFrame1_buttonNext_Click_FolderDoesNotExist, AMSExplorer.Properties.Resources.BatchUploadFrame1_buttonNext_Click_Folder, MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                this.DialogResult = DialogResult.None;
+                DialogResult = DialogResult.None;
             }
         }
     }

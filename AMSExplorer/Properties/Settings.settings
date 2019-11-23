@@ -2,22 +2,10 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="AMSExplorer.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="LoginList" Type="System.Collections.Specialized.StringCollection" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
-    <Setting Name="WAMEPresetXMLFilesCurrentFolder" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
     <Setting Name="CallUpgrade" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="DisplayAssetIDinGrid" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
-    </Setting>
-    <Setting Name="DisplayJobIDinGrid" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
-    </Setting>
-    <Setting Name="useStorageEncryption" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="useProtectedConfiguration" Type="System.Boolean" Scope="User">
@@ -25,15 +13,6 @@
     </Setting>
     <Setting Name="NbItemsDisplayedInGrid" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">50</Value>
-    </Setting>
-    <Setting Name="DisplayLiveChannelIDinGrid" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
-    </Setting>
-    <Setting Name="DisplayLiveProgramIDinGrid" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
-    </Setting>
-    <Setting Name="DisplayOriginIDinGrid" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="AutoRefresh" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
@@ -53,9 +32,6 @@
     <Setting Name="CustomPlayerEnabled" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="DefaultJobPriority" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">10</Value>
-    </Setting>
     <Setting Name="DefaultLocatorDurationDays" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">365</Value>
     </Setting>
@@ -67,9 +43,6 @@
     </Setting>
     <Setting Name="Currency" Type="System.String" Scope="User">
       <Value Profile="(Default)">$</Value>
-    </Setting>
-    <Setting Name="DefaultTokenDuration" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">60</Value>
     </Setting>
     <Setting Name="ffmpegPath" Type="System.String" Scope="User">
       <Value Profile="(Default)">%programfiles32%\ffmpeg\bin</Value>
@@ -86,11 +59,11 @@
     <Setting Name="DefaultSlateCurrentFolder" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="DynEncTokenIssuer" Type="System.String" Scope="User">
-      <Value Profile="(Default)">http://testacs</Value>
+    <Setting Name="DynEncTokenIssuerv3" Type="System.String" Scope="User">
+      <Value Profile="(Default)">myIssuer</Value>
     </Setting>
-    <Setting Name="DynEncTokenAudience" Type="System.String" Scope="User">
-      <Value Profile="(Default)">urn:test</Value>
+    <Setting Name="DynEncTokenAudiencev3" Type="System.String" Scope="User">
+      <Value Profile="(Default)">myAudience</Value>
     </Setting>
     <Setting Name="DefaultLocatorDurationDaysNew" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">3650</Value>
@@ -98,16 +71,10 @@
     <Setting Name="DeleteInstallationFile" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="DisplayIngestManifestIDinGrid" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
-    </Setting>
     <Setting Name="SigniantFlightAPIKey" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="DisplayAssetAltIDinGrid" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
-    </Setting>
-    <Setting Name="ShowLivePremiumChannel" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="ConcurrentTransfers" Type="System.Int32" Scope="User">
@@ -122,32 +89,23 @@
     <Setting Name="LoginListJSON" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="MigratedLoginListToJSON" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
-    </Setting>
-    <Setting Name="MESPresetFilesCurrentFolder" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
     <Setting Name="OutputAssetsAdaptiveStreamingFormat" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="MESPricePerMin" Type="System.Decimal" Scope="User">
       <Value Profile="(Default)">0.015</Value>
     </Setting>
-    <Setting Name="MEPWPricePerMin" Type="System.Decimal" Scope="User">
-      <Value Profile="(Default)">0.035</Value>
-    </Setting>
     <Setting Name="HideTaskbarNotifications" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="IndexingPricePerMin2" Type="System.Decimal" Scope="User">
-      <Value Profile="(Default)">0.02</Value>
+    <Setting Name="LoginListRPv3JSON" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="ParallelTransferThreadCount" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">10</Value>
+    <Setting Name="DefaultSASDurationInHours" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">24</Value>
     </Setting>
-    <Setting Name="NumberOfConcurrentTransfers" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">2</Value>
+    <Setting Name="DynEncTokenSymKeyv3" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
     </Setting>
   </Settings>
 </SettingsFile>

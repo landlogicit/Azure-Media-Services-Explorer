@@ -19,7 +19,7 @@ namespace AMSExplorer.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
@@ -163,6 +163,15 @@ namespace AMSExplorer.Properties {
             get {
                 return ResourceManager.GetString("AMSLogin_buttonImportAll_Click_ThereAreCurrentEntriesInTheListNDoYouWantReplaceTh" +
                         "emWithTheNewOnesOrDoAMergeNNSelectYesToReplaceThemNoToMergeThem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ACS authentication keys will no longer be supported by Azure Media Services as of June 1st, 2018.\n\nYou should move to Azure AD authentication as soon as possible..
+        /// </summary>
+        internal static string AMSLogin_buttonLogin_Click_ACSAuthenticationWarning {
+            get {
+                return ResourceManager.GetString("AMSLogin_buttonLogin_Click_ACSAuthenticationWarning", resourceCulture);
             }
         }
         
@@ -528,7 +537,7 @@ namespace AMSExplorer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Global filter : .
+        ///   Looks up a localized string similar to Account filter : .
         /// </summary>
         internal static string AssetInformation_DisplayAssetFilters_GlobalFilter {
             get {
@@ -1415,7 +1424,9 @@ namespace AMSExplorer.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to This will remove the authorization policy &apos;{0}&apos; from the key.
-        ///Do you want to also DELETE the policy from the Azure Media Services account ?.
+        ///
+        ///Do you want to also DELETE the policy from the Azure Media Services account ?
+        ///Caution: Deleting the policy can impact other assets if the authorization policy is shared with other keys..
         /// </summary>
         internal static string AssetInformation_DoRemoveAuthPol_ThisWillRemoveTheAuthorizationPolicy0FromTheKeyNDoYouWantToAlsoDELETEThePolicyFromTheAzureMediaServicesAccount {
             get {
@@ -1444,7 +1455,9 @@ namespace AMSExplorer.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to This will remove the option &apos;{0}&apos; from the authorization policy.
-        ///Do you want to also DELETE the option from the Azure Media Services account ?.
+        ///
+        ///Do you want to also DELETE the option from the Azure Media Services account ?
+        ///Caution: Deleting the option can impact other assets if the authorization policy is shared with other keys..
         /// </summary>
         internal static string AssetInformation_DoRemoveAuthPolOption_ThisWillRemoveTheOption0FromTheAuthorizationPolicyNDoYouWantToAlsoDELETETheOptionFromTheAzureMediaServicesAccount {
             get {
@@ -1491,7 +1504,9 @@ namespace AMSExplorer.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to This will remove the policy &apos;{0}&apos; from the asset.
-        ///Do you want to also DELETE the policy from the Azure Media Services account ?.
+        ///
+        ///Do you want to also DELETE the policy from the Azure Media Services account ?
+        ///Caution: Deleting the policy can impact other assets if the delivery policy is shared with other assets..
         /// </summary>
         internal static string AssetInformation_DoRemoveDeliveryPol_ThisWillRemoveThePolicy0FromTheAssetNDoYouWantToAlsoDELETEThePolicyFromTheAzureMediaServicesAccount {
             get {
@@ -2177,7 +2192,7 @@ namespace AMSExplorer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to global filter : .
+        ///   Looks up a localized string similar to account filter : .
         /// </summary>
         internal static string ChooseStreamingEndpoint_ChooseStreamingEndpoint_Load_GlobalFilter {
             get {
@@ -2420,33 +2435,6 @@ namespace AMSExplorer.Properties {
         internal static string CreateLiveChannel_comboBoxProtocolInput_SelectedIndexChanged_SCTE35CueMessages {
             get {
                 return ResourceManager.GetString("CreateLiveChannel_comboBoxProtocolInput_SelectedIndexChanged_SCTE35CueMessages", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to None.
-        /// </summary>
-        internal static string CreateLiveChannel_CreateLiveChannel_Load_None {
-            get {
-                return ResourceManager.GetString("CreateLiveChannel_CreateLiveChannel_Load_None", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Premium (preview).
-        /// </summary>
-        internal static string CreateLiveChannel_CreateLiveChannel_Load_PremiumPreview {
-            get {
-                return ResourceManager.GetString("CreateLiveChannel_CreateLiveChannel_Load_PremiumPreview", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Standard.
-        /// </summary>
-        internal static string CreateLiveChannel_CreateLiveChannel_Load_Standard {
-            get {
-                return ResourceManager.GetString("CreateLiveChannel_CreateLiveChannel_Load_Standard", resourceCulture);
             }
         }
         
@@ -2748,7 +2736,7 @@ namespace AMSExplorer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to It is not recommended to use a Global Filter to do time trimming. Consider creating an asset filter instead..
+        ///   Looks up a localized string similar to It is not recommended to use an Account Filter to do time trimming. Consider creating an asset filter instead..
         /// </summary>
         internal static string DynManifestFilter_CheckIfErrorTimeControls_ItIsNotRecommendedToUseAGlobalFilterToDoTimeTrimmingConsiderCreatingAnAssetFilterInstead {
             get {
@@ -2767,7 +2755,7 @@ namespace AMSExplorer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The DVR Window must be at least 2 minutes (or more).
+        ///   Looks up a localized string similar to The DVR Window must be at least 1 minute (or more).
         /// </summary>
         internal static string DynManifestFilter_CheckIfErrorTimeControls_TheDVRWindowMustBeAtLeast2MinutesOrMore {
             get {
@@ -2804,7 +2792,7 @@ namespace AMSExplorer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Global filter.
+        ///   Looks up a localized string similar to Account filter.
         /// </summary>
         internal static string DynManifestFilter_DisplayFilterInfo_GlobalFilter {
             get {
@@ -3521,7 +3509,7 @@ namespace AMSExplorer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Channels.
+        ///   Looks up a localized string similar to Live Events.
         /// </summary>
         internal static string LabelChannel {
             get {
@@ -3530,7 +3518,7 @@ namespace AMSExplorer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Programs.
+        ///   Looks up a localized string similar to Live Outputs.
         /// </summary>
         internal static string LabelProgram {
             get {
@@ -3674,7 +3662,7 @@ namespace AMSExplorer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Global filters.
+        ///   Looks up a localized string similar to Account filters.
         /// </summary>
         internal static string TabFilters {
             get {
@@ -3683,7 +3671,7 @@ namespace AMSExplorer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Jobs.
+        ///   Looks up a localized string similar to Transforms &amp; jobs.
         /// </summary>
         internal static string TabJobs {
             get {
@@ -3692,7 +3680,7 @@ namespace AMSExplorer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Live.
+        ///   Looks up a localized string similar to Live events &amp; outputs.
         /// </summary>
         internal static string TabLive {
             get {

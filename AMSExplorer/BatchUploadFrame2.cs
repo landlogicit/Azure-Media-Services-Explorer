@@ -1,5 +1,5 @@
 ﻿//----------------------------------------------------------------------------------------------
-//    Copyright 2016 Microsoft Corporation
+//    Copyright 2019 Microsoft Corporation
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
 //    you may not use this file except in compliance with the License.
@@ -14,34 +14,30 @@
 //    limitations under the License.
 //---------------------------------------------------------------------------------------------
 
+using Microsoft.Azure.Management.Media;
+using Microsoft.Azure.Management.Media.Models;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using System.IO;
-using Microsoft.WindowsAzure.MediaServices.Client;
-
+using System.Linq;
+using System.Windows.Forms;
 
 namespace AMSExplorer
 {
     public partial class BatchUploadFrame2 : Form
     {
-        private List<string> folders;
-        private List<string> files;
-        private bool ErrorConnect = false;
-        private CloudMediaContext _context;
+        private readonly AMSClientV3 _client;
+        private readonly List<string> folders;
+        private readonly List<string> files;
+        private readonly bool ErrorConnect = false;
 
         public List<string> BatchSelectedFolders
         {
             get
             {
                 List<string> selectedfolders = new List<string>();
-                foreach (var f in checkedListBoxFolders.CheckedItems)
+                foreach (object f in checkedListBoxFolders.CheckedItems)
                 {
                     selectedfolders.Add(folders[checkedListBoxFolders.Items.IndexOf((ListViewItem)f)]);
                 }
@@ -54,7 +50,7 @@ namespace AMSExplorer
             get
             {
                 List<string> selectedfiles = new List<string>();
-                foreach (var f in checkedListBoxFiles.CheckedItems)
+                foreach (object f in checkedListBoxFiles.CheckedItems)
                 {
                     selectedfiles.Add(files[checkedListBoxFiles.Items.IndexOf((ListViewItem)f)]);
                 }
@@ -62,19 +58,22 @@ namespace AMSExplorer
             }
         }
 
-        public string StorageSelected
+        public string StorageSelected => ((Item)comboBoxStorage.SelectedItem).Value;
+
+        public int BlockSize
         {
             get
             {
-                return ((Item)comboBoxStorage.SelectedItem).Value;
+                bool success = int.TryParse(comboBoxBlockSize.Text, out int x);
+                return success ? x : 4;
             }
         }
 
-        public BatchUploadFrame2(string BatchFolderPath, bool BatchProcessFiles, bool BatchProcessSubFolders, CloudMediaContext context)
+        public BatchUploadFrame2(string BatchFolderPath, bool BatchProcessFiles, bool BatchProcessSubFolders, AMSClientV3 client)
         {
             InitializeComponent();
-            this.Icon = Bitmaps.Azure_Explorer_ico;
-            _context = context;
+            Icon = Bitmaps.Azure_Explorer_ico;
+            _client = client;
 
             folders = Directory.GetDirectories(BatchFolderPath).ToList();
             files = Directory.GetFiles(BatchFolderPath).ToList();
@@ -83,11 +82,11 @@ namespace AMSExplorer
             {
                 if (BatchProcessFiles)
                 {
-                    foreach (var file in files)
+                    foreach (string file in files)
                     {
-                        var it = checkedListBoxFiles.Items.Add(Path.GetFileName(file));
+                        ListViewItem it = checkedListBoxFiles.Items.Add(Path.GetFileName(file));
                         it.Checked = true;
-                        if (!AssetInfo.AssetFileNameIsOk(Path.GetFileName(file)))
+                        if (!AssetInfo.BlobNameForAMSIsOk(Path.GetFileName(file)))
                         {
                             it.ForeColor = Color.Red;
                         }
@@ -99,11 +98,11 @@ namespace AMSExplorer
 
                     string s;
                     int filecount;
-                    foreach (var folder in folders)
+                    foreach (string folder in folders)
                     {
                         filecount = Directory.GetFiles(folder).Count();
                         s = filecount > 1 ? AMSExplorer.Properties.Resources.BatchUploadFrame2_BatchUploadFrame2_01Files : AMSExplorer.Properties.Resources.BatchUploadFrame2_BatchUploadFrame2_01File;
-                        var it = checkedListBoxFolders.Items.Add(string.Format(s, Path.GetFileName(folder), filecount));
+                        ListViewItem it = checkedListBoxFolders.Items.Add(string.Format(s, Path.GetFileName(folder), filecount));
                         it.Checked = true;
                         if (AssetInfo.ReturnFilenamesWithProblem(Directory.GetFiles(folder).ToList()).Count > 0)
                         {
@@ -115,22 +114,39 @@ namespace AMSExplorer
             catch (Exception e)
             {
                 ErrorConnect = true;
-                this.DialogResult = DialogResult.None;
+                DialogResult = DialogResult.None;
                 MessageBox.Show(AMSExplorer.Properties.Resources.BatchUploadFrame2_BatchUploadFrame2_ErrorWhenReadingFilesOrFolders + Constants.endline + e.Message, AMSExplorer.Properties.Resources.AMSLogin_buttonExport_Click_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-        private void BathUploadFrame2_Load(object sender, EventArgs e)
+        private async void BathUploadFrame2_LoadAsync(object sender, EventArgs e)
         {
+            DpiUtils.InitPerMonitorDpi(this);
+
+            // to scale the bitmap in the buttons
+            HighDpiHelper.AdjustControlImagesDpiScale(panel1);
+
             if (ErrorConnect)
             {
-                this.Close();
+                Close();
             }
-            foreach (var storage in _context.StorageAccounts)
+            await _client.RefreshTokenIfNeededAsync();
+
+            foreach (StorageAccount storage in (await _client.AMSclient.Mediaservices.GetAsync(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName)).StorageAccounts)
             {
-                comboBoxStorage.Items.Add(new Item(string.Format("{0} {1}", storage.Name, storage.IsDefault ? AMSExplorer.Properties.Resources.BatchUploadFrame2_BathUploadFrame2_Load_Default : ""), storage.Name));
-                if (storage.Name == _context.DefaultStorageAccount.Name) comboBoxStorage.SelectedIndex = comboBoxStorage.Items.Count - 1;
+                string sname = AMSClientV3.GetStorageName(storage.Id);
+                bool primary = (storage.Type == StorageAccountType.Primary);
+                comboBoxStorage.Items.Add(new Item(string.Format("{0} {1}", sname, primary ? "(primary)" : ""), sname));
+                if (primary)
+                {
+                    comboBoxStorage.SelectedIndex = comboBoxStorage.Items.Count - 1;
+                }
             }
+
+            List<int> listInt = new List<int>() { 1, 2, 4, 8, 16, 32, 64 };
+            comboBoxBlockSize.Items.Clear();
+            listInt.ForEach(l => comboBoxBlockSize.Items.Add(l.ToString()));
+            comboBoxBlockSize.SelectedIndex = 3;
         }
 
         private void splitContainer1_Panel1_Paint(object sender, PaintEventArgs e)
@@ -173,6 +189,12 @@ namespace AMSExplorer
             {
                 checkedListBoxFiles.Items[i].Checked = true;
             }
+        }
+
+        private void BatchUploadFrame2_DpiChanged(object sender, DpiChangedEventArgs e)
+        {
+            // to scale the bitmap in the buttons
+            HighDpiHelper.AdjustControlImagesDpiScale(panel1);
         }
     }
 }
